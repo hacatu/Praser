@@ -116,15 +116,27 @@ void deletePtree(Ptree *t){
 }
 
 void printPtree(Ptree *t, int indent){
-	printf("%s:\nparent:%p\nnodec:%d\nnodes:{\n", t->string, t->parent, t->nodec);
+	if(isTerminal(t)){
+		printf("%*s\"%.*s\"\n", indent, "", t->length, t->string);
+		return;
+	}
+	printf("%*s%s:\n"
+		   "%*sparent:%p\n"
+		   "%*snodec:%d\n"
+		   "%*snodes:{\n",
+		   indent, "", t->string,
+		   indent, "", t->parent,
+		   indent, "", t->nodec,
+		   indent, "");
 	int i = 0;
 	Ptree *sub;
 	while((sub = nthChild(t, i))){
 		printPtree(sub, indent + 1);
 		++i;
 	}
-	puts("}");
+	printf("%*s}\n", indent, "");
 }
+
 
 Position* firstPosition(const char *string){
 	Position *start = malloc(1*sizeof(Position));
@@ -204,7 +216,7 @@ char expectEnd(Position *p){
 
 int try(Position *p, Ptree *t, parser parse){
 	Position current = *p;
-	if(parse(&current, t)){
+	if(accept(&current, t, parse)){
 		*p = current;
 		return 1;
 	}
@@ -213,7 +225,14 @@ int try(Position *p, Ptree *t, parser parse){
 
 
 int accept(Position *p, Ptree *t, parser parse){
-	return parse(p, t);
+	Ptree temp = newPtree(t, NULL);
+	if(!parse(p, &temp)){
+		return 0;
+	}
+	if(!appendPtree(t, temp)){
+		return 0;
+	}
+	return 1;
 }
 
 int expect(Position *p, Ptree *t, parser parse){
@@ -228,41 +247,25 @@ int expect(Position *p, Ptree *t, parser parse){
 
 
 int repeatMinMax(Position *p, Ptree *t, parser parse, int min, int max){
-	t->string = __func__;
+	//t->string = __func__;
 	int count = 0;
-	Ptree temp;
 	while(count < min){
-		temp = newPtree(t, NULL);
-		if(!expect(p, &temp, parse)){
-			return 0;
-		}
-		if(!appendPtree(t, temp)){
-			logMemoryError(__func__);
+		if(!expect(p, t, parse)){
 			return 0;
 		}
 		++count;
 	}
 	if(max > 0){
 		while(count < max){
-			temp = newPtree(t, NULL);
-			if(!accept(p, &temp, parse)){
+			if(!accept(p, t, parse)){
 				break;
-			}
-			if(!appendPtree(t, temp)){
-				logMemoryError(__func__);
-				return 0;
 			}
 			++count;
 		}
 	}else{
 		while(1){
-			temp = newPtree(t, NULL);
-			if(!accept(p, &temp, parse)){
+			if(!accept(p, t, parse)){
 				break;
-			}
-			if(!appendPtree(t, temp)){
-				logMemoryError(__func__);
-				return 0;
 			}
 			++count;
 		}
@@ -271,61 +274,34 @@ int repeatMinMax(Position *p, Ptree *t, parser parse, int min, int max){
 }
 
 int sepBy(Position *p, Ptree *t, parser parse, parser parseSeperator){
-	t->string = __func__;
-	Ptree temp = newPtree(t, NULL);
-	if(!accept(p, &temp, parse)){
+	//t->string = __func__;
+	if(!accept(p, t, parse)){
 		return 0;
 	}
-	if(!appendPtree(t, temp)){
-		logMemoryError(__func__);
-		return 0;
-	}
-	temp = newPtree(t, NULL);
-	while(accept(p, &temp, parseSeperator)){
-		if(!appendPtree(t, temp)){
-			logMemoryError(__func__);
+	while(accept(p, t, parseSeperator)){
+		if(!expect(p, t, parse)){
 			return 0;
 		}
-		temp = newPtree(t, NULL);
-		if(!expect(p, &temp, parse)){
-			return 0;
-		}
-		if(!appendPtree(t, temp)){
-			logMemoryError(__func__);
-			return 0;
-		}
-		temp = newPtree(t, NULL);
 	}
 	return 1;
 }
 
 int alternate(Position *p, Ptree *t, parser parseA, parser parseB){
-	t->string = __func__;
-	Ptree temp = newPtree(t, NULL);
-	while(accept(p, &temp, parseA)){
-		if(!appendPtree(t, temp)){
-			logMemoryError(__func__);
+	//t->string = __func__;
+	while(accept(p, t, parseA)){
+		if(!expect(p, t, parseB)){
 			return 0;
 		}
-		temp = newPtree(t, NULL);
-		if(!expect(p, &temp, parseB)){
-			return 0;
-		}
-		if(!appendPtree(t, temp)){
-			logMemoryError(__func__);
-			return 0;
-		}
-		temp = newPtree(t, NULL);
 	}
 	return 1;
 }
 
 int takeWhileNot(Position *p, Ptree *t, parser parse){
-	t->string = __func__;
-	Ptree temp = newPtree(t, NULL);
+	//t->string = __func__;
 	Position start = *p;
 	int c = 0;
-	while(!accept(p, &temp, parse)){
+	Ptree temp = newPtree(t, NULL);
+	while(!parse(p, &temp)){
 		if(!getChar(p)){
 			return 0;
 		}

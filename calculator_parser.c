@@ -30,6 +30,7 @@ int digit(Position *p, Ptree *t);
 
 
 int start(Position *p, Ptree *t){
+	t->string = __func__;
 	if(!expect(p, t, additive)){
 		logUnexpectedError(p, "start", "additive");
 		return 0;
@@ -42,22 +43,27 @@ int start(Position *p, Ptree *t){
 }
 
 int additive(Position *p, Ptree *t){
+	t->string = __func__;
 	return sepBy(p, t, multiplicative, addition);
 }
 
 int addition(Position *p, Ptree *t){
+	t->string = __func__;
 	return oneOf(p, t, "+-");
 }
 
 int multiplicative(Position *p, Ptree *t){
+	t->string = __func__;
 	return sepBy(p, t, primary, multiplication);
 }
 
 int multiplication(Position *p, Ptree *t){
+	t->string = __func__;
 	return oneOf(p, t, "*/%");
 }
 
 int primary(Position *p, Ptree *t){
+	t->string = __func__;
 	if(acceptString(p, t, "(")){
 		if(!expect(p, t, additive)){
 			logUnexpectedError(p, "primary", "additive");
@@ -73,10 +79,12 @@ int primary(Position *p, Ptree *t){
 }
 
 int integer(Position *p, Ptree *t){
+	t->string = __func__;
 	return repeatMinMax(p, t, digit, 1, -1);
 }
 
 int digit(Position *p, Ptree *t){
+	t->string = __func__;
 	return oneOf(p, t, "0123456789");
 }
 

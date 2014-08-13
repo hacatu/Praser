@@ -86,6 +86,10 @@ Ptree* lastChild(Ptree *t);
  */
 void deletePtree(Ptree *t);
 
+/* Prints a Ptree *t.  Indent is the amount of spaces to indent each line.
+ */
+void printPtree(Ptree *t, int indent);
+
 
 /* Returns a pointer to the initial position in a string.
  * If the string is deleted, this position is invalid.
