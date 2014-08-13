@@ -69,7 +69,7 @@ char appendPtree(Ptree *parent, Ptree node);
 
 /* Returns 1 if Ptree *t has no children (represents a terminal symbol).
  */
-char isTerminal(Ptree *t);
+char isTerminal(const Ptree *t);
 
 /* Returns the nth Child of a Ptree *t.
  * Negative wraparound indicies may e used.
@@ -88,7 +88,7 @@ void deletePtree(Ptree *t);
 
 /* Prints a Ptree *t.  Indent is the amount of spaces to indent each line.
  */
-void printPtree(Ptree *t, int indent);
+void printPtree(const Ptree *t, int indent);
 
 
 /* Returns a pointer to the initial position in a string.
