@@ -228,16 +228,16 @@ int expect(Position *p, Ptree *t, parser parse){
 
 
 int repeatMinMax(Position *p, Ptree *t, parser parse, int min, int max){
-	t->string = "repeatMinMax";
+	t->string = __func__;
 	int count = 0;
 	Ptree temp;
 	while(count < min){
 		temp = newPtree(t, NULL);
-		if(!appendPtree(t, temp)){
-			logMemoryError("repeatMinMax");
+		if(!expect(p, &temp, parse)){
 			return 0;
 		}
-		if(!expect(p, lastChild(t), parse)){
+		if(!appendPtree(t, temp)){
+			logMemoryError(__func__);
 			return 0;
 		}
 		++count;
@@ -245,24 +245,24 @@ int repeatMinMax(Position *p, Ptree *t, parser parse, int min, int max){
 	if(max > 0){
 		while(count < max){
 			temp = newPtree(t, NULL);
-			if(!appendPtree(t, temp)){
-				logMemoryError("repeatMinMax");
-				return 0;
-			}
-			if(!accept(p, lastChild(t), parse)){
+			if(!accept(p, &temp, parse)){
 				break;
+			}
+			if(!appendPtree(t, temp)){
+				logMemoryError(__func__);
+				return 0;
 			}
 			++count;
 		}
 	}else{
 		while(1){
 			temp = newPtree(t, NULL);
-			if(!appendPtree(t, temp)){
-				logMemoryError("repeatMinMax");
-				return 0;
-			}
-			if(!accept(p, lastChild(t), parse)){
+			if(!accept(p, &temp, parse)){
 				break;
+			}
+			if(!appendPtree(t, temp)){
+				logMemoryError(__func__);
+				return 0;
 			}
 			++count;
 		}
@@ -271,84 +271,74 @@ int repeatMinMax(Position *p, Ptree *t, parser parse, int min, int max){
 }
 
 int sepBy(Position *p, Ptree *t, parser parse, parser parseSeperator){
-	t->string = "sepBy";
+	t->string = __func__;
 	Ptree temp = newPtree(t, NULL);
-	if(!appendPtree(t, temp)){
-		logMemoryError("sepBy");
+	if(!accept(p, &temp, parse)){
 		return 0;
 	}
-	if(!accept(p, lastChild(t), parse)){
+	if(!appendPtree(t, temp)){
+		logMemoryError(__func__);
 		return 0;
 	}
 	temp = newPtree(t, NULL);
-	if(!appendPtree(t, temp)){
-		logMemoryError("sepBy");
-		return 0;
-	}
-	while(accept(p, lastChild(t), parseSeperator)){
-		temp = newPtree(t, NULL);
+	while(accept(p, &temp, parseSeperator)){
 		if(!appendPtree(t, temp)){
-			logMemoryError("sepBy");
-			return 0;
-		}
-		if(!expect(p, lastChild(t), parse)){
+			logMemoryError(__func__);
 			return 0;
 		}
 		temp = newPtree(t, NULL);
-		if(!appendPtree(t, temp)){
-			logMemoryError("sepBy");
+		if(!expect(p, &temp, parse)){
 			return 0;
 		}
+		if(!appendPtree(t, temp)){
+			logMemoryError(__func__);
+			return 0;
+		}
+		temp = newPtree(t, NULL);
 	}
 	return 1;
 }
 
 int alternate(Position *p, Ptree *t, parser parseA, parser parseB){
-	t->string = "alternate";
+	t->string = __func__;
 	Ptree temp = newPtree(t, NULL);
-	if(!appendPtree(t, temp)){
-		logMemoryError("alternate");
-		return 0;
-	}
-	while(accept(p, lastChild(t), parseA)){
-		temp = newPtree(t, NULL);
+	while(accept(p, &temp, parseA)){
 		if(!appendPtree(t, temp)){
-			logMemoryError("alternate");
-			return 0;
-		}
-		if(!expect(p, t, parseB)){
+			logMemoryError(__func__);
 			return 0;
 		}
 		temp = newPtree(t, NULL);
-		if(!appendPtree(t, temp)){
-			logMemoryError("alternate");
+		if(!expect(p, &temp, parseB)){
 			return 0;
 		}
+		if(!appendPtree(t, temp)){
+			logMemoryError(__func__);
+			return 0;
+		}
+		temp = newPtree(t, NULL);
 	}
 	return 1;
 }
 
 int takeWhileNot(Position *p, Ptree *t, parser parse){
-	t->string = "takeWhileNot";
+	t->string = __func__;
 	Ptree temp = newPtree(t, NULL);
-	if(!appendPtree(t, temp)){
-		logMemoryError("takeWhileNot");
-		return 0;
-	}
-	if(!appendPtree(t, temp)){
-		logMemoryError("takeWhileNot");
-		return 0;
-	}
 	Position start = *p;
 	int c = 0;
-	while(!accept(p, lastChild(t), parse)){
+	while(!accept(p, &temp, parse)){
 		if(!getChar(p)){
 			return 0;
 		}
 		++c;
 	}
-	(lastChild(t) - 1)->length = c;
-	(lastChild(t) - 1)->string = start.current;
+	if(!appendPtree(t, (Ptree){.parent = t, .length = c, .string = start.current})){
+		logMemoryError(__func__);
+		return 0;
+	}
+	if(!appendPtree(t, temp)){
+		logMemoryError(__func__);
+		return 0;
+	}
 	return 1;
 }
 
