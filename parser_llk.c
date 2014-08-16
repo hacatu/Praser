@@ -3,7 +3,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include "ptree.h"
+#include "ptree_private.h"
 #include "parser_llk.h"
+#include "debug.h"
 
 struct Position{
 	const char* string;
@@ -96,10 +98,13 @@ char expectEnd(Position *p){
 
 int try(Position *p, Ptree *t, parser parse){
 	Position current = *p;
+	int size = t->nodec;
 	if(accept(&current, t, parse)){
 		*p = current;
 		return 1;
 	}
+	deleteChildrenAfter(t, size);
+	reallocPtree(t, size);
 	return 0;
 }
 
@@ -107,9 +112,11 @@ int try(Position *p, Ptree *t, parser parse){
 int accept(Position *p, Ptree *t, parser parse){
 	Ptree temp = newPtree(t, NULL);
 	if(!parse(p, &temp)){
+		debug("parsing failed");
 		return 0;
 	}
 	if(!appendPtree(t, temp)){
+		debug("appendPtree failed");
 		return 0;
 	}
 	return 1;
@@ -131,6 +138,7 @@ int repeatMinMax(Position *p, Ptree *t, parser parse, int min, int max){
 	int count = 0;
 	while(count < min){
 		if(!expect(p, t, parse)){
+			debug("not enough matches");
 			return 0;
 		}
 		++count;
@@ -150,10 +158,12 @@ int repeatMinMax(Position *p, Ptree *t, parser parse, int min, int max){
 			++count;
 		}
 	}
+	debug("successful");
 	return 1;
 }
 
 int sepBy(Position *p, Ptree *t, parser parse, parser parseSeperator){
+	
 	//t->string = __func__;
 	if(!accept(p, t, parse)){
 		return 0;
@@ -167,6 +177,7 @@ int sepBy(Position *p, Ptree *t, parser parse, parser parseSeperator){
 }
 
 int alternate(Position *p, Ptree *t, parser parseA, parser parseB){
+	
 	//t->string = __func__;
 	while(accept(p, t, parseA)){
 		if(!expect(p, t, parseB)){
@@ -177,6 +188,7 @@ int alternate(Position *p, Ptree *t, parser parseA, parser parseB){
 }
 
 int takeWhileNot(Position *p, Ptree *t, parser parse){
+	
 	//t->string = __func__;
 	Position start = *p;
 	int c = 0;
@@ -204,6 +216,7 @@ int oneOf(Position *p, Ptree *t, const char *options){
 	while(*c){
 		if(acceptChar(p, *c)){
 			t->string = c;
+			debug("successful");
 			return 1;
 		}
 		++c;

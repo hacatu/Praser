@@ -15,34 +15,19 @@ void logMemoryError(const char *name);
 
 
 /* Returns a Ptree with a given parent and tag, string.
- * This is how you create a Ptree.  Learn it use it LOVE it.
- * This Ptree should be assigned to allocated memory in another Ptree's nodes field.
+ * This is how you create a Ptree.  Generally this is handled automatically
+ * by accept(), so it should only be called explicitly to create the root.
+ * This Ptree is assigned to allocated memory in another Ptree's nodes field.
  * If I have a parser `parenGrp` that uses the parsers `openParen`, `inner`, and `closeParen`,
- * I would make parenGrp appendPtree a newPtree to the Ptree *t I gave it and then
- * give a pointer to this appended Ptree to openParen, and repeat for my other functions.
+ * I would make parenGrp set t->string = "parenGrp" and then accept/ expect the other parsers.
+ * accept() will automatically create Ptrees and pass them to the parsers you call with it.
  * eg:
  * int parenGrp(Position *p, Ptree *t){
  *     t->string = "parenGrp";
- *     Ptree temp = newPtree(t, NULL);
- *     if(!appendPtree(t, temp)){
- *         logMemoryError("parenGrp");
- *         return 0;
- *     }
  *     if(!accept(p, lastChild(t), openParen)){
  *         return 0;
- *     }
- *     temp = newPtree(t, NULL);
- *     if(!appendPtree(t, temp)){
- *         logMemoryError("parenGrp");
- *         return 0;
- *     }
- *     if(!expect(p, lastChild(t), inner)){
+ *     }if(!expect(p, lastChild(t), inner)){
  *         logUnexpectedError(p, "parenGrp", "inner");
- *     }
- *     temp = newPtree(t, NULL);
- *     if(!appendPtree(t, temp)){
- *         logMemoryError("parenGrp");
- *         return 0;
  *     }
  *     if(!expect(p, lastChild(t), closeParen)){
  *         logUnexpectedError(p, "parenGrp", "closeParen");
@@ -51,14 +36,6 @@ void logMemoryError(const char *name);
  * }
  */
 Ptree newPtree(Ptree *parent, const char *string);
-
-/* Adds a Ptree node to the nodes list of a Ptree *parent.
- * This is how you build up a Ptree.  Learn it use it LOVE it.
- * Calls logMemoryError if realloc fails
- * Returns 1 on success, 0 on failure.
- * See newPtree for an example.
- */
-char appendPtree(Ptree *parent, Ptree node);
 
 /* Returns 1 if Ptree *t has no children (represents a terminal symbol).
  */

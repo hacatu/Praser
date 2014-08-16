@@ -33,6 +33,46 @@ Ptree* lastChild(Ptree *t){
 	return nthChild(t, -1);
 }
 
+char reallocPtree(Ptree *t, int size){
+	debug("called");
+	Ptree *temp = realloc(t->nodes, size*sizeof(Ptree));
+	if(!temp){
+		logMemoryError("reallocPtree");
+		return 0;
+	}
+	if(temp != t->nodes){
+		t->nodes = temp;
+		t->nodec = size;
+		debug("moved pointer");
+		return 2;
+	}
+	t->nodec = size;
+	debug("all is well");
+	return 1;
+}
+
+void updateGrandchildPointers(Ptree *t){
+	int i = 0, j;
+	Ptree *child, *grandchild;
+	while((child = nthChild(t, i))){
+		j = 0;
+		while((grandchild = nthChild(child, j))){
+			grandchild->parent = child;
+			++j;
+		}
+		++i;
+	}
+}
+
+void deleteChildrenAfter(Ptree *t, int n){
+	Ptree *current = nthChild(t, n + 1), *last = lastChild(t);
+	while(current <= last){
+		deletePtree(current);
+		++current;
+	}
+}
+
+/*
 char appendPtree(Ptree *parent, Ptree node){
 	Ptree *temp = realloc(parent->nodes, (parent->nodec + 1)*sizeof(Ptree));//expand parent's node list
 	if(!temp){//if realloc failed, call logMemoryError to report the error and then return 0.
@@ -58,6 +98,22 @@ char appendPtree(Ptree *parent, Ptree node){
 	++parent->nodec;//increase the node count by one.
 	*lastChild(parent) = node;
 	return 1;
+}
+*/
+
+char appendPtree(Ptree *parent, Ptree node){
+	switch(reallocPtree(parent, parent->nodec + 1)){
+		case 0:
+		logMemoryError("appendPtree");
+		return 0;
+		case 1:
+		*lastChild(parent) = node;
+		return 1;
+		case 2:
+		*lastChild(parent) = node;
+		updateGrandchildPointers(parent);
+		return 1;
+	}
 }
 
 /* Local function not in header:
@@ -95,6 +151,7 @@ void freePtree(Ptree *t){
 }
 
 void deletePtree(Ptree *t){
+	const Ptree *top = t;
 	debug("called on:");
 	ifdebug printPtree(t, 0);
 	while(1){
@@ -109,7 +166,8 @@ void deletePtree(Ptree *t){
 		//The above while loop ensures t has no children,
 		//and if t's parent is null, t is the root.
 		debug(" t has been reduced to a leaf node");
-		if(!t->parent){
+		//if(!t->parent){
+		if(t == top){
 			debug("  t is the root node; freePtree'ing t");
 			freePtree(t);
 			return;
@@ -136,11 +194,12 @@ void printPtree(const Ptree *t, int indent){
 			return;
 		}
 		printf("%*s\"%s\"\n", indent, "", t->string);
+		return;
 	}
 	printf("%*s%s:\n"
 		   //"%*sparent:%p\n"
 		   //"%*snodec:%d\n"
-		   "%*snodes:{\n",
+		   "%*s{\n",
 		   indent, "", t->string,
 		   //indent, "", t->parent,
 		   //indent, "", t->nodec,

@@ -10,3 +10,5 @@ $(EXE): parser_llk.o calculator_parser.o ptree.o
 	$(CC) $(CFLAGS) -c $<
 clean:
 	rm *.o $(EXE)
+rebuild: clean all
+rebug: clean debug
