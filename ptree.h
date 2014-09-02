@@ -9,6 +9,12 @@ typedef struct Ptree{//an n-ary string tagged tree to store parse data for postp
 	const char *string;//the string tag
 } Ptree;
 
+typedef enum{
+	ADD,
+	PASS,
+	SKIP
+} AppendMode;
+
 /* Logs errors caused by malloc, realloc, etc failing.
  */
 void logMemoryError(const char *name);

@@ -7,6 +7,10 @@
 #include "parser_llk.h"
 #include "debug.h"
 
+
+//TODO: Fix all string assignments to malloc (use helper function).  Fix PASS so that it is useful.
+
+
 struct Position{
 	const char* string;
 	const char* current;
@@ -70,7 +74,7 @@ int expectChar(Position *p, char c){
 }
 
 
-int acceptString(Position *p, Ptree *t, const char *s){
+int acceptString(Position *p, Ptree *t, AppendMode a, const char *s){
 	int i = 0;
 	while(s[i]){
 		if(!acceptChar(p, s[i])){
@@ -78,12 +82,14 @@ int acceptString(Position *p, Ptree *t, const char *s){
 		}
 			++i;
 	}
-	appendPtree(t, newPtree(t, s));
+	if(a == ADD || a == PASS){
+		appendPtree(t, newPtree(t, s));
+	}
 	return 1;
 }
 
-int expectString(Position *p, Ptree *t, const char *s){
-	if(acceptString(p, t, s)){
+int expectString(Position *p, Ptree *t, AppendMode a, const char *s){
+	if(acceptString(p, t, a, s)){
 		return 1;
 	}
 	logUnexpectedError(p, "expectString",  s);
@@ -96,34 +102,42 @@ char expectEnd(Position *p){
 }
 
 
-int try(Position *p, Ptree *t, parser parse){
+int try(Position *p, Ptree *t, AppendMode a, parser parse){
 	Position current = *p;
 	int size = t->nodec;
-	if(accept(&current, t, parse)){
+	if(accept(&current, t, a, parse)){
 		*p = current;
 		return 1;
 	}
-	deleteChildrenAfter(t, size);
-	reallocPtree(t, size);
+	if(a != SKIP){
+		deleteChildrenAfter(t, size);
+		reallocPtree(t, size);
+	}
 	return 0;
 }
 
 
-int accept(Position *p, Ptree *t, parser parse){
-	Ptree temp = newPtree(t, NULL);
-	if(!parse(p, &temp)){
+int accept(Position *p, Ptree *t, AppendMode a, parser parse){
+	Ptree ptree;
+	Ptree *temp = &ptree;
+	if(a == PASS){
+		temp = t;
+	}else{
+		ptree = newPtree(t, NULL);
+	}
+	if(!parse(p, temp)){
 		debug("parsing failed");
 		return 0;
 	}
-	if(!appendPtree(t, temp)){
+	if(a == ADD && !appendPtree(t, ptree)){
 		debug("appendPtree failed");
 		return 0;
 	}
 	return 1;
 }
 
-int expect(Position *p, Ptree *t, parser parse){
-	if(accept(p, t, parse)){
+int expect(Position *p, Ptree *t, AppendMode a, parser parse){
+	if(accept(p, t, a, parse)){
 		return 1;
 	}
 	char expected[9];
@@ -133,11 +147,11 @@ int expect(Position *p, Ptree *t, parser parse){
 }
 
 
-int repeatMinMax(Position *p, Ptree *t, parser parse, int min, int max){
+int repeatMinMax(Position *p, Ptree *t, AppendMode a, parser parse, int min, int max){
 	//t->string = __func__;
 	int count = 0;
 	while(count < min){
-		if(!expect(p, t, parse)){
+		if(!expect(p, t, a, parse)){
 			debug("not enough matches");
 			return 0;
 		}
@@ -145,14 +159,14 @@ int repeatMinMax(Position *p, Ptree *t, parser parse, int min, int max){
 	}
 	if(max > 0){
 		while(count < max){
-			if(!accept(p, t, parse)){
+			if(!accept(p, t, a, parse)){
 				break;
 			}
 			++count;
 		}
 	}else{
 		while(1){
-			if(!accept(p, t, parse)){
+			if(!accept(p, t, a, parse)){
 				break;
 			}
 			++count;
@@ -162,47 +176,45 @@ int repeatMinMax(Position *p, Ptree *t, parser parse, int min, int max){
 	return 1;
 }
 
-int sepBy(Position *p, Ptree *t, parser parse, parser parseSeperator){
+int sepBy(Position *p, Ptree *t, AppendMode a, AppendMode aSeperator, parser parse, parser parseSeperator){
 	
 	//t->string = __func__;
-	if(!accept(p, t, parse)){
+	if(!accept(p, t, a, parse)){
 		return 0;
 	}
-	while(accept(p, t, parseSeperator)){
-		if(!expect(p, t, parse)){
+	while(accept(p, t, aSeperator, parseSeperator)){
+		if(!expect(p, t, a, parse)){
 			return 0;
 		}
 	}
 	return 1;
 }
 
-int alternate(Position *p, Ptree *t, parser parseA, parser parseB){
+int alternate(Position *p, Ptree *t, AppendMode aA, AppendMode aB, parser parseA, parser parseB){
 	
 	//t->string = __func__;
-	while(accept(p, t, parseA)){
-		if(!expect(p, t, parseB)){
+	while(accept(p, t, aA, parseA)){
+		if(!expect(p, t, aB, parseB)){
 			return 0;
 		}
 	}
 	return 1;
 }
 
-int takeWhileNot(Position *p, Ptree *t, parser parse){
-	
-	//t->string = __func__;
+int not(Position *p, Ptree *t, AppendMode a, parser parse){
 	Position start = *p;
-	int c = 0;
 	Ptree temp = newPtree(t, NULL);
-	while(!parse(p, &temp)){
-		if(!getChar(p)){
-			return 0;
-		}
-		++c;
-	}
-	if(!appendPtree(t, (Ptree){.parent = t, .length = c, .string = start.current})){
-		logMemoryError(__func__);
+	if(parse(p, &temp)){
+		deletePtree(&temp);
 		return 0;
 	}
+	if(!getChar(p)){
+		return 0;
+	}
+	if(a == SKIP){
+		return 1;
+	}
+	temp = (Ptree){.parent = t, .length = 1, .string = start.current};
 	if(!appendPtree(t, temp)){
 		logMemoryError(__func__);
 		return 0;
@@ -210,12 +222,28 @@ int takeWhileNot(Position *p, Ptree *t, parser parse){
 	return 1;
 }
 
-int oneOf(Position *p, Ptree *t, const char *options){
-	t->length = 1;
+int oneOf(Position *p, Ptree *t, AppendMode a, const char *options){
+	Ptree *temp;
+	Ptree ptree;
+	if(a == PASS){
+		temp = t;
+	}else if(a == ADD){
+		ptree = newPtree(t, NULL);
+		temp = &ptree;
+	}
 	const char *c = options;
 	while(*c){
 		if(acceptChar(p, *c)){
-			t->string = c;
+			if(a == PASS){
+				//you are here
+				temp->string = c;
+				temp->length +=1;
+			}
+			if(a == ADD && !appendPtree(t, ptree)){
+				tem->length = 1;
+				temp->string = c;
+				logMemoryError("oneOf");
+			}
 			debug("successful");
 			return 1;
 		}

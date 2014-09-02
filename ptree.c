@@ -114,6 +114,7 @@ char appendPtree(Ptree *parent, Ptree node){
 		updateGrandchildPointers(parent);
 		return 1;
 	}
+	return 0;
 }
 
 /* Local function not in header:

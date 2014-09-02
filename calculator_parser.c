@@ -35,7 +35,7 @@ int digit(Position *p, Ptree *t);
 int start(Position *p, Ptree *t){
 	
 	t->string = __func__;
-	if(!expect(p, t, additive)){
+	if(!expect(p, t, PASS, additive)){
 		logUnexpectedError(p, "start", "additive");
 		return 0;
 	}
@@ -49,54 +49,54 @@ int start(Position *p, Ptree *t){
 int additive(Position *p, Ptree *t){
 	
 	t->string = __func__;
-	return sepBy(p, t, multiplicative, addition);
+	return sepBy(p, t, PASS, PASS, multiplicative, addition);
 }
 
 int addition(Position *p, Ptree *t){
 	
 	t->string = __func__;
-	return oneOf(p, t, "+-");
+	return oneOf(p, t, ADD, "+-");
 }
 
 int multiplicative(Position *p, Ptree *t){
 	
 	t->string = __func__;
-	return sepBy(p, t, primary, multiplication);
+	return sepBy(p, t, ADD, ADD, primary, multiplication);
 }
 
 int multiplication(Position *p, Ptree *t){
 	
 	t->string = __func__;
-	return oneOf(p, t, "*/%");
+	return oneOf(p, t, ADD, "*/%");
 }
 
 int primary(Position *p, Ptree *t){
 	
 	t->string = __func__;
-	if(acceptString(p, t, "(")){
-		if(!expect(p, t, additive)){
+	if(acceptString(p, t, SKIP, "(")){
+		if(!expect(p, t, PASS, additive)){
 			logUnexpectedError(p, "primary", "additive");
 			return 0;
 		}
-		if(!expectString(p, t, ")")){
+		if(!expectString(p, t, SKIP, ")")){
 			logUnexpectedError(p, "primary", ")");
 			return 0;
 		}
 		return 1;
 	}
-	return expect(p, t, integer);
+	return expect(p, t, PASS, integer);
 }
 
 int integer(Position *p, Ptree *t){
 	
 	t->string = __func__;
-	return repeatMinMax(p, t, digit, 1, -1);
+	return repeatMinMax(p, t, ADD, digit, 1, -1);
 }
 
 int digit(Position *p, Ptree *t){
 	
 	t->string = __func__;
-	return oneOf(p, t, "0123456789");
+	return oneOf(p, t, ADD, "0123456789");
 }
 
 

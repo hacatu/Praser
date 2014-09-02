@@ -50,52 +50,52 @@ char expectEnd(Position *p);
 /* A parser that accepts a string and adds it to the parse tree if found.
  * Returns 0 on failure, nonzero otherwise.
  */
-int acceptString(Position *p, Ptree *t, const char *s);
+int acceptString(Position *p, Ptree *t, AppendMode a, const char *s);
 
 /* A parser that expects a string, adding it to the parse tree if found, otherwise calling logUnexpectedError and returning 0.
  */
-int expectString(Position *p, Ptree *t, const char *s);
+int expectString(Position *p, Ptree *t, AppendMode a, const char *s);
 
 
 /* Trys a parser and resets Position p if the parser fails.
  * This is vital if a parser may consume input but fail, but makes the parser not ll[k]
  * Returns 0 on failure, nonzero otherwise.
  */
-int try(Position *p, Ptree *t, parser parse);
+int try(Position *p, Ptree *t, AppendMode a, parser parse);
 
 
 /* Runs a parser.
  * Returns 0 on failure, nonzero otherwise
  */
-int accept(Position *p, Ptree *t, parser parse);
+int accept(Position *p, Ptree *t, AppendMode a, parser parse);
 
 /* Runs a parser and calls logUnexpectedError if it fails.
  * Returns 0 on failure, nonzero otherwise.
  */
-int expect(Position *p, Ptree *t, parser parse);
+int expect(Position *p, Ptree *t, AppendMode a, parser parse);
 
 
 /* Run a parser from min to max times, inclusive.
  * If max is <= 0, there is no upper bound.
  * Returns 0 on failure, 1 otherwise.
  */
-int repeatMinMax(Position *p, Ptree *t, parser parse, int min, int max);
+int repeatMinMax(Position *p, Ptree *t, AppendMode a, parser parse, int min, int max);
 
 /* Takes two parsers, parse and parseSeperetor, and looks for them to alternate with parse matching on the outside.
  * Example: parse accepts numbers and parseSeperator accepts commas.  sepBy will accept "123,456,62", "0", or "1,2",
  * but not "123,456", ",234", or ",0,".
  */
-int sepBy(Position *p, Ptree *t, parser parse, parser parseSeperator);
+int sepBy(Position *p, Ptree *t, AppendMode a, AppendMode aSeperator, parser parse, parser parseSeperator);
 
 /* Takes two parsers, A and B, and looks for ABABABAB any number of times.
  */
-int alternate(Position *p, Ptree *t, parser parseA, parser parseB);
+int alternate(Position *p, Ptree *t, AppendMode aA, AppendMode aB, parser parseA, parser parseB);
 
 /* Consumes input until a given parser matches.
  * Good for ignoring comments or whitespace or strings.
  */
-int takeWhileNot(Position *p, Ptree *t, parser parse);
+int not(Position *p, Ptree *t, AppendMode a, parser parse);
 
 /* Accepts any char in the string options given.
  */
-int oneOf(Position *p, Ptree *t, const char *options);
+int oneOf(Position *p, Ptree *t, AppendMode a, const char *options);
