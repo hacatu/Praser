@@ -5,12 +5,43 @@
 #include "ptree.h"
 #include "debug.h"
 
+struct Ptree{//an n-ary string tagged tree to store parse data for postprocessing
+	struct Ptree *parent;//the parent node.
+	int nodec;//the number of nodes.
+	struct Ptree *nodes;//the list of nodes
+	int length;//the length of the string (only needed when it is a non null terminated substring of the whole string being parsed)
+	char *string;//the string tag
+};
+
 void logMemoryError(const char *name){
 	printf("%s: out of memory.\n", name);
 }
 
-Ptree newPtree(Ptree *parent, const char *string){
-	return (Ptree){.parent = parent, .string = string};
+void setString(Ptree *p, const char *string, int length){
+	free(p->string);
+	p->string = malloc((length+1)*sizeof(char));
+	if(!p->string){
+		p->length = 0;
+		return;
+	}
+	p->length = length;
+	strncpy(p->string, string, length);
+}
+
+void appendString(Ptree *p, const char *string, int length){
+	const char *temp;
+	temp = realloc(p->string, (p->length + length)*sizeof(char));
+	if(!temp){
+		return;
+	}
+	p->length += length;
+	strncpy(p->string + p->length, string, length);
+}
+
+Ptree newPtree(Ptree *parent, const char *string, int length){
+	Ptree ptree = {.parent = parent};
+	setString(&ptree, string, length);
+	return ptree;
 }
 
 char isTerminal(const Ptree *t){
@@ -31,6 +62,14 @@ Ptree* nthChild(Ptree *t, int n){
 
 Ptree* lastChild(Ptree *t){
 	return nthChild(t, -1);
+}
+
+int size(Ptree *t){
+	return t->nodec;
+}
+
+Ptree* tempPtree(){
+	return calloc(1, sizeof(Ptree));
 }
 
 char reallocPtree(Ptree *t, int size){
@@ -101,6 +140,22 @@ char appendPtree(Ptree *parent, Ptree node){
 }
 */
 
+char appendNewPtree(Ptree *parent, const char *string, int length){
+	switch(reallocPtree(parent, parent->nodec + 1)){
+		case 0:
+		logMemoryError("appendNewPtree");
+		return 0;
+		case 1:
+		*lastChild(parent) = newPtree(parent, string, length);
+		return 1;
+		case 2:
+		*lastChild(parent) = newPtree(parent, string, length);
+		updateGrandchildPointers(parent);
+		return 1;
+	}
+	return 0;
+}
+
 char appendPtree(Ptree *parent, Ptree node){
 	switch(reallocPtree(parent, parent->nodec + 1)){
 		case 0:
@@ -147,6 +202,8 @@ Ptree* firstChild(Ptree *t){
  */
 void freePtree(Ptree *t){
 	free(t->nodes);
+	free(t->string);
+	t->length = 0;
 	t->nodec = 0;
 	t->parent = 0;
 }

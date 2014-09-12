@@ -83,7 +83,7 @@ int acceptString(Position *p, Ptree *t, AppendMode a, const char *s){
 			++i;
 	}
 	if(a == ADD || a == PASS){
-		appendPtree(t, newPtree(t, s));
+		appendNewPtree(t, s, strlen(s));
 	}
 	return 1;
 }
@@ -104,19 +104,19 @@ char expectEnd(Position *p){
 
 int try(Position *p, Ptree *t, AppendMode a, parser parse){
 	Position current = *p;
-	int size = t->nodec;
+	int children = size(t);
 	if(accept(&current, t, a, parse)){
 		*p = current;
 		return 1;
 	}
 	if(a != SKIP){
-		deleteChildrenAfter(t, size);
-		reallocPtree(t, size);
+		deleteChildrenAfter(t, children);
+		reallocPtree(t, children);
 	}
 	return 0;
 }
 
-
+/*
 int accept(Position *p, Ptree *t, AppendMode a, parser parse){
 	Ptree ptree;
 	Ptree *temp = &ptree;
@@ -133,6 +133,31 @@ int accept(Position *p, Ptree *t, AppendMode a, parser parse){
 		debug("appendPtree failed");
 		return 0;
 	}
+	return 1;
+}
+* */
+int accept(Position *p, Ptree *t, AppendMode a, parser parse){
+	switch(a){
+		case ADD:
+		if(!appendNewPtree(t, NULL, 0)){
+			debug("appendNewPtree failed");
+			return 0;
+		}
+		if(!parse(p, lastChild(t))){
+			debug("parsing failed");
+			return 0;
+		}
+		return 1;
+		case PASS:
+		if(!parse(p, t)){
+			debug("parsing failed");
+			return 0;
+		}
+		return 1;
+		case SKIP:
+		return 1;
+	}
+	//needed to supress erronious warning from gcc.  The above switch can't fall through bcause a is an enum.
 	return 1;
 }
 
@@ -201,6 +226,7 @@ int alternate(Position *p, Ptree *t, AppendMode aA, AppendMode aB, parser parseA
 	return 1;
 }
 
+/*
 int not(Position *p, Ptree *t, AppendMode a, parser parse){
 	Position start = *p;
 	Ptree temp = newPtree(t, NULL);
@@ -220,8 +246,35 @@ int not(Position *p, Ptree *t, AppendMode a, parser parse){
 		return 0;
 	}
 	return 1;
+}*/
+int not(Position *p, Ptree *t, AppendMode a, parser parse){
+	Position start = *p;
+	Ptree* temp = tempPtree();
+	if(!temp){
+		logMemoryError(__func__);
+		return 0;
+	}
+	if(parse(p, temp)){
+		deletePtree(temp);
+		free(temp);
+		return 0;
+	}
+	deletePtree(temp);
+	free(temp);
+	switch(a){
+		case ADD:
+			return appendNewPtree(t, start.current, 1);
+		case PASS:
+			appendString(t, start.current, 1);
+			return 1;
+		case SKIP:
+			return 1;
+	}
+	//needed to supress erronious warning from gcc.  The above switch can't fall through bcause a is an enum.
+	return 1;
 }
 
+/*
 int oneOf(Position *p, Ptree *t, AppendMode a, const char *options){
 	Ptree *temp;
 	Ptree ptree;
@@ -236,12 +289,10 @@ int oneOf(Position *p, Ptree *t, AppendMode a, const char *options){
 		if(acceptChar(p, *c)){
 			if(a == PASS){
 				//you are here
-				temp->string = c;
-				temp->length +=1;
+				appendString(temp, c, 1);
 			}
 			if(a == ADD && !appendPtree(t, ptree)){
-				tem->length = 1;
-				temp->string = c;
+				setString(temp, c, 1);
 				logMemoryError("oneOf");
 			}
 			debug("successful");
@@ -250,5 +301,29 @@ int oneOf(Position *p, Ptree *t, AppendMode a, const char *options){
 		++c;
 	}
 	return 0;
+}*/
+int oneOf(Position *p, Ptree *t, AppendMode a, const char *options){
+	const char *c = options;
+	while(*c){
+		if(acceptChar(p, *c)){
+			break;
+		}
+		++c;
+	}
+	if(!*c){
+		return 0;
+	}
+	switch(a){
+		case ADD:
+		return appendNewPtree(t, c, 1);
+		case PASS:
+		appendString(t, c, 1);
+		return 1;
+		case SKIP:
+		return 1;
+	}
+	//needed to supress erronious warning from gcc.  The above switch can't fall through bcause a is an enum.
+	return 1;
 }
+
 

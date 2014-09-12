@@ -1,13 +1,7 @@
 //ptree.h
 #pragma once
 
-typedef struct Ptree{//an n-ary string tagged tree to store parse data for postprocessing
-	struct Ptree *parent;//the parent node.
-	int nodec;//the number of nodes.
-	struct Ptree *nodes;//the list of nodes
-	int length;//the length of the string (only needed when it is a non null terminated substring of the whole string being parsed)
-	const char *string;//the string tag
-} Ptree;
+typedef struct Ptree Ptree;
 
 typedef enum{
 	ADD,
@@ -19,36 +13,28 @@ typedef enum{
  */
 void logMemoryError(const char *name);
 
-
-/* Returns a Ptree with a given parent and tag, string.
- * This is how you create a Ptree.  Generally this is handled automatically
- * by accept(), so it should only be called explicitly to create the root.
- * This Ptree is assigned to allocated memory in another Ptree's nodes field.
- * If I have a parser `parenGrp` that uses the parsers `openParen`, `inner`, and `closeParen`,
- * I would make parenGrp set t->string = "parenGrp" and then accept/ expect the other parsers.
- * accept() will automatically create Ptrees and pass them to the parsers you call with it.
- * eg:
- * int parenGrp(Position *p, Ptree *t){
- *     t->string = "parenGrp";
- *     if(!accept(p, lastChild(t), openParen)){
- *         return 0;
- *     }if(!expect(p, lastChild(t), inner)){
- *         logUnexpectedError(p, "parenGrp", "inner");
- *     }
- *     if(!expect(p, lastChild(t), closeParen)){
- *         logUnexpectedError(p, "parenGrp", "closeParen");
- *     }
- *     return 0;
- * }
+/* Create a root ptree
  */
-Ptree newPtree(Ptree *parent, const char *string);
+Ptree* tempPtree();
+
+/* Sets the string of a ptree
+ * */
+void setString(Ptree *p, const char *string, int length);
+
+/* Appends a string to a ptree
+ */
+void appendString(Ptree *p, const char *string, int length);
+
+/* Retruns the last child of a ptree
+ */
+Ptree* lastChild(Ptree *t);
 
 /* Returns 1 if Ptree *t has no children (represents a terminal symbol).
  */
 char isTerminal(const Ptree *t);
 
 /* Returns the nth Child of a Ptree *t.
- * Negative wraparound indicies may e used.
+ * Negative wraparound indicies may be used.
  * Returns a null pointer if n is out of bounds.
  */
 Ptree* nthChild(Ptree *t, int n);
