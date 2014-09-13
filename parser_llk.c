@@ -8,7 +8,7 @@
 #include "debug.h"
 
 
-//TODO: Fix all string assignments to malloc (use helper function).  Fix PASS so that it is useful.
+//TODO: Fix PASS so that it is useful.
 
 
 struct Position{
@@ -116,26 +116,7 @@ int try(Position *p, Ptree *t, AppendMode a, parser parse){
 	return 0;
 }
 
-/*
-int accept(Position *p, Ptree *t, AppendMode a, parser parse){
-	Ptree ptree;
-	Ptree *temp = &ptree;
-	if(a == PASS){
-		temp = t;
-	}else{
-		ptree = newPtree(t, NULL);
-	}
-	if(!parse(p, temp)){
-		debug("parsing failed");
-		return 0;
-	}
-	if(a == ADD && !appendPtree(t, ptree)){
-		debug("appendPtree failed");
-		return 0;
-	}
-	return 1;
-}
-* */
+
 int accept(Position *p, Ptree *t, AppendMode a, parser parse){
 	switch(a){
 		case ADD:
@@ -226,30 +207,9 @@ int alternate(Position *p, Ptree *t, AppendMode aA, AppendMode aB, parser parseA
 	return 1;
 }
 
-/*
 int not(Position *p, Ptree *t, AppendMode a, parser parse){
 	Position start = *p;
-	Ptree temp = newPtree(t, NULL);
-	if(parse(p, &temp)){
-		deletePtree(&temp);
-		return 0;
-	}
-	if(!getChar(p)){
-		return 0;
-	}
-	if(a == SKIP){
-		return 1;
-	}
-	temp = (Ptree){.parent = t, .length = 1, .string = start.current};
-	if(!appendPtree(t, temp)){
-		logMemoryError(__func__);
-		return 0;
-	}
-	return 1;
-}*/
-int not(Position *p, Ptree *t, AppendMode a, parser parse){
-	Position start = *p;
-	Ptree* temp = tempPtree();
+	Ptree* temp = mallocPtree();
 	if(!temp){
 		logMemoryError(__func__);
 		return 0;
@@ -274,34 +234,6 @@ int not(Position *p, Ptree *t, AppendMode a, parser parse){
 	return 1;
 }
 
-/*
-int oneOf(Position *p, Ptree *t, AppendMode a, const char *options){
-	Ptree *temp;
-	Ptree ptree;
-	if(a == PASS){
-		temp = t;
-	}else if(a == ADD){
-		ptree = newPtree(t, NULL);
-		temp = &ptree;
-	}
-	const char *c = options;
-	while(*c){
-		if(acceptChar(p, *c)){
-			if(a == PASS){
-				//you are here
-				appendString(temp, c, 1);
-			}
-			if(a == ADD && !appendPtree(t, ptree)){
-				setString(temp, c, 1);
-				logMemoryError("oneOf");
-			}
-			debug("successful");
-			return 1;
-		}
-		++c;
-	}
-	return 0;
-}*/
 int oneOf(Position *p, Ptree *t, AppendMode a, const char *options){
 	const char *c = options;
 	while(*c){

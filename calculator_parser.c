@@ -33,7 +33,6 @@ int digit(Position *p, Ptree *t);
 
 
 int start(Position *p, Ptree *t){
-	
 	setString(t, __func__, strlen(__func__));
 	if(!expect(p, t, PASS, additive)){
 		logUnexpectedError(p, "start", "additive");
@@ -47,31 +46,26 @@ int start(Position *p, Ptree *t){
 }
 
 int additive(Position *p, Ptree *t){
-	
 	setString(t, __func__, strlen(__func__));
-	return sepBy(p, t, PASS, PASS, multiplicative, addition);
+	return sepBy(p, t, ADD, ADD, multiplicative, addition);
 }
 
 int addition(Position *p, Ptree *t){
-	
 	setString(t, __func__, strlen(__func__));
 	return oneOf(p, t, ADD, "+-");
 }
 
 int multiplicative(Position *p, Ptree *t){
-	
 	setString(t, __func__, strlen(__func__));
 	return sepBy(p, t, ADD, ADD, primary, multiplication);
 }
 
 int multiplication(Position *p, Ptree *t){
-	
 	setString(t, __func__, strlen(__func__));
 	return oneOf(p, t, ADD, "*/%");
 }
 
 int primary(Position *p, Ptree *t){
-	
 	setString(t, __func__, strlen(__func__));
 	if(acceptString(p, t, SKIP, "(")){
 		if(!expect(p, t, PASS, additive)){
@@ -88,13 +82,11 @@ int primary(Position *p, Ptree *t){
 }
 
 int integer(Position *p, Ptree *t){
-	
 	setString(t, __func__, strlen(__func__));
 	return repeatMinMax(p, t, ADD, digit, 1, -1);
 }
 
 int digit(Position *p, Ptree *t){
-	
 	setString(t, __func__, strlen(__func__));
 	return oneOf(p, t, ADD, "0123456789");
 }
@@ -132,11 +124,13 @@ int main(int argc, char **argv){
 	char success = 0;
 	Ptree *root;	
 	while((read = getline(&line, &length, file)) != -1){
-		root = tempPtree();
+		root = mallocPtree();
 		line[read - 1] = '\0';
 		p = firstPosition(line);
 		success = start(p, root);
 		printf("string \"%s\" parsed %ssuccessfully.  Output: %d\n", line, success?"":"un", 10);
+		printPtree(root, 0);
+		flatten(root);
 		printPtree(root, 0);
 		deletePtree(root);
 		free(root);
