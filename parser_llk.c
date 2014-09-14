@@ -2,8 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "ptree.h"
-#include "ptree_private.h"
+#include "_ptree.h"
 #include "parser_llk.h"
 #include "debug.h"
 

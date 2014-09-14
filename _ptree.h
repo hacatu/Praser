@@ -1,4 +1,4 @@
-//ptree_private.h
+//_ptree.h
 #pragma once
 #include "ptree.h"
 

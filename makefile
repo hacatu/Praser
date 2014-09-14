@@ -6,7 +6,7 @@ debug: all
 test: CFLAGS += -g
 test: all
 all: $(EXE)
-$(EXE): parser_llk.o calculator_parser.o ptree.o
+$(EXE): parser_llk.o calculator_parser.o ptree_create.o ptree_util.o ptree_delete.o ptree_print.o
 	$(CC) $(CFLAGS) -o $@ $^
 .c.o:
 	$(CC) $(CFLAGS) -c $<
