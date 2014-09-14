@@ -1,0 +1,1776 @@
+No file specified.  Reading from stdin.
+The different parsers are at locations:
+start:          0x401290
+additive:       0x401325
+addition:       0x401373
+multiplicative: 0x4013b5
+multiplication: 0x401403
+primary:        0x401445
+integer:        0x401522
+digit:          0x401570
+DEBUG mallocPtree: called
+DEBUG mallocPtree: returning: 0x1506090
+DEBUG setString: called on: 0x1506090, start, 5
+DEBUG setString: returning
+DEBUG setString: called on: 0x1506090, additive, 8
+DEBUG setString: returning
+DEBUG appendNewPtree: called on: 0x1506090, (null), 0
+DEBUG reallocPtree: called on: 0x1506090, 1
+DEBUG getSize: called on: 0x1506090
+DEBUG getSize: returning: 0
+DEBUG updateGrandchildPointers: called on: 0x1506090
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x1506100
+DEBUG nthChild: called on: 0x1506100, 0
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506090, 1
+DEBUG nthChild: returning: (nil)
+DEBUG updateGrandchildPointers: returning
+DEBUG reallocPtree: returning: 2
+DEBUG lastChild: called on: 0x1506090
+DEBUG nthChild: called on: 0x1506090, -1
+DEBUG nthChild: returning: 0x1506100
+DEBUG lastChild: returning: 0x1506100
+DEBUG newPtree: called on: 0x1506090, (null), 0
+DEBUG setString: called on: 0x7ffffb3e1cc0, (null), 0
+DEBUG setString: returning
+DEBUG newPtree: returning: 0x7ffffff0
+DEBUG appendNewPtree: returning: 1
+DEBUG lastChild: called on: 0x1506090
+DEBUG nthChild: called on: 0x1506090, -1
+DEBUG nthChild: returning: 0x1506100
+DEBUG lastChild: returning: 0x1506100
+DEBUG setString: called on: 0x1506100, multiplicative, 14
+DEBUG setString: returning
+DEBUG appendNewPtree: called on: 0x1506100, (null), 0
+DEBUG reallocPtree: called on: 0x1506100, 1
+DEBUG getSize: called on: 0x1506100
+DEBUG getSize: returning: 0
+DEBUG updateGrandchildPointers: called on: 0x1506100
+DEBUG nthChild: called on: 0x1506100, 0
+DEBUG nthChild: returning: 0x1506150
+DEBUG nthChild: called on: 0x1506150, 0
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506100, 1
+DEBUG nthChild: returning: (nil)
+DEBUG updateGrandchildPointers: returning
+DEBUG reallocPtree: returning: 2
+DEBUG lastChild: called on: 0x1506100
+DEBUG nthChild: called on: 0x1506100, -1
+DEBUG nthChild: returning: 0x1506150
+DEBUG lastChild: returning: 0x1506150
+DEBUG newPtree: called on: 0x1506100, (null), 0
+DEBUG setString: called on: 0x7ffffb3e1c20, (null), 0
+DEBUG setString: returning
+DEBUG newPtree: returning: 0x7ffffff0
+DEBUG appendNewPtree: returning: 1
+DEBUG lastChild: called on: 0x1506100
+DEBUG nthChild: called on: 0x1506100, -1
+DEBUG nthChild: returning: 0x1506150
+DEBUG lastChild: returning: 0x1506150
+DEBUG setString: called on: 0x1506150, primary, 7
+DEBUG setString: returning
+DEBUG setString: called on: 0x1506150, integer, 7
+DEBUG setString: returning
+DEBUG appendNewPtree: called on: 0x1506150, (null), 0
+DEBUG reallocPtree: called on: 0x1506150, 1
+DEBUG getSize: called on: 0x1506150
+DEBUG getSize: returning: 0
+DEBUG updateGrandchildPointers: called on: 0x1506150
+DEBUG nthChild: called on: 0x1506150, 0
+DEBUG nthChild: returning: 0x15061a0
+DEBUG nthChild: called on: 0x15061a0, 0
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506150, 1
+DEBUG nthChild: returning: (nil)
+DEBUG updateGrandchildPointers: returning
+DEBUG reallocPtree: returning: 2
+DEBUG lastChild: called on: 0x1506150
+DEBUG nthChild: called on: 0x1506150, -1
+DEBUG nthChild: returning: 0x15061a0
+DEBUG lastChild: returning: 0x15061a0
+DEBUG newPtree: called on: 0x1506150, (null), 0
+DEBUG setString: called on: 0x7ffffb3e1a90, (null), 0
+DEBUG setString: returning
+DEBUG newPtree: returning: 0x7ffffff0
+DEBUG appendNewPtree: returning: 1
+DEBUG lastChild: called on: 0x1506150
+DEBUG nthChild: called on: 0x1506150, -1
+DEBUG nthChild: returning: 0x15061a0
+DEBUG lastChild: returning: 0x15061a0
+DEBUG setString: called on: 0x15061a0, digit, 5
+DEBUG setString: returning
+DEBUG appendNewPtree: called on: 0x15061a0, 123456789, 1
+DEBUG reallocPtree: called on: 0x15061a0, 1
+DEBUG getSize: called on: 0x15061a0
+DEBUG getSize: returning: 0
+DEBUG updateGrandchildPointers: called on: 0x15061a0
+DEBUG nthChild: called on: 0x15061a0, 0
+DEBUG nthChild: returning: 0x15061f0
+DEBUG nthChild: called on: 0x15061f0, 0
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x15061a0, 1
+DEBUG nthChild: returning: (nil)
+DEBUG updateGrandchildPointers: returning
+DEBUG reallocPtree: returning: 2
+DEBUG lastChild: called on: 0x15061a0
+DEBUG nthChild: called on: 0x15061a0, -1
+DEBUG nthChild: returning: 0x15061f0
+DEBUG lastChild: returning: 0x15061f0
+DEBUG newPtree: called on: 0x15061a0, 123456789, 1
+DEBUG setString: called on: 0x7ffffb3e1a30, 123456789, 1
+DEBUG setString: returning
+DEBUG newPtree: returning: 0x7ffffff0
+DEBUG appendNewPtree: returning: 1
+DEBUG appendNewPtree: called on: 0x1506150, (null), 0
+DEBUG reallocPtree: called on: 0x1506150, 2
+DEBUG getSize: called on: 0x1506150
+DEBUG getSize: returning: 1
+DEBUG updateGrandchildPointers: called on: 0x1506150
+DEBUG nthChild: called on: 0x1506150, 0
+DEBUG nthChild: returning: 0x1506240
+DEBUG nthChild: called on: 0x1506240, 0
+DEBUG nthChild: returning: 0x15061f0
+DEBUG nthChild: called on: 0x1506240, 1
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506150, 1
+DEBUG nthChild: returning: 0x1506268
+DEBUG nthChild: called on: 0x1506268, 0
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506150, 2
+DEBUG nthChild: returning: (nil)
+DEBUG updateGrandchildPointers: returning
+DEBUG reallocPtree: returning: 2
+DEBUG lastChild: called on: 0x1506150
+DEBUG nthChild: called on: 0x1506150, -1
+DEBUG nthChild: returning: 0x1506268
+DEBUG lastChild: returning: 0x1506268
+DEBUG newPtree: called on: 0x1506150, (null), 0
+DEBUG setString: called on: 0x7ffffb3e1ad0, (null), 0
+DEBUG setString: returning
+DEBUG newPtree: returning: 0x7ffffff0
+DEBUG appendNewPtree: returning: 1
+DEBUG lastChild: called on: 0x1506150
+DEBUG nthChild: called on: 0x1506150, -1
+DEBUG nthChild: returning: 0x1506268
+DEBUG lastChild: returning: 0x1506268
+DEBUG setString: called on: 0x1506268, digit, 5
+DEBUG setString: returning
+DEBUG accept: parsing failed
+DEBUG getSize: called on: 0x1506150
+DEBUG getSize: returning: 2
+DEBUG reallocPtree: called on: 0x1506150, 1
+DEBUG getSize: called on: 0x1506150
+DEBUG getSize: returning: 2
+DEBUG deleteChildrenAfter: called on: 0x1506150, 0
+DEBUG nthChild: called on: 0x1506150, 1
+DEBUG nthChild: returning: 0x1506268
+DEBUG lastChild: called on: 0x1506150
+DEBUG nthChild: called on: 0x1506150, -1
+DEBUG nthChild: returning: 0x1506268
+DEBUG lastChild: returning: 0x1506268
+DEBUG deletePtree: called on: 0x1506268
+DEBUG firstChild: called on: 0x1506268
+DEBUG isTerminal: called on: 0x1506268
+DEBUG isTerminal: returning: 1
+DEBUG firstChild: returning: (nil)
+DEBUG freePtree: called on: 0x1506268
+DEBUG freePtree: returning
+DEBUG deletePtree: returning
+DEBUG deleteChildrenAfter: returning
+DEBUG reallocPtree: returning: 1
+DEBUG repeatMinMax: successful
+DEBUG appendNewPtree: called on: 0x1506100, (null), 0
+DEBUG reallocPtree: called on: 0x1506100, 2
+DEBUG getSize: called on: 0x1506100
+DEBUG getSize: returning: 1
+DEBUG updateGrandchildPointers: called on: 0x1506100
+DEBUG nthChild: called on: 0x1506100, 0
+DEBUG nthChild: returning: 0x15062c0
+DEBUG nthChild: called on: 0x15062c0, 0
+DEBUG nthChild: returning: 0x1506240
+DEBUG nthChild: called on: 0x15062c0, 1
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506100, 1
+DEBUG nthChild: returning: 0x15062e8
+DEBUG nthChild: called on: 0x15062e8, 0
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506100, 2
+DEBUG nthChild: returning: (nil)
+DEBUG updateGrandchildPointers: returning
+DEBUG reallocPtree: returning: 2
+DEBUG lastChild: called on: 0x1506100
+DEBUG nthChild: called on: 0x1506100, -1
+DEBUG nthChild: returning: 0x15062e8
+DEBUG lastChild: returning: 0x15062e8
+DEBUG newPtree: called on: 0x1506100, (null), 0
+DEBUG setString: called on: 0x7ffffb3e1c20, (null), 0
+DEBUG setString: returning
+DEBUG newPtree: returning: 0x7ffffff0
+DEBUG appendNewPtree: returning: 1
+DEBUG lastChild: called on: 0x1506100
+DEBUG nthChild: called on: 0x1506100, -1
+DEBUG nthChild: returning: 0x15062e8
+DEBUG lastChild: returning: 0x15062e8
+DEBUG setString: called on: 0x15062e8, multiplication, 14
+DEBUG setString: returning
+DEBUG accept: parsing failed
+DEBUG getSize: called on: 0x1506100
+DEBUG getSize: returning: 2
+DEBUG reallocPtree: called on: 0x1506100, 1
+DEBUG getSize: called on: 0x1506100
+DEBUG getSize: returning: 2
+DEBUG deleteChildrenAfter: called on: 0x1506100, 0
+DEBUG nthChild: called on: 0x1506100, 1
+DEBUG nthChild: returning: 0x15062e8
+DEBUG lastChild: called on: 0x1506100
+DEBUG nthChild: called on: 0x1506100, -1
+DEBUG nthChild: returning: 0x15062e8
+DEBUG lastChild: returning: 0x15062e8
+DEBUG deletePtree: called on: 0x15062e8
+DEBUG firstChild: called on: 0x15062e8
+DEBUG isTerminal: called on: 0x15062e8
+DEBUG isTerminal: returning: 1
+DEBUG firstChild: returning: (nil)
+DEBUG freePtree: called on: 0x15062e8
+DEBUG freePtree: returning
+DEBUG deletePtree: returning
+DEBUG deleteChildrenAfter: returning
+DEBUG reallocPtree: returning: 1
+DEBUG appendNewPtree: called on: 0x1506090, (null), 0
+DEBUG reallocPtree: called on: 0x1506090, 2
+DEBUG getSize: called on: 0x1506090
+DEBUG getSize: returning: 1
+DEBUG updateGrandchildPointers: called on: 0x1506090
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x1506320
+DEBUG nthChild: called on: 0x1506320, 0
+DEBUG nthChild: returning: 0x15062c0
+DEBUG nthChild: called on: 0x1506320, 1
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506090, 1
+DEBUG nthChild: returning: 0x1506348
+DEBUG nthChild: called on: 0x1506348, 0
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506090, 2
+DEBUG nthChild: returning: (nil)
+DEBUG updateGrandchildPointers: returning
+DEBUG reallocPtree: returning: 2
+DEBUG lastChild: called on: 0x1506090
+DEBUG nthChild: called on: 0x1506090, -1
+DEBUG nthChild: returning: 0x1506348
+DEBUG lastChild: returning: 0x1506348
+DEBUG newPtree: called on: 0x1506090, (null), 0
+DEBUG setString: called on: 0x7ffffb3e1cc0, (null), 0
+DEBUG setString: returning
+DEBUG newPtree: returning: 0x7ffffff0
+DEBUG appendNewPtree: returning: 1
+DEBUG lastChild: called on: 0x1506090
+DEBUG nthChild: called on: 0x1506090, -1
+DEBUG nthChild: returning: 0x1506348
+DEBUG lastChild: returning: 0x1506348
+DEBUG setString: called on: 0x1506348, addition, 8
+DEBUG setString: returning
+DEBUG appendNewPtree: called on: 0x1506348, +-, 1
+DEBUG reallocPtree: called on: 0x1506348, 1
+DEBUG getSize: called on: 0x1506348
+DEBUG getSize: returning: 0
+DEBUG updateGrandchildPointers: called on: 0x1506348
+DEBUG nthChild: called on: 0x1506348, 0
+DEBUG nthChild: returning: 0x1506100
+DEBUG nthChild: called on: 0x1506100, 0
+DEBUG nthChild: returning: 0x15062c0
+DEBUG nthChild: called on: 0x1506100, 1
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506348, 1
+DEBUG nthChild: returning: (nil)
+DEBUG updateGrandchildPointers: returning
+DEBUG reallocPtree: returning: 2
+DEBUG lastChild: called on: 0x1506348
+DEBUG nthChild: called on: 0x1506348, -1
+DEBUG nthChild: returning: 0x1506100
+DEBUG lastChild: returning: 0x1506100
+DEBUG newPtree: called on: 0x1506348, +-, 1
+DEBUG setString: called on: 0x7ffffb3e1c60, +-, 1
+DEBUG setString: returning
+DEBUG newPtree: returning: 0x7ffffff0
+DEBUG appendNewPtree: returning: 1
+DEBUG appendNewPtree: called on: 0x1506090, (null), 0
+DEBUG reallocPtree: called on: 0x1506090, 3
+DEBUG getSize: called on: 0x1506090
+DEBUG getSize: returning: 2
+DEBUG updateGrandchildPointers: called on: 0x1506090
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15063a0
+DEBUG nthChild: called on: 0x15063a0, 0
+DEBUG nthChild: returning: 0x15062c0
+DEBUG nthChild: called on: 0x15063a0, 1
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506090, 1
+DEBUG nthChild: returning: 0x15063c8
+DEBUG nthChild: called on: 0x15063c8, 0
+DEBUG nthChild: returning: 0x1506100
+DEBUG nthChild: called on: 0x15063c8, 1
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506090, 2
+DEBUG nthChild: returning: 0x15063f0
+DEBUG nthChild: called on: 0x15063f0, 0
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506090, 3
+DEBUG nthChild: returning: (nil)
+DEBUG updateGrandchildPointers: returning
+DEBUG reallocPtree: returning: 2
+DEBUG lastChild: called on: 0x1506090
+DEBUG nthChild: called on: 0x1506090, -1
+DEBUG nthChild: returning: 0x15063f0
+DEBUG lastChild: returning: 0x15063f0
+DEBUG newPtree: called on: 0x1506090, (null), 0
+DEBUG setString: called on: 0x7ffffb3e1c80, (null), 0
+DEBUG setString: returning
+DEBUG newPtree: returning: 0x7ffffff0
+DEBUG appendNewPtree: returning: 1
+DEBUG lastChild: called on: 0x1506090
+DEBUG nthChild: called on: 0x1506090, -1
+DEBUG nthChild: returning: 0x15063f0
+DEBUG lastChild: returning: 0x15063f0
+DEBUG setString: called on: 0x15063f0, multiplicative, 14
+DEBUG setString: returning
+DEBUG appendNewPtree: called on: 0x15063f0, (null), 0
+DEBUG reallocPtree: called on: 0x15063f0, 1
+DEBUG getSize: called on: 0x15063f0
+DEBUG getSize: returning: 0
+DEBUG updateGrandchildPointers: called on: 0x15063f0
+DEBUG nthChild: called on: 0x15063f0, 0
+DEBUG nthChild: returning: 0x15062f0
+DEBUG nthChild: called on: 0x15062f0, 0
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x15063f0, 1
+DEBUG nthChild: returning: (nil)
+DEBUG updateGrandchildPointers: returning
+DEBUG reallocPtree: returning: 2
+DEBUG lastChild: called on: 0x15063f0
+DEBUG nthChild: called on: 0x15063f0, -1
+DEBUG nthChild: returning: 0x15062f0
+DEBUG lastChild: returning: 0x15062f0
+DEBUG newPtree: called on: 0x15063f0, (null), 0
+DEBUG setString: called on: 0x7ffffb3e1be0, (null), 0
+DEBUG setString: returning
+DEBUG newPtree: returning: 0x7ffffff0
+DEBUG appendNewPtree: returning: 1
+DEBUG lastChild: called on: 0x15063f0
+DEBUG nthChild: called on: 0x15063f0, -1
+DEBUG nthChild: returning: 0x15062f0
+DEBUG lastChild: returning: 0x15062f0
+DEBUG setString: called on: 0x15062f0, primary, 7
+DEBUG setString: returning
+DEBUG setString: called on: 0x15062f0, integer, 7
+DEBUG setString: returning
+DEBUG appendNewPtree: called on: 0x15062f0, (null), 0
+DEBUG reallocPtree: called on: 0x15062f0, 1
+DEBUG getSize: called on: 0x15062f0
+DEBUG getSize: returning: 0
+DEBUG updateGrandchildPointers: called on: 0x15062f0
+DEBUG nthChild: called on: 0x15062f0, 0
+DEBUG nthChild: returning: 0x1506150
+DEBUG nthChild: called on: 0x1506150, 0
+DEBUG nthChild: returning: 0x1506240
+DEBUG nthChild: called on: 0x1506150, 1
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x15062f0, 1
+DEBUG nthChild: returning: (nil)
+DEBUG updateGrandchildPointers: returning
+DEBUG reallocPtree: returning: 2
+DEBUG lastChild: called on: 0x15062f0
+DEBUG nthChild: called on: 0x15062f0, -1
+DEBUG nthChild: returning: 0x1506150
+DEBUG lastChild: returning: 0x1506150
+DEBUG newPtree: called on: 0x15062f0, (null), 0
+DEBUG setString: called on: 0x7ffffb3e1a50, (null), 0
+DEBUG setString: returning
+DEBUG newPtree: returning: 0x7ffffff0
+DEBUG appendNewPtree: returning: 1
+DEBUG lastChild: called on: 0x15062f0
+DEBUG nthChild: called on: 0x15062f0, -1
+DEBUG nthChild: returning: 0x1506150
+DEBUG lastChild: returning: 0x1506150
+DEBUG setString: called on: 0x1506150, digit, 5
+DEBUG setString: returning
+DEBUG appendNewPtree: called on: 0x1506150, 123456789, 1
+DEBUG reallocPtree: called on: 0x1506150, 1
+DEBUG getSize: called on: 0x1506150
+DEBUG getSize: returning: 0
+DEBUG updateGrandchildPointers: called on: 0x1506150
+DEBUG nthChild: called on: 0x1506150, 0
+DEBUG nthChild: returning: 0x1506270
+DEBUG nthChild: called on: 0x1506270, 0
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506150, 1
+DEBUG nthChild: returning: (nil)
+DEBUG updateGrandchildPointers: returning
+DEBUG reallocPtree: returning: 2
+DEBUG lastChild: called on: 0x1506150
+DEBUG nthChild: called on: 0x1506150, -1
+DEBUG nthChild: returning: 0x1506270
+DEBUG lastChild: returning: 0x1506270
+DEBUG newPtree: called on: 0x1506150, 123456789, 1
+DEBUG setString: called on: 0x7ffffb3e19f0, 123456789, 1
+DEBUG setString: returning
+DEBUG newPtree: returning: 0x7ffffff0
+DEBUG appendNewPtree: returning: 1
+DEBUG appendNewPtree: called on: 0x15062f0, (null), 0
+DEBUG reallocPtree: called on: 0x15062f0, 2
+DEBUG getSize: called on: 0x15062f0
+DEBUG getSize: returning: 1
+DEBUG updateGrandchildPointers: called on: 0x15062f0
+DEBUG nthChild: called on: 0x15062f0, 0
+DEBUG nthChild: returning: 0x1506320
+DEBUG nthChild: called on: 0x1506320, 0
+DEBUG nthChild: returning: 0x1506270
+DEBUG nthChild: called on: 0x1506320, 1
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x15062f0, 1
+DEBUG nthChild: returning: 0x1506348
+DEBUG nthChild: called on: 0x1506348, 0
+DEBUG nthChild: returning: 0x1506100
+DEBUG nthChild: called on: 0x1506348, 1
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x15062f0, 2
+DEBUG nthChild: returning: (nil)
+DEBUG updateGrandchildPointers: returning
+DEBUG reallocPtree: returning: 2
+DEBUG lastChild: called on: 0x15062f0
+DEBUG nthChild: called on: 0x15062f0, -1
+DEBUG nthChild: returning: 0x1506348
+DEBUG lastChild: returning: 0x1506348
+DEBUG newPtree: called on: 0x15062f0, (null), 0
+DEBUG setString: called on: 0x7ffffb3e1a90, (null), 0
+DEBUG setString: returning
+DEBUG newPtree: returning: 0x7ffffff0
+DEBUG appendNewPtree: returning: 1
+DEBUG lastChild: called on: 0x15062f0
+DEBUG nthChild: called on: 0x15062f0, -1
+DEBUG nthChild: returning: 0x1506348
+DEBUG lastChild: returning: 0x1506348
+DEBUG setString: called on: 0x1506348, digit, 5
+DEBUG setString: returning
+DEBUG accept: parsing failed
+DEBUG getSize: called on: 0x15062f0
+DEBUG getSize: returning: 2
+DEBUG reallocPtree: called on: 0x15062f0, 1
+DEBUG getSize: called on: 0x15062f0
+DEBUG getSize: returning: 2
+DEBUG deleteChildrenAfter: called on: 0x15062f0, 0
+DEBUG nthChild: called on: 0x15062f0, 1
+DEBUG nthChild: returning: 0x1506348
+DEBUG lastChild: called on: 0x15062f0
+DEBUG nthChild: called on: 0x15062f0, -1
+DEBUG nthChild: returning: 0x1506348
+DEBUG lastChild: returning: 0x1506348
+DEBUG deletePtree: called on: 0x1506348
+DEBUG firstChild: called on: 0x1506348
+DEBUG isTerminal: called on: 0x1506348
+DEBUG isTerminal: returning: 1
+DEBUG firstChild: returning: (nil)
+DEBUG freePtree: called on: 0x1506348
+DEBUG freePtree: returning
+DEBUG deletePtree: returning
+DEBUG deleteChildrenAfter: returning
+DEBUG reallocPtree: returning: 1
+DEBUG repeatMinMax: successful
+DEBUG appendNewPtree: called on: 0x15063f0, (null), 0
+DEBUG reallocPtree: called on: 0x15063f0, 2
+DEBUG getSize: called on: 0x15063f0
+DEBUG getSize: returning: 1
+DEBUG updateGrandchildPointers: called on: 0x15063f0
+DEBUG nthChild: called on: 0x15063f0, 0
+DEBUG nthChild: returning: 0x15064c0
+DEBUG nthChild: called on: 0x15064c0, 0
+DEBUG nthChild: returning: 0x1506320
+DEBUG nthChild: called on: 0x15064c0, 1
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x15063f0, 1
+DEBUG nthChild: returning: 0x15064e8
+DEBUG nthChild: called on: 0x15064e8, 0
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x15063f0, 2
+DEBUG nthChild: returning: (nil)
+DEBUG updateGrandchildPointers: returning
+DEBUG reallocPtree: returning: 2
+DEBUG lastChild: called on: 0x15063f0
+DEBUG nthChild: called on: 0x15063f0, -1
+DEBUG nthChild: returning: 0x15064e8
+DEBUG lastChild: returning: 0x15064e8
+DEBUG newPtree: called on: 0x15063f0, (null), 0
+DEBUG setString: called on: 0x7ffffb3e1be0, (null), 0
+DEBUG setString: returning
+DEBUG newPtree: returning: 0x7ffffff0
+DEBUG appendNewPtree: returning: 1
+DEBUG lastChild: called on: 0x15063f0
+DEBUG nthChild: called on: 0x15063f0, -1
+DEBUG nthChild: returning: 0x15064e8
+DEBUG lastChild: returning: 0x15064e8
+DEBUG setString: called on: 0x15064e8, multiplication, 14
+DEBUG setString: returning
+DEBUG appendNewPtree: called on: 0x15064e8, */%, 1
+DEBUG reallocPtree: called on: 0x15064e8, 1
+DEBUG getSize: called on: 0x15064e8
+DEBUG getSize: returning: 0
+DEBUG updateGrandchildPointers: called on: 0x15064e8
+DEBUG nthChild: called on: 0x15064e8, 0
+DEBUG nthChild: returning: 0x15062f0
+DEBUG nthChild: called on: 0x15062f0, 0
+DEBUG nthChild: returning: 0x1506320
+DEBUG nthChild: called on: 0x15062f0, 1
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x15064e8, 1
+DEBUG nthChild: returning: (nil)
+DEBUG updateGrandchildPointers: returning
+DEBUG reallocPtree: returning: 2
+DEBUG lastChild: called on: 0x15064e8
+DEBUG nthChild: called on: 0x15064e8, -1
+DEBUG nthChild: returning: 0x15062f0
+DEBUG lastChild: returning: 0x15062f0
+DEBUG newPtree: called on: 0x15064e8, */%, 1
+DEBUG setString: called on: 0x7ffffb3e1b80, */%, 1
+DEBUG setString: returning
+DEBUG newPtree: returning: 0x7ffffff0
+DEBUG appendNewPtree: returning: 1
+DEBUG appendNewPtree: called on: 0x15063f0, (null), 0
+DEBUG reallocPtree: called on: 0x15063f0, 3
+DEBUG getSize: called on: 0x15063f0
+DEBUG getSize: returning: 2
+DEBUG updateGrandchildPointers: called on: 0x15063f0
+DEBUG nthChild: called on: 0x15063f0, 0
+DEBUG nthChild: returning: 0x1506540
+DEBUG nthChild: called on: 0x1506540, 0
+DEBUG nthChild: returning: 0x1506320
+DEBUG nthChild: called on: 0x1506540, 1
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x15063f0, 1
+DEBUG nthChild: returning: 0x1506568
+DEBUG nthChild: called on: 0x1506568, 0
+DEBUG nthChild: returning: 0x15062f0
+DEBUG nthChild: called on: 0x1506568, 1
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x15063f0, 2
+DEBUG nthChild: returning: 0x1506590
+DEBUG nthChild: called on: 0x1506590, 0
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x15063f0, 3
+DEBUG nthChild: returning: (nil)
+DEBUG updateGrandchildPointers: returning
+DEBUG reallocPtree: returning: 2
+DEBUG lastChild: called on: 0x15063f0
+DEBUG nthChild: called on: 0x15063f0, -1
+DEBUG nthChild: returning: 0x1506590
+DEBUG lastChild: returning: 0x1506590
+DEBUG newPtree: called on: 0x15063f0, (null), 0
+DEBUG setString: called on: 0x7ffffb3e1ba0, (null), 0
+DEBUG setString: returning
+DEBUG newPtree: returning: 0x7ffffff0
+DEBUG appendNewPtree: returning: 1
+DEBUG lastChild: called on: 0x15063f0
+DEBUG nthChild: called on: 0x15063f0, -1
+DEBUG nthChild: returning: 0x1506590
+DEBUG lastChild: returning: 0x1506590
+DEBUG setString: called on: 0x1506590, primary, 7
+DEBUG setString: returning
+DEBUG setString: called on: 0x1506590, integer, 7
+DEBUG setString: returning
+DEBUG appendNewPtree: called on: 0x1506590, (null), 0
+DEBUG reallocPtree: called on: 0x1506590, 1
+DEBUG getSize: called on: 0x1506590
+DEBUG getSize: returning: 0
+DEBUG updateGrandchildPointers: called on: 0x1506590
+DEBUG nthChild: called on: 0x1506590, 0
+DEBUG nthChild: returning: 0x1506350
+DEBUG nthChild: called on: 0x1506350, 0
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506590, 1
+DEBUG nthChild: returning: (nil)
+DEBUG updateGrandchildPointers: returning
+DEBUG reallocPtree: returning: 2
+DEBUG lastChild: called on: 0x1506590
+DEBUG nthChild: called on: 0x1506590, -1
+DEBUG nthChild: returning: 0x1506350
+DEBUG lastChild: returning: 0x1506350
+DEBUG newPtree: called on: 0x1506590, (null), 0
+DEBUG setString: called on: 0x7ffffb3e1a10, (null), 0
+DEBUG setString: returning
+DEBUG newPtree: returning: 0x7ffffff0
+DEBUG appendNewPtree: returning: 1
+DEBUG lastChild: called on: 0x1506590
+DEBUG nthChild: called on: 0x1506590, -1
+DEBUG nthChild: returning: 0x1506350
+DEBUG lastChild: returning: 0x1506350
+DEBUG setString: called on: 0x1506350, digit, 5
+DEBUG setString: returning
+DEBUG appendNewPtree: called on: 0x1506350, 123456789, 1
+DEBUG reallocPtree: called on: 0x1506350, 1
+DEBUG getSize: called on: 0x1506350
+DEBUG getSize: returning: 0
+DEBUG updateGrandchildPointers: called on: 0x1506350
+DEBUG nthChild: called on: 0x1506350, 0
+DEBUG nthChild: returning: 0x1506150
+DEBUG nthChild: called on: 0x1506150, 0
+DEBUG nthChild: returning: 0x1506270
+DEBUG nthChild: called on: 0x1506150, 1
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506350, 1
+DEBUG nthChild: returning: (nil)
+DEBUG updateGrandchildPointers: returning
+DEBUG reallocPtree: returning: 2
+DEBUG lastChild: called on: 0x1506350
+DEBUG nthChild: called on: 0x1506350, -1
+DEBUG nthChild: returning: 0x1506150
+DEBUG lastChild: returning: 0x1506150
+DEBUG newPtree: called on: 0x1506350, 123456789, 1
+DEBUG setString: called on: 0x7ffffb3e19b0, 123456789, 1
+DEBUG setString: returning
+DEBUG newPtree: returning: 0x7ffffff0
+DEBUG appendNewPtree: returning: 1
+DEBUG appendNewPtree: called on: 0x1506590, (null), 0
+DEBUG reallocPtree: called on: 0x1506590, 2
+DEBUG getSize: called on: 0x1506590
+DEBUG getSize: returning: 1
+DEBUG updateGrandchildPointers: called on: 0x1506590
+DEBUG nthChild: called on: 0x1506590, 0
+DEBUG nthChild: returning: 0x15064c0
+DEBUG nthChild: called on: 0x15064c0, 0
+DEBUG nthChild: returning: 0x1506150
+DEBUG nthChild: called on: 0x15064c0, 1
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506590, 1
+DEBUG nthChild: returning: 0x15064e8
+DEBUG nthChild: called on: 0x15064e8, 0
+DEBUG nthChild: returning: 0x15062f0
+DEBUG nthChild: called on: 0x15064e8, 1
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506590, 2
+DEBUG nthChild: returning: (nil)
+DEBUG updateGrandchildPointers: returning
+DEBUG reallocPtree: returning: 2
+DEBUG lastChild: called on: 0x1506590
+DEBUG nthChild: called on: 0x1506590, -1
+DEBUG nthChild: returning: 0x15064e8
+DEBUG lastChild: returning: 0x15064e8
+DEBUG newPtree: called on: 0x1506590, (null), 0
+DEBUG setString: called on: 0x7ffffb3e1a50, (null), 0
+DEBUG setString: returning
+DEBUG newPtree: returning: 0x7ffffff0
+DEBUG appendNewPtree: returning: 1
+DEBUG lastChild: called on: 0x1506590
+DEBUG nthChild: called on: 0x1506590, -1
+DEBUG nthChild: returning: 0x15064e8
+DEBUG lastChild: returning: 0x15064e8
+DEBUG setString: called on: 0x15064e8, digit, 5
+DEBUG setString: returning
+DEBUG accept: parsing failed
+DEBUG getSize: called on: 0x1506590
+DEBUG getSize: returning: 2
+DEBUG reallocPtree: called on: 0x1506590, 1
+DEBUG getSize: called on: 0x1506590
+DEBUG getSize: returning: 2
+DEBUG deleteChildrenAfter: called on: 0x1506590, 0
+DEBUG nthChild: called on: 0x1506590, 1
+DEBUG nthChild: returning: 0x15064e8
+DEBUG lastChild: called on: 0x1506590
+DEBUG nthChild: called on: 0x1506590, -1
+DEBUG nthChild: returning: 0x15064e8
+DEBUG lastChild: returning: 0x15064e8
+DEBUG deletePtree: called on: 0x15064e8
+DEBUG firstChild: called on: 0x15064e8
+DEBUG isTerminal: called on: 0x15064e8
+DEBUG isTerminal: returning: 1
+DEBUG firstChild: returning: (nil)
+DEBUG freePtree: called on: 0x15064e8
+DEBUG freePtree: returning
+DEBUG deletePtree: returning
+DEBUG deleteChildrenAfter: returning
+DEBUG reallocPtree: returning: 1
+DEBUG repeatMinMax: successful
+DEBUG appendNewPtree: called on: 0x15063f0, (null), 0
+DEBUG reallocPtree: called on: 0x15063f0, 4
+DEBUG getSize: called on: 0x15063f0
+DEBUG getSize: returning: 3
+DEBUG updateGrandchildPointers: called on: 0x15063f0
+DEBUG nthChild: called on: 0x15063f0, 0
+DEBUG nthChild: returning: 0x1506640
+DEBUG nthChild: called on: 0x1506640, 0
+DEBUG nthChild: returning: 0x1506320
+DEBUG nthChild: called on: 0x1506640, 1
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x15063f0, 1
+DEBUG nthChild: returning: 0x1506668
+DEBUG nthChild: called on: 0x1506668, 0
+DEBUG nthChild: returning: 0x15062f0
+DEBUG nthChild: called on: 0x1506668, 1
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x15063f0, 2
+DEBUG nthChild: returning: 0x1506690
+DEBUG nthChild: called on: 0x1506690, 0
+DEBUG nthChild: returning: 0x15064c0
+DEBUG nthChild: called on: 0x1506690, 1
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x15063f0, 3
+DEBUG nthChild: returning: 0x15066b8
+DEBUG nthChild: called on: 0x15066b8, 0
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x15063f0, 4
+DEBUG nthChild: returning: (nil)
+DEBUG updateGrandchildPointers: returning
+DEBUG reallocPtree: returning: 2
+DEBUG lastChild: called on: 0x15063f0
+DEBUG nthChild: called on: 0x15063f0, -1
+DEBUG nthChild: returning: 0x15066b8
+DEBUG lastChild: returning: 0x15066b8
+DEBUG newPtree: called on: 0x15063f0, (null), 0
+DEBUG setString: called on: 0x7ffffb3e1be0, (null), 0
+DEBUG setString: returning
+DEBUG newPtree: returning: 0x7ffffff0
+DEBUG appendNewPtree: returning: 1
+DEBUG lastChild: called on: 0x15063f0
+DEBUG nthChild: called on: 0x15063f0, -1
+DEBUG nthChild: returning: 0x15066b8
+DEBUG lastChild: returning: 0x15066b8
+DEBUG setString: called on: 0x15066b8, multiplication, 14
+DEBUG setString: returning
+DEBUG accept: parsing failed
+DEBUG getSize: called on: 0x15063f0
+DEBUG getSize: returning: 4
+DEBUG reallocPtree: called on: 0x15063f0, 3
+DEBUG getSize: called on: 0x15063f0
+DEBUG getSize: returning: 4
+DEBUG deleteChildrenAfter: called on: 0x15063f0, 2
+DEBUG nthChild: called on: 0x15063f0, 3
+DEBUG nthChild: returning: 0x15066b8
+DEBUG lastChild: called on: 0x15063f0
+DEBUG nthChild: called on: 0x15063f0, -1
+DEBUG nthChild: returning: 0x15066b8
+DEBUG lastChild: returning: 0x15066b8
+DEBUG deletePtree: called on: 0x15066b8
+DEBUG firstChild: called on: 0x15066b8
+DEBUG isTerminal: called on: 0x15066b8
+DEBUG isTerminal: returning: 1
+DEBUG firstChild: returning: (nil)
+DEBUG freePtree: called on: 0x15066b8
+DEBUG freePtree: returning
+DEBUG deletePtree: returning
+DEBUG deleteChildrenAfter: returning
+DEBUG reallocPtree: returning: 1
+DEBUG appendNewPtree: called on: 0x1506090, (null), 0
+DEBUG reallocPtree: called on: 0x1506090, 4
+DEBUG getSize: called on: 0x1506090
+DEBUG getSize: returning: 3
+DEBUG updateGrandchildPointers: called on: 0x1506090
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+DEBUG nthChild: called on: 0x15066f0, 0
+DEBUG nthChild: returning: 0x15062c0
+DEBUG nthChild: called on: 0x15066f0, 1
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506090, 1
+DEBUG nthChild: returning: 0x1506718
+DEBUG nthChild: called on: 0x1506718, 0
+DEBUG nthChild: returning: 0x1506100
+DEBUG nthChild: called on: 0x1506718, 1
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506090, 2
+DEBUG nthChild: returning: 0x1506740
+DEBUG nthChild: called on: 0x1506740, 0
+DEBUG nthChild: returning: 0x1506640
+DEBUG nthChild: called on: 0x1506740, 1
+DEBUG nthChild: returning: 0x1506668
+DEBUG nthChild: called on: 0x1506740, 2
+DEBUG nthChild: returning: 0x1506690
+DEBUG nthChild: called on: 0x1506740, 3
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506090, 3
+DEBUG nthChild: returning: 0x1506768
+DEBUG nthChild: called on: 0x1506768, 0
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506090, 4
+DEBUG nthChild: returning: (nil)
+DEBUG updateGrandchildPointers: returning
+DEBUG reallocPtree: returning: 2
+DEBUG lastChild: called on: 0x1506090
+DEBUG nthChild: called on: 0x1506090, -1
+DEBUG nthChild: returning: 0x1506768
+DEBUG lastChild: returning: 0x1506768
+DEBUG newPtree: called on: 0x1506090, (null), 0
+DEBUG setString: called on: 0x7ffffb3e1cc0, (null), 0
+DEBUG setString: returning
+DEBUG newPtree: returning: 0x7ffffff0
+DEBUG appendNewPtree: returning: 1
+DEBUG lastChild: called on: 0x1506090
+DEBUG nthChild: called on: 0x1506090, -1
+DEBUG nthChild: returning: 0x1506768
+DEBUG lastChild: returning: 0x1506768
+DEBUG setString: called on: 0x1506768, addition, 8
+DEBUG setString: returning
+DEBUG accept: parsing failed
+DEBUG getSize: called on: 0x1506090
+DEBUG getSize: returning: 4
+DEBUG reallocPtree: called on: 0x1506090, 3
+DEBUG getSize: called on: 0x1506090
+DEBUG getSize: returning: 4
+DEBUG deleteChildrenAfter: called on: 0x1506090, 2
+DEBUG nthChild: called on: 0x1506090, 3
+DEBUG nthChild: returning: 0x1506768
+DEBUG lastChild: called on: 0x1506090
+DEBUG nthChild: called on: 0x1506090, -1
+DEBUG nthChild: returning: 0x1506768
+DEBUG lastChild: returning: 0x1506768
+DEBUG deletePtree: called on: 0x1506768
+DEBUG firstChild: called on: 0x1506768
+DEBUG isTerminal: called on: 0x1506768
+DEBUG isTerminal: returning: 1
+DEBUG firstChild: returning: (nil)
+DEBUG freePtree: called on: 0x1506768
+DEBUG freePtree: returning
+DEBUG deletePtree: returning
+DEBUG deleteChildrenAfter: returning
+DEBUG reallocPtree: returning: 1
+string "1+1*1" parsed successfully.  Output:
+addr:   0x1506090
+string: additive
+length: 8
+parent: (nil)
+nodec:  3
+nodes:  0x15066f0
+{
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+ addr:   0x15066f0
+ string: multiplicative
+ length: 14
+ parent: 0x1506090
+ nodec:  1
+ nodes:  0x15062c0
+ {
+DEBUG nthChild: called on: 0x15066f0, 0
+DEBUG nthChild: returning: 0x15062c0
+  addr:   0x15062c0
+  string: integer
+  length: 7
+  parent: 0x15066f0
+  nodec:  1
+  nodes:  0x1506240
+  {
+DEBUG nthChild: called on: 0x15062c0, 0
+DEBUG nthChild: returning: 0x1506240
+   addr:   0x1506240
+   string: digit
+   length: 5
+   parent: 0x1506150
+   nodec:  1
+   nodes:  0x15061f0
+   {
+DEBUG nthChild: called on: 0x1506240, 0
+DEBUG nthChild: returning: 0x15061f0
+    addr:   0x15061f0
+    string: 1
+    length: 1
+    parent: 0x1506240
+    nodec:  0
+    nodes:  (nil)
+    {
+DEBUG nthChild: called on: 0x15061f0, 0
+DEBUG nthChild: returning: (nil)
+    }
+DEBUG nthChild: called on: 0x1506240, 1
+DEBUG nthChild: returning: (nil)
+   }
+DEBUG nthChild: called on: 0x15062c0, 1
+DEBUG nthChild: returning: (nil)
+  }
+DEBUG nthChild: called on: 0x15066f0, 1
+DEBUG nthChild: returning: (nil)
+ }
+DEBUG nthChild: called on: 0x1506090, 1
+DEBUG nthChild: returning: 0x1506718
+ addr:   0x1506718
+ string: additioncation
+ length: 8
+ parent: 0x1506090
+ nodec:  1
+ nodes:  0x1506100
+ {
+DEBUG nthChild: called on: 0x1506718, 0
+DEBUG nthChild: returning: 0x1506100
+  addr:   0x1506100
+  string: +
+  length: 1
+  parent: 0x1506718
+  nodec:  0
+  nodes:  (nil)
+  {
+DEBUG nthChild: called on: 0x1506100, 0
+DEBUG nthChild: returning: (nil)
+  }
+DEBUG nthChild: called on: 0x1506718, 1
+DEBUG nthChild: returning: (nil)
+ }
+DEBUG nthChild: called on: 0x1506090, 2
+DEBUG nthChild: returning: 0x1506740
+ addr:   0x1506740
+ string: multiplicative
+ length: 14
+ parent: 0x1506090
+ nodec:  3
+ nodes:  0x1506640
+ {
+DEBUG nthChild: called on: 0x1506740, 0
+DEBUG nthChild: returning: 0x1506640
+  addr:   0x1506640
+  string: integer
+  length: 7
+  parent: 0x1506740
+  nodec:  1
+  nodes:  0x1506320
+  {
+DEBUG nthChild: called on: 0x1506640, 0
+DEBUG nthChild: returning: 0x1506320
+   addr:   0x1506320
+   string: digit
+   length: 5
+   parent: 0x1506640
+   nodec:  1
+   nodes:  0x1506270
+   {
+DEBUG nthChild: called on: 0x1506320, 0
+DEBUG nthChild: returning: 0x1506270
+    addr:   0x1506270
+    string: 1
+    length: 1
+    parent: 0x1506150
+    nodec:  0
+    nodes:  (nil)
+    {
+DEBUG nthChild: called on: 0x1506270, 0
+DEBUG nthChild: returning: (nil)
+    }
+DEBUG nthChild: called on: 0x1506320, 1
+DEBUG nthChild: returning: (nil)
+   }
+DEBUG nthChild: called on: 0x1506640, 1
+DEBUG nthChild: returning: (nil)
+  }
+DEBUG nthChild: called on: 0x1506740, 1
+DEBUG nthChild: returning: 0x1506668
+  addr:   0x1506668
+  string: multiplication
+  length: 14
+  parent: 0x1506740
+  nodec:  1
+  nodes:  0x15062f0
+  {
+DEBUG nthChild: called on: 0x1506668, 0
+DEBUG nthChild: returning: 0x15062f0
+   addr:   0x15062f0
+   string: *
+   length: 1
+   parent: 0x1506668
+   nodec:  0
+   nodes:  (nil)
+   {
+DEBUG nthChild: called on: 0x15062f0, 0
+DEBUG nthChild: returning: (nil)
+   }
+DEBUG nthChild: called on: 0x1506668, 1
+DEBUG nthChild: returning: (nil)
+  }
+DEBUG nthChild: called on: 0x1506740, 2
+DEBUG nthChild: returning: 0x1506690
+  addr:   0x1506690
+  string: integer
+  length: 7
+  parent: 0x1506740
+  nodec:  1
+  nodes:  0x15064c0
+  {
+DEBUG nthChild: called on: 0x1506690, 0
+DEBUG nthChild: returning: 0x15064c0
+   addr:   0x15064c0
+   string: digit
+   length: 5
+   parent: 0x1506690
+   nodec:  1
+   nodes:  0x1506150
+   {
+DEBUG nthChild: called on: 0x15064c0, 0
+DEBUG nthChild: returning: 0x1506150
+    addr:   0x1506150
+    string: 1
+    length: 1
+    parent: 0x15064c0
+    nodec:  0
+    nodes:  (nil)
+    {
+DEBUG nthChild: called on: 0x1506150, 0
+DEBUG nthChild: returning: (nil)
+    }
+DEBUG nthChild: called on: 0x15064c0, 1
+DEBUG nthChild: returning: (nil)
+   }
+DEBUG nthChild: called on: 0x1506690, 1
+DEBUG nthChild: returning: (nil)
+  }
+DEBUG nthChild: called on: 0x1506740, 3
+DEBUG nthChild: returning: (nil)
+ }
+DEBUG nthChild: called on: 0x1506090, 3
+DEBUG nthChild: returning: (nil)
+}
+DEBUG deletePtree: called on: 0x1506090
+DEBUG firstChild: called on: 0x1506090
+DEBUG isTerminal: called on: 0x1506090
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+DEBUG isDeleted: called on: 0x15066f0
+DEBUG isDeleted: returning: 22044816
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+DEBUG firstChild: returning: 0x15066f0
+DEBUG firstChild: called on: 0x1506090
+DEBUG isTerminal: called on: 0x1506090
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+DEBUG isDeleted: called on: 0x15066f0
+DEBUG isDeleted: returning: 22044816
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+DEBUG firstChild: returning: 0x15066f0
+DEBUG firstChild: called on: 0x15066f0
+DEBUG isTerminal: called on: 0x15066f0
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x15066f0, 0
+DEBUG nthChild: returning: 0x15062c0
+DEBUG nthChild: called on: 0x15066f0, 0
+DEBUG nthChild: returning: 0x15062c0
+DEBUG isDeleted: called on: 0x15062c0
+DEBUG isDeleted: returning: 22046448
+DEBUG nthChild: called on: 0x15066f0, 0
+DEBUG nthChild: returning: 0x15062c0
+DEBUG nthChild: called on: 0x15066f0, 0
+DEBUG nthChild: returning: 0x15062c0
+DEBUG firstChild: returning: 0x15062c0
+DEBUG firstChild: called on: 0x15066f0
+DEBUG isTerminal: called on: 0x15066f0
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x15066f0, 0
+DEBUG nthChild: returning: 0x15062c0
+DEBUG nthChild: called on: 0x15066f0, 0
+DEBUG nthChild: returning: 0x15062c0
+DEBUG isDeleted: called on: 0x15062c0
+DEBUG isDeleted: returning: 22046448
+DEBUG nthChild: called on: 0x15066f0, 0
+DEBUG nthChild: returning: 0x15062c0
+DEBUG nthChild: called on: 0x15066f0, 0
+DEBUG nthChild: returning: 0x15062c0
+DEBUG firstChild: returning: 0x15062c0
+DEBUG firstChild: called on: 0x15062c0
+DEBUG isTerminal: called on: 0x15062c0
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x15062c0, 0
+DEBUG nthChild: returning: 0x1506240
+DEBUG nthChild: called on: 0x15062c0, 0
+DEBUG nthChild: returning: 0x1506240
+DEBUG isDeleted: called on: 0x1506240
+DEBUG isDeleted: returning: 22045008
+DEBUG nthChild: called on: 0x15062c0, 0
+DEBUG nthChild: returning: 0x1506240
+DEBUG nthChild: called on: 0x15062c0, 0
+DEBUG nthChild: returning: 0x1506240
+DEBUG firstChild: returning: 0x1506240
+DEBUG firstChild: called on: 0x15062c0
+DEBUG isTerminal: called on: 0x15062c0
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x15062c0, 0
+DEBUG nthChild: returning: 0x1506240
+DEBUG nthChild: called on: 0x15062c0, 0
+DEBUG nthChild: returning: 0x1506240
+DEBUG isDeleted: called on: 0x1506240
+DEBUG isDeleted: returning: 22045008
+DEBUG nthChild: called on: 0x15062c0, 0
+DEBUG nthChild: returning: 0x1506240
+DEBUG nthChild: called on: 0x15062c0, 0
+DEBUG nthChild: returning: 0x1506240
+DEBUG firstChild: returning: 0x1506240
+DEBUG firstChild: called on: 0x1506240
+DEBUG isTerminal: called on: 0x1506240
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506240, 0
+DEBUG nthChild: returning: 0x15061f0
+DEBUG nthChild: called on: 0x1506240, 0
+DEBUG nthChild: returning: 0x15061f0
+DEBUG isDeleted: called on: 0x15061f0
+DEBUG isDeleted: returning: 22045248
+DEBUG nthChild: called on: 0x1506240, 0
+DEBUG nthChild: returning: 0x15061f0
+DEBUG nthChild: called on: 0x1506240, 0
+DEBUG nthChild: returning: 0x15061f0
+DEBUG firstChild: returning: 0x15061f0
+DEBUG firstChild: called on: 0x1506240
+DEBUG isTerminal: called on: 0x1506240
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506240, 0
+DEBUG nthChild: returning: 0x15061f0
+DEBUG nthChild: called on: 0x1506240, 0
+DEBUG nthChild: returning: 0x15061f0
+DEBUG isDeleted: called on: 0x15061f0
+DEBUG isDeleted: returning: 22045248
+DEBUG nthChild: called on: 0x1506240, 0
+DEBUG nthChild: returning: 0x15061f0
+DEBUG nthChild: called on: 0x1506240, 0
+DEBUG nthChild: returning: 0x15061f0
+DEBUG firstChild: returning: 0x15061f0
+DEBUG firstChild: called on: 0x15061f0
+DEBUG isTerminal: called on: 0x15061f0
+DEBUG isTerminal: returning: 1
+DEBUG firstChild: returning: (nil)
+DEBUG firstChild: called on: 0x1506240
+DEBUG isTerminal: called on: 0x1506240
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506240, 0
+DEBUG nthChild: returning: 0x15061f0
+DEBUG nthChild: called on: 0x1506240, 0
+DEBUG nthChild: returning: 0x15061f0
+DEBUG isDeleted: called on: 0x15061f0
+DEBUG isDeleted: returning: 22045248
+DEBUG nthChild: called on: 0x1506240, 0
+DEBUG nthChild: returning: 0x15061f0
+DEBUG nthChild: called on: 0x1506240, 0
+DEBUG nthChild: returning: 0x15061f0
+DEBUG firstChild: returning: 0x15061f0
+DEBUG freePtree: called on: 0x15061f0
+DEBUG freePtree: returning
+DEBUG firstChild: called on: 0x1506240
+DEBUG isTerminal: called on: 0x1506240
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506240, 0
+DEBUG nthChild: returning: 0x15061f0
+DEBUG nthChild: called on: 0x1506240, 0
+DEBUG nthChild: returning: 0x15061f0
+DEBUG isDeleted: called on: 0x15061f0
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506240, 1
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506240, 1
+DEBUG nthChild: returning: (nil)
+DEBUG firstChild: returning: (nil)
+DEBUG firstChild: called on: 0x1506150
+DEBUG isTerminal: called on: 0x1506150
+DEBUG isTerminal: returning: 1
+DEBUG firstChild: returning: (nil)
+DEBUG freePtree: called on: (nil)
+DEBUG freePtree: returning
+DEBUG firstChild: called on: 0x1506150
+DEBUG isTerminal: called on: 0x1506150
+DEBUG isTerminal: returning: 1
+DEBUG firstChild: returning: (nil)
+DEBUG firstChild: called on: 0x15064c0
+DEBUG isTerminal: called on: 0x15064c0
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x15064c0, 0
+DEBUG nthChild: returning: 0x1506150
+DEBUG nthChild: called on: 0x15064c0, 0
+DEBUG nthChild: returning: 0x1506150
+DEBUG isDeleted: called on: 0x1506150
+DEBUG isDeleted: returning: 22045888
+DEBUG nthChild: called on: 0x15064c0, 0
+DEBUG nthChild: returning: 0x1506150
+DEBUG nthChild: called on: 0x15064c0, 0
+DEBUG nthChild: returning: 0x1506150
+DEBUG firstChild: returning: 0x1506150
+DEBUG freePtree: called on: 0x1506150
+DEBUG freePtree: returning
+DEBUG firstChild: called on: 0x15064c0
+DEBUG isTerminal: called on: 0x15064c0
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x15064c0, 0
+DEBUG nthChild: returning: 0x1506150
+DEBUG nthChild: called on: 0x15064c0, 0
+DEBUG nthChild: returning: 0x1506150
+DEBUG isDeleted: called on: 0x1506150
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x15064c0, 1
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x15064c0, 1
+DEBUG nthChild: returning: (nil)
+DEBUG firstChild: returning: (nil)
+DEBUG firstChild: called on: 0x1506690
+DEBUG isTerminal: called on: 0x1506690
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506690, 0
+DEBUG nthChild: returning: 0x15064c0
+DEBUG nthChild: called on: 0x1506690, 0
+DEBUG nthChild: returning: 0x15064c0
+DEBUG isDeleted: called on: 0x15064c0
+DEBUG isDeleted: returning: 22046352
+DEBUG nthChild: called on: 0x1506690, 0
+DEBUG nthChild: returning: 0x15064c0
+DEBUG nthChild: called on: 0x1506690, 0
+DEBUG nthChild: returning: 0x15064c0
+DEBUG firstChild: returning: 0x15064c0
+DEBUG freePtree: called on: 0x15064c0
+DEBUG freePtree: returning
+DEBUG firstChild: called on: 0x1506690
+DEBUG isTerminal: called on: 0x1506690
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506690, 0
+DEBUG nthChild: returning: 0x15064c0
+DEBUG nthChild: called on: 0x1506690, 0
+DEBUG nthChild: returning: 0x15064c0
+DEBUG isDeleted: called on: 0x15064c0
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506690, 1
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506690, 1
+DEBUG nthChild: returning: (nil)
+DEBUG firstChild: returning: (nil)
+DEBUG firstChild: called on: 0x1506740
+DEBUG isTerminal: called on: 0x1506740
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506740, 0
+DEBUG nthChild: returning: 0x1506640
+DEBUG nthChild: called on: 0x1506740, 0
+DEBUG nthChild: returning: 0x1506640
+DEBUG isDeleted: called on: 0x1506640
+DEBUG isDeleted: returning: 22046528
+DEBUG nthChild: called on: 0x1506740, 0
+DEBUG nthChild: returning: 0x1506640
+DEBUG nthChild: called on: 0x1506740, 0
+DEBUG nthChild: returning: 0x1506640
+DEBUG firstChild: returning: 0x1506640
+DEBUG freePtree: called on: 0x1506640
+DEBUG freePtree: returning
+DEBUG firstChild: called on: 0x1506740
+DEBUG isTerminal: called on: 0x1506740
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506740, 0
+DEBUG nthChild: returning: 0x1506640
+DEBUG nthChild: called on: 0x1506740, 0
+DEBUG nthChild: returning: 0x1506640
+DEBUG isDeleted: called on: 0x1506640
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506740, 1
+DEBUG nthChild: returning: 0x1506668
+DEBUG nthChild: called on: 0x1506740, 1
+DEBUG nthChild: returning: 0x1506668
+DEBUG isDeleted: called on: 0x1506668
+DEBUG isDeleted: returning: 22046528
+DEBUG nthChild: called on: 0x1506740, 1
+DEBUG nthChild: returning: 0x1506668
+DEBUG nthChild: called on: 0x1506740, 1
+DEBUG nthChild: returning: 0x1506668
+DEBUG firstChild: returning: 0x1506668
+DEBUG firstChild: called on: 0x1506740
+DEBUG isTerminal: called on: 0x1506740
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506740, 0
+DEBUG nthChild: returning: 0x1506640
+DEBUG nthChild: called on: 0x1506740, 0
+DEBUG nthChild: returning: 0x1506640
+DEBUG isDeleted: called on: 0x1506640
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506740, 1
+DEBUG nthChild: returning: 0x1506668
+DEBUG nthChild: called on: 0x1506740, 1
+DEBUG nthChild: returning: 0x1506668
+DEBUG isDeleted: called on: 0x1506668
+DEBUG isDeleted: returning: 22046528
+DEBUG nthChild: called on: 0x1506740, 1
+DEBUG nthChild: returning: 0x1506668
+DEBUG nthChild: called on: 0x1506740, 1
+DEBUG nthChild: returning: 0x1506668
+DEBUG firstChild: returning: 0x1506668
+DEBUG firstChild: called on: 0x1506668
+DEBUG isTerminal: called on: 0x1506668
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506668, 0
+DEBUG nthChild: returning: 0x15062f0
+DEBUG nthChild: called on: 0x1506668, 0
+DEBUG nthChild: returning: 0x15062f0
+DEBUG isDeleted: called on: 0x15062f0
+DEBUG isDeleted: returning: 22046312
+DEBUG nthChild: called on: 0x1506668, 0
+DEBUG nthChild: returning: 0x15062f0
+DEBUG nthChild: called on: 0x1506668, 0
+DEBUG nthChild: returning: 0x15062f0
+DEBUG firstChild: returning: 0x15062f0
+DEBUG firstChild: called on: 0x1506668
+DEBUG isTerminal: called on: 0x1506668
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506668, 0
+DEBUG nthChild: returning: 0x15062f0
+DEBUG nthChild: called on: 0x1506668, 0
+DEBUG nthChild: returning: 0x15062f0
+DEBUG isDeleted: called on: 0x15062f0
+DEBUG isDeleted: returning: 22046312
+DEBUG nthChild: called on: 0x1506668, 0
+DEBUG nthChild: returning: 0x15062f0
+DEBUG nthChild: called on: 0x1506668, 0
+DEBUG nthChild: returning: 0x15062f0
+DEBUG firstChild: returning: 0x15062f0
+DEBUG firstChild: called on: 0x15062f0
+DEBUG isTerminal: called on: 0x15062f0
+DEBUG isTerminal: returning: 1
+DEBUG firstChild: returning: (nil)
+DEBUG firstChild: called on: 0x1506668
+DEBUG isTerminal: called on: 0x1506668
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506668, 0
+DEBUG nthChild: returning: 0x15062f0
+DEBUG nthChild: called on: 0x1506668, 0
+DEBUG nthChild: returning: 0x15062f0
+DEBUG isDeleted: called on: 0x15062f0
+DEBUG isDeleted: returning: 22046312
+DEBUG nthChild: called on: 0x1506668, 0
+DEBUG nthChild: returning: 0x15062f0
+DEBUG nthChild: called on: 0x1506668, 0
+DEBUG nthChild: returning: 0x15062f0
+DEBUG firstChild: returning: 0x15062f0
+DEBUG freePtree: called on: 0x15062f0
+DEBUG freePtree: returning
+DEBUG firstChild: called on: 0x1506668
+DEBUG isTerminal: called on: 0x1506668
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506668, 0
+DEBUG nthChild: returning: 0x15062f0
+DEBUG nthChild: called on: 0x1506668, 0
+DEBUG nthChild: returning: 0x15062f0
+DEBUG isDeleted: called on: 0x15062f0
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506668, 1
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506668, 1
+DEBUG nthChild: returning: (nil)
+DEBUG firstChild: returning: (nil)
+DEBUG firstChild: called on: 0x1506740
+DEBUG isTerminal: called on: 0x1506740
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506740, 0
+DEBUG nthChild: returning: 0x1506640
+DEBUG nthChild: called on: 0x1506740, 0
+DEBUG nthChild: returning: 0x1506640
+DEBUG isDeleted: called on: 0x1506640
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506740, 1
+DEBUG nthChild: returning: 0x1506668
+DEBUG nthChild: called on: 0x1506740, 1
+DEBUG nthChild: returning: 0x1506668
+DEBUG isDeleted: called on: 0x1506668
+DEBUG isDeleted: returning: 22046528
+DEBUG nthChild: called on: 0x1506740, 1
+DEBUG nthChild: returning: 0x1506668
+DEBUG nthChild: called on: 0x1506740, 1
+DEBUG nthChild: returning: 0x1506668
+DEBUG firstChild: returning: 0x1506668
+DEBUG freePtree: called on: 0x1506668
+DEBUG freePtree: returning
+DEBUG firstChild: called on: 0x1506740
+DEBUG isTerminal: called on: 0x1506740
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506740, 0
+DEBUG nthChild: returning: 0x1506640
+DEBUG nthChild: called on: 0x1506740, 0
+DEBUG nthChild: returning: 0x1506640
+DEBUG isDeleted: called on: 0x1506640
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506740, 1
+DEBUG nthChild: returning: 0x1506668
+DEBUG nthChild: called on: 0x1506740, 1
+DEBUG nthChild: returning: 0x1506668
+DEBUG isDeleted: called on: 0x1506668
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506740, 2
+DEBUG nthChild: returning: 0x1506690
+DEBUG nthChild: called on: 0x1506740, 2
+DEBUG nthChild: returning: 0x1506690
+DEBUG isDeleted: called on: 0x1506690
+DEBUG isDeleted: returning: 22046528
+DEBUG nthChild: called on: 0x1506740, 2
+DEBUG nthChild: returning: 0x1506690
+DEBUG nthChild: called on: 0x1506740, 2
+DEBUG nthChild: returning: 0x1506690
+DEBUG firstChild: returning: 0x1506690
+DEBUG firstChild: called on: 0x1506740
+DEBUG isTerminal: called on: 0x1506740
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506740, 0
+DEBUG nthChild: returning: 0x1506640
+DEBUG nthChild: called on: 0x1506740, 0
+DEBUG nthChild: returning: 0x1506640
+DEBUG isDeleted: called on: 0x1506640
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506740, 1
+DEBUG nthChild: returning: 0x1506668
+DEBUG nthChild: called on: 0x1506740, 1
+DEBUG nthChild: returning: 0x1506668
+DEBUG isDeleted: called on: 0x1506668
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506740, 2
+DEBUG nthChild: returning: 0x1506690
+DEBUG nthChild: called on: 0x1506740, 2
+DEBUG nthChild: returning: 0x1506690
+DEBUG isDeleted: called on: 0x1506690
+DEBUG isDeleted: returning: 22046528
+DEBUG nthChild: called on: 0x1506740, 2
+DEBUG nthChild: returning: 0x1506690
+DEBUG nthChild: called on: 0x1506740, 2
+DEBUG nthChild: returning: 0x1506690
+DEBUG firstChild: returning: 0x1506690
+DEBUG firstChild: called on: 0x1506690
+DEBUG isTerminal: called on: 0x1506690
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506690, 0
+DEBUG nthChild: returning: 0x15064c0
+DEBUG nthChild: called on: 0x1506690, 0
+DEBUG nthChild: returning: 0x15064c0
+DEBUG isDeleted: called on: 0x15064c0
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506690, 1
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506690, 1
+DEBUG nthChild: returning: (nil)
+DEBUG firstChild: returning: (nil)
+DEBUG firstChild: called on: 0x1506740
+DEBUG isTerminal: called on: 0x1506740
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506740, 0
+DEBUG nthChild: returning: 0x1506640
+DEBUG nthChild: called on: 0x1506740, 0
+DEBUG nthChild: returning: 0x1506640
+DEBUG isDeleted: called on: 0x1506640
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506740, 1
+DEBUG nthChild: returning: 0x1506668
+DEBUG nthChild: called on: 0x1506740, 1
+DEBUG nthChild: returning: 0x1506668
+DEBUG isDeleted: called on: 0x1506668
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506740, 2
+DEBUG nthChild: returning: 0x1506690
+DEBUG nthChild: called on: 0x1506740, 2
+DEBUG nthChild: returning: 0x1506690
+DEBUG isDeleted: called on: 0x1506690
+DEBUG isDeleted: returning: 22046528
+DEBUG nthChild: called on: 0x1506740, 2
+DEBUG nthChild: returning: 0x1506690
+DEBUG nthChild: called on: 0x1506740, 2
+DEBUG nthChild: returning: 0x1506690
+DEBUG firstChild: returning: 0x1506690
+DEBUG freePtree: called on: 0x1506690
+DEBUG freePtree: returning
+DEBUG firstChild: called on: 0x1506740
+DEBUG isTerminal: called on: 0x1506740
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506740, 0
+DEBUG nthChild: returning: 0x1506640
+DEBUG nthChild: called on: 0x1506740, 0
+DEBUG nthChild: returning: 0x1506640
+DEBUG isDeleted: called on: 0x1506640
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506740, 1
+DEBUG nthChild: returning: 0x1506668
+DEBUG nthChild: called on: 0x1506740, 1
+DEBUG nthChild: returning: 0x1506668
+DEBUG isDeleted: called on: 0x1506668
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506740, 2
+DEBUG nthChild: returning: 0x1506690
+DEBUG nthChild: called on: 0x1506740, 2
+DEBUG nthChild: returning: 0x1506690
+DEBUG isDeleted: called on: 0x1506690
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506740, 3
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506740, 3
+DEBUG nthChild: returning: (nil)
+DEBUG firstChild: returning: (nil)
+DEBUG firstChild: called on: 0x1506090
+DEBUG isTerminal: called on: 0x1506090
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+DEBUG isDeleted: called on: 0x15066f0
+DEBUG isDeleted: returning: 22044816
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+DEBUG firstChild: returning: 0x15066f0
+DEBUG freePtree: called on: 0x15066f0
+DEBUG freePtree: returning
+DEBUG firstChild: called on: 0x1506090
+DEBUG isTerminal: called on: 0x1506090
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+DEBUG isDeleted: called on: 0x15066f0
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506090, 1
+DEBUG nthChild: returning: 0x1506718
+DEBUG nthChild: called on: 0x1506090, 1
+DEBUG nthChild: returning: 0x1506718
+DEBUG isDeleted: called on: 0x1506718
+DEBUG isDeleted: returning: 22044816
+DEBUG nthChild: called on: 0x1506090, 1
+DEBUG nthChild: returning: 0x1506718
+DEBUG nthChild: called on: 0x1506090, 1
+DEBUG nthChild: returning: 0x1506718
+DEBUG firstChild: returning: 0x1506718
+DEBUG firstChild: called on: 0x1506090
+DEBUG isTerminal: called on: 0x1506090
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+DEBUG isDeleted: called on: 0x15066f0
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506090, 1
+DEBUG nthChild: returning: 0x1506718
+DEBUG nthChild: called on: 0x1506090, 1
+DEBUG nthChild: returning: 0x1506718
+DEBUG isDeleted: called on: 0x1506718
+DEBUG isDeleted: returning: 22044816
+DEBUG nthChild: called on: 0x1506090, 1
+DEBUG nthChild: returning: 0x1506718
+DEBUG nthChild: called on: 0x1506090, 1
+DEBUG nthChild: returning: 0x1506718
+DEBUG firstChild: returning: 0x1506718
+DEBUG firstChild: called on: 0x1506718
+DEBUG isTerminal: called on: 0x1506718
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506718, 0
+DEBUG nthChild: returning: 0x1506100
+DEBUG nthChild: called on: 0x1506718, 0
+DEBUG nthChild: returning: 0x1506100
+DEBUG isDeleted: called on: 0x1506100
+DEBUG isDeleted: returning: 22046488
+DEBUG nthChild: called on: 0x1506718, 0
+DEBUG nthChild: returning: 0x1506100
+DEBUG nthChild: called on: 0x1506718, 0
+DEBUG nthChild: returning: 0x1506100
+DEBUG firstChild: returning: 0x1506100
+DEBUG firstChild: called on: 0x1506718
+DEBUG isTerminal: called on: 0x1506718
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506718, 0
+DEBUG nthChild: returning: 0x1506100
+DEBUG nthChild: called on: 0x1506718, 0
+DEBUG nthChild: returning: 0x1506100
+DEBUG isDeleted: called on: 0x1506100
+DEBUG isDeleted: returning: 22046488
+DEBUG nthChild: called on: 0x1506718, 0
+DEBUG nthChild: returning: 0x1506100
+DEBUG nthChild: called on: 0x1506718, 0
+DEBUG nthChild: returning: 0x1506100
+DEBUG firstChild: returning: 0x1506100
+DEBUG firstChild: called on: 0x1506100
+DEBUG isTerminal: called on: 0x1506100
+DEBUG isTerminal: returning: 1
+DEBUG firstChild: returning: (nil)
+DEBUG firstChild: called on: 0x1506718
+DEBUG isTerminal: called on: 0x1506718
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506718, 0
+DEBUG nthChild: returning: 0x1506100
+DEBUG nthChild: called on: 0x1506718, 0
+DEBUG nthChild: returning: 0x1506100
+DEBUG isDeleted: called on: 0x1506100
+DEBUG isDeleted: returning: 22046488
+DEBUG nthChild: called on: 0x1506718, 0
+DEBUG nthChild: returning: 0x1506100
+DEBUG nthChild: called on: 0x1506718, 0
+DEBUG nthChild: returning: 0x1506100
+DEBUG firstChild: returning: 0x1506100
+DEBUG freePtree: called on: 0x1506100
+DEBUG freePtree: returning
+DEBUG firstChild: called on: 0x1506718
+DEBUG isTerminal: called on: 0x1506718
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506718, 0
+DEBUG nthChild: returning: 0x1506100
+DEBUG nthChild: called on: 0x1506718, 0
+DEBUG nthChild: returning: 0x1506100
+DEBUG isDeleted: called on: 0x1506100
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506718, 1
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506718, 1
+DEBUG nthChild: returning: (nil)
+DEBUG firstChild: returning: (nil)
+DEBUG firstChild: called on: 0x1506090
+DEBUG isTerminal: called on: 0x1506090
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+DEBUG isDeleted: called on: 0x15066f0
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506090, 1
+DEBUG nthChild: returning: 0x1506718
+DEBUG nthChild: called on: 0x1506090, 1
+DEBUG nthChild: returning: 0x1506718
+DEBUG isDeleted: called on: 0x1506718
+DEBUG isDeleted: returning: 22044816
+DEBUG nthChild: called on: 0x1506090, 1
+DEBUG nthChild: returning: 0x1506718
+DEBUG nthChild: called on: 0x1506090, 1
+DEBUG nthChild: returning: 0x1506718
+DEBUG firstChild: returning: 0x1506718
+DEBUG freePtree: called on: 0x1506718
+DEBUG freePtree: returning
+DEBUG firstChild: called on: 0x1506090
+DEBUG isTerminal: called on: 0x1506090
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+DEBUG isDeleted: called on: 0x15066f0
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506090, 1
+DEBUG nthChild: returning: 0x1506718
+DEBUG nthChild: called on: 0x1506090, 1
+DEBUG nthChild: returning: 0x1506718
+DEBUG isDeleted: called on: 0x1506718
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506090, 2
+DEBUG nthChild: returning: 0x1506740
+DEBUG nthChild: called on: 0x1506090, 2
+DEBUG nthChild: returning: 0x1506740
+DEBUG isDeleted: called on: 0x1506740
+DEBUG isDeleted: returning: 22044816
+DEBUG nthChild: called on: 0x1506090, 2
+DEBUG nthChild: returning: 0x1506740
+DEBUG nthChild: called on: 0x1506090, 2
+DEBUG nthChild: returning: 0x1506740
+DEBUG firstChild: returning: 0x1506740
+DEBUG firstChild: called on: 0x1506090
+DEBUG isTerminal: called on: 0x1506090
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+DEBUG isDeleted: called on: 0x15066f0
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506090, 1
+DEBUG nthChild: returning: 0x1506718
+DEBUG nthChild: called on: 0x1506090, 1
+DEBUG nthChild: returning: 0x1506718
+DEBUG isDeleted: called on: 0x1506718
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506090, 2
+DEBUG nthChild: returning: 0x1506740
+DEBUG nthChild: called on: 0x1506090, 2
+DEBUG nthChild: returning: 0x1506740
+DEBUG isDeleted: called on: 0x1506740
+DEBUG isDeleted: returning: 22044816
+DEBUG nthChild: called on: 0x1506090, 2
+DEBUG nthChild: returning: 0x1506740
+DEBUG nthChild: called on: 0x1506090, 2
+DEBUG nthChild: returning: 0x1506740
+DEBUG firstChild: returning: 0x1506740
+DEBUG firstChild: called on: 0x1506740
+DEBUG isTerminal: called on: 0x1506740
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506740, 0
+DEBUG nthChild: returning: 0x1506640
+DEBUG nthChild: called on: 0x1506740, 0
+DEBUG nthChild: returning: 0x1506640
+DEBUG isDeleted: called on: 0x1506640
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506740, 1
+DEBUG nthChild: returning: 0x1506668
+DEBUG nthChild: called on: 0x1506740, 1
+DEBUG nthChild: returning: 0x1506668
+DEBUG isDeleted: called on: 0x1506668
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506740, 2
+DEBUG nthChild: returning: 0x1506690
+DEBUG nthChild: called on: 0x1506740, 2
+DEBUG nthChild: returning: 0x1506690
+DEBUG isDeleted: called on: 0x1506690
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506740, 3
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506740, 3
+DEBUG nthChild: returning: (nil)
+DEBUG firstChild: returning: (nil)
+DEBUG firstChild: called on: 0x1506090
+DEBUG isTerminal: called on: 0x1506090
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+DEBUG isDeleted: called on: 0x15066f0
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506090, 1
+DEBUG nthChild: returning: 0x1506718
+DEBUG nthChild: called on: 0x1506090, 1
+DEBUG nthChild: returning: 0x1506718
+DEBUG isDeleted: called on: 0x1506718
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506090, 2
+DEBUG nthChild: returning: 0x1506740
+DEBUG nthChild: called on: 0x1506090, 2
+DEBUG nthChild: returning: 0x1506740
+DEBUG isDeleted: called on: 0x1506740
+DEBUG isDeleted: returning: 22044816
+DEBUG nthChild: called on: 0x1506090, 2
+DEBUG nthChild: returning: 0x1506740
+DEBUG nthChild: called on: 0x1506090, 2
+DEBUG nthChild: returning: 0x1506740
+DEBUG firstChild: returning: 0x1506740
+DEBUG freePtree: called on: 0x1506740
+DEBUG freePtree: returning
+DEBUG firstChild: called on: 0x1506090
+DEBUG isTerminal: called on: 0x1506090
+DEBUG isTerminal: returning: 0
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+DEBUG nthChild: called on: 0x1506090, 0
+DEBUG nthChild: returning: 0x15066f0
+DEBUG isDeleted: called on: 0x15066f0
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506090, 1
+DEBUG nthChild: returning: 0x1506718
+DEBUG nthChild: called on: 0x1506090, 1
+DEBUG nthChild: returning: 0x1506718
+DEBUG isDeleted: called on: 0x1506718
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506090, 2
+DEBUG nthChild: returning: 0x1506740
+DEBUG nthChild: called on: 0x1506090, 2
+DEBUG nthChild: returning: 0x1506740
+DEBUG isDeleted: called on: 0x1506740
+DEBUG isDeleted: returning: 0
+DEBUG nthChild: called on: 0x1506090, 3
+DEBUG nthChild: returning: (nil)
+DEBUG nthChild: called on: 0x1506090, 3
+DEBUG nthChild: returning: (nil)
+DEBUG firstChild: returning: (nil)
+DEBUG freePtree: called on: 0x1506090
+DEBUG freePtree: returning
+DEBUG deletePtree: returning

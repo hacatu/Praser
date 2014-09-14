@@ -5,7 +5,8 @@ typedef struct Ptree Ptree;
 
 typedef enum{
 	ADD,
-	PASS,
+	PASS,//Note: PASS is supposed to allow Ptrees to be flattened,
+	//but this way of doing that is pointless, so I am replacing it with flatten().
 	SKIP
 } AppendMode;
 

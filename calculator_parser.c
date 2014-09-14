@@ -128,9 +128,10 @@ int main(int argc, char **argv){
 		line[read - 1] = '\0';
 		p = firstPosition(line);
 		success = start(p, root);
-		printf("string \"%s\" parsed %ssuccessfully.  Output: %d\n", line, success?"":"un", 10);
+		printf("string \"%s\" parsed %ssuccessfully.  Output:\n", line, success?"":"un");
 		printPtree(root, 0);
 		flatten(root);
+		puts("flattened:");
 		printPtree(root, 0);
 		deletePtree(root);
 		free(root);

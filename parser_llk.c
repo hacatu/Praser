@@ -104,13 +104,12 @@ char expectEnd(Position *p){
 
 int try(Position *p, Ptree *t, AppendMode a, parser parse){
 	Position current = *p;
-	int children = size(t);
+	int children = getSize(t);
 	if(accept(&current, t, a, parse)){
 		*p = current;
 		return 1;
 	}
 	if(a != SKIP){
-		deleteChildrenAfter(t, children);
 		reallocPtree(t, children);
 	}
 	return 0;
@@ -118,6 +117,7 @@ int try(Position *p, Ptree *t, AppendMode a, parser parse){
 
 
 int accept(Position *p, Ptree *t, AppendMode a, parser parse){
+	Ptree *temp;
 	switch(a){
 		case ADD:
 		if(!appendNewPtree(t, NULL, 0)){
@@ -126,6 +126,7 @@ int accept(Position *p, Ptree *t, AppendMode a, parser parse){
 		}
 		if(!parse(p, lastChild(t))){
 			debug("parsing failed");
+			reallocPtree(t, getSize(t) - 1);
 			return 0;
 		}
 		return 1;
@@ -136,9 +137,22 @@ int accept(Position *p, Ptree *t, AppendMode a, parser parse){
 		}
 		return 1;
 		case SKIP:
+		temp = mallocPtree();
+		if(!temp){
+			debug("tempPtree failed");
+			return 0;
+		}
+		if(!parse(p, temp)){
+			debug("parsing failed");
+			deletePtree(temp);
+			free(temp);
+			return 0;
+		}
+		deletePtree(temp);
+		free(temp);
 		return 1;
 	}
-	//needed to supress erronious warning from gcc.  The above switch can't fall through bcause a is an enum.
+	//needed to supress erronious warning from gcc.  The above switch can't fall through because a is an enum.
 	return 1;
 }
 

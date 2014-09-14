@@ -3,6 +3,8 @@ EXE = calc_parser
 CFLAGS = -std=c11
 debug: CFLAGS += -g -DDEBUG
 debug: all
+test: CFLAGS += -g
+test: all
 all: $(EXE)
 $(EXE): parser_llk.o calculator_parser.o ptree.o
 	$(CC) $(CFLAGS) -o $@ $^
@@ -12,3 +14,4 @@ clean:
 	rm *.o $(EXE)
 rebuild: clean all
 rebug: clean debug
+retest: clean test
