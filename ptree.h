@@ -35,10 +35,13 @@ void appendString(Ptree *p, const char *string, int length);
 char isTerminal(const Ptree *t);
 
 
-/* Removes all Ptrees with only one child by their child.
+/* Replaces all Ptrees with only one child by their child.
  */
 void flatten(Ptree *t);
 
+/* Like flatten, but leaves Ptrees with terminal children
+ */
+void flattenTagged(Ptree *t);
 
 /* Returns the last child of a ptree
  */

@@ -16,6 +16,3 @@ int getSize(Ptree *t);
  */
 char reallocPtree(Ptree *t, int size);
 
-/* Deletes a Ptree's children after an index.
- */
-//void deleteChildrenAfter(Ptree *t, int n);

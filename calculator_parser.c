@@ -130,7 +130,7 @@ int main(int argc, char **argv){
 		success = start(p, root);
 		printf("string \"%s\" parsed %ssuccessfully.  Output:\n", line, success?"":"un");
 		printPtree(root, 0);
-		flatten(root);
+		flattenTagged(root);
 		puts("flattened:");
 		printPtree(root, 0);
 		deletePtree(root);

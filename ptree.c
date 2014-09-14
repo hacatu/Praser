@@ -116,7 +116,11 @@ char isDeleted(const Ptree *t){
 }
 
 
-//Functions to manipulate tree structure (in progress)    ============
+//Declaration:
+void updateChildPointers(Ptree *t);
+
+
+//Functions to manipulate tree structure (TODO: add more)    =========
 //TODO: make iterative
 void flatten(Ptree *t){
 	debug("called on: %p", t);
@@ -131,8 +135,33 @@ void flatten(Ptree *t){
 		free(child);
 	}
 	t->parent = parent;
+	updateChildPointers(t);
 	for(int i = 0; i < getSize(t); ++i){
 		flatten(nthChild(t, i));
+	}
+	debug("returning");
+}
+
+//TODO: make iterative
+void flattenTagged(Ptree *t){
+	debug("called on: %p", t);
+	Ptree *child, *parent = t->parent;
+	while(getSize(t) == 1){
+		child = nthChild(t, 0);
+		if(isTerminal(child)){
+			break;
+		}
+		free(t->string);
+		t->length = child->length;
+		t->nodec = child->nodec;
+		t->nodes = child->nodes;
+		t->string = child->string;
+		free(child);
+	}
+	t->parent = parent;
+	updateChildPointers(t);
+	for(int i = 0; i < getSize(t); ++i){
+		flattenTagged(nthChild(t, i));
 	}
 	debug("returning");
 }
@@ -198,19 +227,25 @@ Ptree* firstChild(Ptree *t){
 
 
 /* Local function not in header:
+ * updates child pointers to point to their new parent if moved
+ */
+void updateChildPointers(Ptree *t){
+	debug("called on: %p", t);
+	Ptree *child;
+	for(int i = 0; (child = nthChild(t, i)); ++i){
+		child->parent = t;
+	}
+	debug("returning");
+}
+
+/* Local function not in header:
  * updates grandchild pointers to point to their new parent if it is moved by realloc
  */
 void updateGrandchildPointers(Ptree *t){
 	debug("called on: %p", t);
-	int i = 0, j;
-	Ptree *child, *grandchild;
-	while((child = nthChild(t, i))){
-		j = 0;
-		while((grandchild = nthChild(child, j))){
-			grandchild->parent = child;
-			++j;
-		}
-		++i;
+	Ptree *child;
+	for(int i = 0; (child = nthChild(t, i)); ++i){
+		updateChildPointers(child);
 	}
 	debug("returning");
 }
