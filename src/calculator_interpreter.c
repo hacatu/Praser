@@ -17,14 +17,6 @@ DEFINE_STACK(Stack, double)
  * before you can RUN hehehe).
  */
 
-/*
-char isTag(Ptree *t){
-	if(getSize(t) != 1){
-		return 0;
-	}
-	return isTerminal(nthChild(t, 0));
-}
-* */
 
 double eval(Ptree *t){
 	Stack s = CREATE_STACK(double);
@@ -48,10 +40,10 @@ double eval(Ptree *t){
 			double b = POP(s);
 			if(!strcmp(tok, "+")){
 				debug_log("addition");
-				PUSH(double, s, a + b);
+				PUSH(double, s, b + a);
 			}else if(!strcmp(tok, "-")){
 				debug_log("subtraction");
-				PUSH(double, s, a - b);
+				PUSH(double, s, b - a);
 			}else{
 				//there is some kind of error.
 			}
@@ -61,13 +53,13 @@ double eval(Ptree *t){
 			double b = POP(s);
 			if(!strcmp(tok, "*")){
 				debug_log("multiplition");
-				PUSH(double, s, a*b);
+				PUSH(double, s, b*a);
 			}else if(!strcmp(tok, "/")){
 				debug_log("division");
-				PUSH(double, s, a/b);
+				PUSH(double, s, b/a);
 			}else if(!strcmp(tok, "%")){
 				debug_log("modulus");
-				PUSH(double, s, fmod(a,b));
+				PUSH(double, s, fmod(b,a));
 			}else{
 				//there is some kind of error.
 			}
