@@ -1,4 +1,6 @@
 //_ptree.h
+/* DO NOT INCLUDE THIS FILE!  This header is for use by parser_llk.c and other non-ptree parts of the library.
+ */
 #pragma once
 #include "ptree.h"
 

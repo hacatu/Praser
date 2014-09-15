@@ -6,20 +6,20 @@
 
 
 char isDeleted(const Ptree *t){
-	debug("called on: %p", t);
-	debug("returning: %i", t->parent);
+	debug_calls("called on: %p", t);
+	debug_calls("returning: %i", t->parent);
 	return !t->parent;
 }
 
 
 Ptree* firstChild(Ptree *t){
-	debug("called on: %p", t);
+	debug_calls("called on: %p", t);
 	if(!t){
-		debug("returning: %p", 0);
+		debug_calls("returning: %p", 0);
 		return 0;
 	}
 	if(isTerminal(t)){
-		debug("returning: %p", 0);
+		debug_calls("returning: %p", 0);
 		return 0;
 	}
 	int i = 0;
@@ -27,12 +27,12 @@ Ptree* firstChild(Ptree *t){
 		++i;
 	}
 	if(!nthChild(t, i)){//if all children were deleted, nthChild(t, i) will return 0 because there are no children.
-		debug("returning: %p", 0);
+		debug_calls("returning: %p", 0);
 		return 0;
 	}
 	if(dbg){
 		Ptree *temp = nthChild(t, i);
-		debug("returning: %p", temp);
+		debug_calls("returning: %p", temp);
 		return temp;
 	}
 	return nthChild(t, i);
@@ -45,9 +45,9 @@ Ptree* firstChild(Ptree *t){
 /* Free a Ptree's node list and mark it deleted.
  */
 void freePtree(Ptree *t){
-	debug("called on: %p", t);
+	debug_calls("called on: %p", t);
 	if(!t){
-		debug("returning");
+		debug_calls("returning");
 		return;
 	}
 	free(t->nodes);
@@ -55,12 +55,12 @@ void freePtree(Ptree *t){
 	t->length = 0;
 	t->nodec = 0;
 	t->parent = 0;
-	debug("returning");
+	debug_calls("returning");
 }
 
 void deletePtree(Ptree *t){
 	const Ptree *top = t;
-	debug("called on: %p", t);
+	debug_calls("called on: %p", t);
 	while(1){
 		while(firstChild(t)){//while t has children, set t to its first child
 			t = firstChild(t);
@@ -71,7 +71,7 @@ void deletePtree(Ptree *t){
 		//if(!t->parent){
 		if(t == top){
 			freePtree(t);
-			debug("returning");
+			debug_calls("returning");
 			return;
 		}
 		//t must have a parent because if it did not
@@ -80,6 +80,6 @@ void deletePtree(Ptree *t){
 		t = t->parent;
 		freePtree(firstChild(t));
 	}
-	debug("returning");
+	debug_calls("returning");
 }
 

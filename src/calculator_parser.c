@@ -6,6 +6,7 @@
 #include <string.h>
 #include "ptree.h"
 #include "parser_llk.h"
+#include "calculator_interpreter.h"
 #include "debug.h"
 
 
@@ -51,8 +52,8 @@ int additive(Position *p, Ptree *t){
 }
 
 int addition(Position *p, Ptree *t){
-	setString(t, __func__, strlen(__func__));
-	return oneOf(p, t, ADD, "+-");
+	//setString(t, __func__, strlen(__func__));
+	return oneOf(p, t, PASS, "+-");
 }
 
 int multiplicative(Position *p, Ptree *t){
@@ -61,8 +62,8 @@ int multiplicative(Position *p, Ptree *t){
 }
 
 int multiplication(Position *p, Ptree *t){
-	setString(t, __func__, strlen(__func__));
-	return oneOf(p, t, ADD, "*/%");
+	//setString(t, __func__, strlen(__func__));
+	return oneOf(p, t, PASS, "*/%");
 }
 
 int primary(Position *p, Ptree *t){
@@ -78,17 +79,17 @@ int primary(Position *p, Ptree *t){
 		}
 		return 1;
 	}
-	return expect(p, t, PASS, integer);
+	return expect(p, t, ADD, integer);
 }
 
 int integer(Position *p, Ptree *t){
-	setString(t, __func__, strlen(__func__));
-	return repeatMinMax(p, t, ADD, digit, 1, -1);
+	//setString(t, __func__, strlen(__func__));
+	return repeatMinMax(p, t, PASS, digit, 1, -1);
 }
 
 int digit(Position *p, Ptree *t){
-	setString(t, __func__, strlen(__func__));
-	return oneOf(p, t, ADD, "0123456789");
+	//setString(t, __func__, strlen(__func__));
+	return oneOf(p, t, PASS, "0123456789");
 }
 
 
@@ -133,6 +134,8 @@ int main(int argc, char **argv){
 		flattenTagged(root);
 		puts("flattened:");
 		printPtree(root, 0);
+		puts("evaluated (yeah right):");
+		printf("%f\n", eval(root));
 		deletePtree(root);
 		free(root);
 		free(p);

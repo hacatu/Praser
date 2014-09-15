@@ -120,29 +120,29 @@ int accept(Position *p, Ptree *t, AppendMode a, parser parse){
 	switch(a){
 		case ADD:
 		if(!appendNewPtree(t, NULL, 0)){
-			debug("appendNewPtree failed");
+			debug_log("appendNewPtree failed");
 			return 0;
 		}
 		if(!parse(p, lastChild(t))){
-			debug("parsing failed");
+			debug_log("parsing failed");
 			reallocPtree(t, getSize(t) - 1);
 			return 0;
 		}
 		return 1;
 		case PASS:
 		if(!parse(p, t)){
-			debug("parsing failed");
+			debug_log("parsing failed");
 			return 0;
 		}
 		return 1;
 		case SKIP:
 		temp = mallocPtree();
 		if(!temp){
-			debug("tempPtree failed");
+			debug_log("tempPtree failed");
 			return 0;
 		}
 		if(!parse(p, temp)){
-			debug("parsing failed");
+			debug_log("parsing failed");
 			deletePtree(temp);
 			free(temp);
 			return 0;
@@ -171,7 +171,7 @@ int repeatMinMax(Position *p, Ptree *t, AppendMode a, parser parse, int min, int
 	int count = 0;
 	while(count < min){
 		if(!expect(p, t, a, parse)){
-			debug("not enough matches");
+			debug_log("not enough matches");
 			return 0;
 		}
 		++count;
@@ -191,7 +191,7 @@ int repeatMinMax(Position *p, Ptree *t, AppendMode a, parser parse, int min, int
 			++count;
 		}
 	}
-	debug("successful");
+	debug_log("successful");
 	return 1;
 }
 

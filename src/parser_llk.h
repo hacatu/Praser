@@ -83,7 +83,7 @@ int repeatMinMax(Position *p, Ptree *t, AppendMode a, parser parse, int min, int
 
 /* Takes two parsers, parse and parseSeperetor, and looks for them to alternate with parse matching on the outside.
  * Example: parse accepts numbers and parseSeperator accepts commas.  sepBy will accept "123,456,62", "0", or "1,2",
- * but not "123,456", ",234", or ",0,".
+ * but not "123,456,", ",234", or ",0,".
  */
 int sepBy(Position *p, Ptree *t, AppendMode a, AppendMode aSeperator, parser parse, parser parseSeperator);
 
@@ -91,7 +91,7 @@ int sepBy(Position *p, Ptree *t, AppendMode a, AppendMode aSeperator, parser par
  */
 int alternate(Position *p, Ptree *t, AppendMode aA, AppendMode aB, parser parseA, parser parseB);
 
-/* Consumes input until a given parser matches.
+/* Consumes a single character if a given parser does not match.
  * Good for ignoring comments or whitespace or strings.
  */
 int not(Position *p, Ptree *t, AppendMode a, parser parse);

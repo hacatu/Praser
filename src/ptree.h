@@ -1,4 +1,6 @@
 //ptree.h
+/* #include THIS FILE and parser_llk.h, never _ptree.h or __ptree.h.  These are for the library.
+ */
 #pragma once
 
 typedef struct Ptree Ptree;
@@ -34,6 +36,10 @@ void appendString(Ptree *p, const char *string, int length);
  */
 char isTerminal(const Ptree *t);
 
+const char* getString(Ptree *t);
+
+int getSize(Ptree *t);
+
 
 /* Replaces all Ptrees with only one child by their child.
  */
@@ -42,6 +48,9 @@ void flatten(Ptree *t);
 /* Like flatten, but leaves Ptrees with terminal children
  */
 void flattenTagged(Ptree *t);
+
+
+Ptree* parent(Ptree *t);
 
 /* Returns the last child of a ptree
  */
@@ -52,6 +61,14 @@ Ptree* lastChild(Ptree *t);
  * Returns a null pointer if n is out of bounds.
  */
 Ptree* nthChild(Ptree *t, int n);
+
+/* Returns the first node of a ptree in postorder.
+ */
+Ptree* firstPostorder(Ptree *root);
+
+/* Returns the next node from a current node in postorder, or null
+ */
+Ptree* nextPostorder(Ptree *current);
 
 
 /* Deletes all nodes in a Ptree except the root, regardless of what node is actually given.

@@ -1,4 +1,6 @@
 //__ptree.h
+/* DO NOT INCLUDE THIS FILE!  This header is for ptree related parts of the library only.
+ */
 #pragma once
 #include "_ptree.h"
 

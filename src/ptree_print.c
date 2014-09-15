@@ -8,7 +8,7 @@
 //Functions to print Ptrees:    ======================================
 
 void printString(const Ptree *t){
-	fwrite(t->string, sizeof(char), t->length, stdout);
+	printf("%s", t->string);
 }
 
 //*
@@ -18,18 +18,17 @@ void printPtree(const Ptree *t, int indent){
 		return;
 	}
 	if(isTerminal(t)){
-		if(t->length){
-			printf("%*s\"%.*s\"\n", indent, "", t->length, t->string);
-			return;
-		}
-		printf("%*s\"%s\"\n", indent, "", t->string);
+		printf("%*s\"", indent, "", t->string);
+		printString(t);
+		printf("\"\n");
+		return;
 		return;
 	}
-	printf("%*s%*s:\n"
-		   //"%*sparent:%p\n"
+	printf("%*s", indent, "");
+	printString(t);
+	printf(//"%*sparent:%p\n"
 		   //"%*snodec:%d\n"
-		   "%*s{\n",
-		   indent, "", t->length, t->string,
+		   ":\n%*s{\n",
 		   //indent, "", t->parent,
 		   //indent, "", t->nodec,
 		   indent, "");
