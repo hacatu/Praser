@@ -1,7 +1,7 @@
 //stack.h
 #pragma once
 
-#define _MULTIPLIER 1.6
+#define MULT 2
 
 #define DEFINE_STACK(STACK_TYPE, DATA_TYPE)                          \
 	typedef struct{                                                  \
@@ -29,10 +29,10 @@
 	{                                                                \
 		DATA_TYPE *temp;                                              \
 		if(STACK.length == STACK.size){                              \
-			temp = realloc(STACK.data, _MULTIPLIER*STACK.size*sizeof(DATA_TYPE));\
+			temp = realloc(STACK.data, MULT*STACK.size*sizeof(DATA_TYPE));\
 			if(temp){                                                \
 				STACK.data = temp;                                   \
-				STACK.size *= _MULTIPLIER;                           \
+				STACK.size *= MULT;                           \
 			}                                                        \
 		}                                                            \
 		if(STACK.length != STACK.size){                              \

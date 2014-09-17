@@ -1,9 +1,9 @@
 //calculator_parser.c
-#define _GNU_SOURCE
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "get_line.h"
 #include "ptree.h"
 #include "parser_llk.h"
 #include "calculator_interpreter.h"
@@ -124,17 +124,16 @@ int main(int argc, char **argv){
 	Position *p;
 	char success = 0;
 	Ptree *root;	
-	while((read = getline(&line, &length, file)) != -1){
+	while((read = getLine(&line, &length, file)) != -1){
 		root = mallocPtree();
 		line[read - 1] = '\0';
 		p = firstPosition(line);
 		success = start(p, root);
 		printf("string \"%s\" parsed %ssuccessfully.  Output:\n", line, success?"":"un");
-		printPtree(root, 0);
 		flattenTagged(root);
 		puts("flattened:");
 		printPtree(root, 0);
-		puts("evaluated (yeah right):");
+		puts("evaluated:");
 		printf("%f\n", eval(root));
 		deletePtree(root);
 		free(root);
