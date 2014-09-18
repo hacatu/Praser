@@ -19,7 +19,7 @@ struct Position{
 void logUnexpectedError(Position *p, const char *name, const char *expected){
 	//TODO: count lines and include the line/column number for errors, and print the line with the error highlighted.
 	const char found[] = {currentChar(p), '\0'};
-	printf("%s: expected %s but found %s\n", name, expected, found);
+	printf("%s: expected %s but found \"%s\" at %i: \"%10.s\"\n", name, expected, found, p->current - p->string, p->current);
 }
 
 
@@ -35,6 +35,7 @@ char currentChar(Position *p){
 }
 
 char getChar(Position *p){
+	debug_gets("%c",p->current[0]);
 	return *(++p->current);
 }
 
@@ -166,7 +167,7 @@ int expect(Position *p, Ptree *t, AppendMode a, parser parse){
 }
 
 
-int repeatMinMax(Position *p, Ptree *t, AppendMode a, parser parse, int min, int max){
+int repeat(Position *p, Ptree *t, AppendMode a, parser parse, int min, int max){
 	//t->string = __func__;
 	int count = 0;
 	while(count < min){
@@ -195,16 +196,38 @@ int repeatMinMax(Position *p, Ptree *t, AppendMode a, parser parse, int min, int
 	return 1;
 }
 
-int sepBy(Position *p, Ptree *t, AppendMode a, AppendMode aSeperator, parser parse, parser parseSeperator){
-	
+int sepBy(Position *p, Ptree *t, AppendMode a, AppendMode aSeperator, parser parse, parser parseSeperator, int min, int max){
+	int count = 1;
 	//t->string = __func__;
 	if(!accept(p, t, a, parse)){
-		return 0;
+		return min <= 0;
 	}
-	while(accept(p, t, aSeperator, parseSeperator)){
+	while(count < min){
+		if(!expect(p, t, aSeperator, parseSeperator)){
+			return 0;
+		}
 		if(!expect(p, t, a, parse)){
 			return 0;
 		}
+		++count;
+	}
+	if(max > min){
+		while(count < max){
+			if(!accept(p, t, aSeperator, parseSeperator)){
+				return 1;
+			}
+			if(!expect(p, t, a, parse)){
+				return 0;
+			}
+			++count;
+		}
+	}if(max < min || max == 0){
+		while(accept(p, t, aSeperator, parseSeperator)){
+			if(!expect(p, t, a, parse)){
+				return 0;
+			}
+		}
+		return 1;
 	}
 	return 1;
 }
@@ -260,15 +283,35 @@ int oneOf(Position *p, Ptree *t, AppendMode a, const char *options){
 	}
 	switch(a){
 		case ADD:
-		return appendNewPtree(t, c, 1);
+			return appendNewPtree(t, c, 1);
 		case PASS:
-		appendString(t, c, 1);
-		return 1;
+			appendString(t, c, 1);
+			return 1;
 		case SKIP:
-		return 1;
+			return 1;
 	}
 	//needed to supress erronious warning from gcc.  The above switch can't fall through bcause a is an enum.
 	return 1;
 }
 
+int noneOf(Position *p, Ptree *t, AppendMode a, const char *options){
+	const char *c = options;
+	while(*c){
+		if(currentChar(p) == *c){
+			return 0;
+		}
+		++c;
+	}
+	c = p->current;
+	getChar(p);
+	switch(a){
+		case ADD:
+			return appendNewPtree(t, c, 1);
+		case PASS:
+			appendString(t, c, 1);
+			return 1;
+		case SKIP:
+			return 1;
+	}
+}
 

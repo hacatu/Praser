@@ -108,16 +108,6 @@ int main(int argc, char **argv){
 		}
 		return 1;
 	}
-	printf("The different parsers are at locations:\n"
-		   "start:          %p\n"
-		   "additive:       %p\n"
-		   "addition:       %p\n"
-		   "multiplicative: %p\n"
-		   "multiplication: %p\n"
-		   "primary:        %p\n"
-		   "integer:        %p\n"
-		   "digit:          %p\n",
-		   start, additive, addition, multiplicative, multiplication, primary, integer, digit);
 	char *line = 0;
 	size_t length = 0;
 	int read = 0;
@@ -125,8 +115,8 @@ int main(int argc, char **argv){
 	char success = 0;
 	Ptree *root;	
 	while((read = getLine(&line, &length, file)) != -1){
-		root = mallocPtree();
 		line[read - 1] = '\0';
+		root = mallocPtree();
 		p = firstPosition(line);
 		success = start(p, root);
 		printf("string \"%s\" parsed %ssuccessfully.  Output:\n", line, success?"":"un");

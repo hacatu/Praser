@@ -36,7 +36,12 @@ int getLine(char **line, size_t *size, FILE *file){
 		}
 		switch((*line)[*size - 2]){
 			case '\0':
-				return *size - 1;//this is actually the max possible and should be calculated properly.
+				for(size_t i = *size / MULT; i < *size; ++i){
+					if((*line)[i] == '\0'){
+						return i;
+					}
+				}
+				return *size - 1;
 			case '\n':
 				return *size;
 		}

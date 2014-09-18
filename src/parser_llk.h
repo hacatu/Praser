@@ -79,13 +79,13 @@ int expect(Position *p, Ptree *t, AppendMode a, parser parse);
  * If max is <= 0, there is no upper bound.
  * Returns 0 on failure, 1 otherwise.
  */
-int repeatMinMax(Position *p, Ptree *t, AppendMode a, parser parse, int min, int max);
+int repeat(Position *p, Ptree *t, AppendMode a, parser parse, int min, int max);
 
 /* Takes two parsers, parse and parseSeperetor, and looks for them to alternate with parse matching on the outside.
  * Example: parse accepts numbers and parseSeperator accepts commas.  sepBy will accept "123,456,62", "0", or "1,2",
  * but not "123,456,", ",234", or ",0,".
  */
-int sepBy(Position *p, Ptree *t, AppendMode a, AppendMode aSeperator, parser parse, parser parseSeperator);
+int sepBy(Position *p, Ptree *t, AppendMode a, AppendMode aSeperator, parser parse, parser parseSeperator, int min, int max);
 
 /* Takes two parsers, A and B, and looks for ABABABAB any number of times.
  */
@@ -99,3 +99,7 @@ int not(Position *p, Ptree *t, AppendMode a, parser parse);
 /* Accepts any char in the string options given.
  */
 int oneOf(Position *p, Ptree *t, AppendMode a, const char *options);
+
+/* Accepts any char not in the string options given.
+ */
+int noneOf(Position *p, Ptree *t, AppendMode a, const char *options);

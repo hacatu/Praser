@@ -140,7 +140,13 @@ Ptree* lastChild(Ptree *t){
 
 //Functions to reallocate Ptrees:     ================================
 char reallocPtree(Ptree *t, int size){
-	debug_calls("called on: %p, %d", t, size);
+	if(size == 0){
+		deleteChildrenAfter(t, -1);
+		free(t->nodes);
+		t->nodes = 0;
+		t->nodec = 0;
+		return 3;
+	}
 	if(size < getSize(t)){
 		deleteChildrenAfter(t, size - 1);
 	}

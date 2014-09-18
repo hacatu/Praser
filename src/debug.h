@@ -18,3 +18,12 @@
 #define dbg 0
 #endif
 
+#ifdef DEBUG_GETS
+#define debug_gets(M, ...) fprintf(stdout, "DEBUG %s: " M "\n", __func__, ##__VA_ARGS__)
+#define dbg_gets 1
+#else
+#define debug_gets(M, ...)
+#define dbg_gets 0
+#endif
+
+
