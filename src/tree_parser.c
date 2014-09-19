@@ -1,4 +1,9 @@
 //tree_parser.c
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include "get_line.h"
 #include "ptree.h"
 #include "parser_llk.h"
 #include "debug.h"
@@ -65,5 +70,29 @@ int nchar(Position *p, Ptree *t){
 
 int comma(Position *p, Ptree *t){
 	return acceptString(p, t, ADD, ",");
+}
+
+int main(){
+	Ptree *t;
+	Position *p;
+	size_t size = 0;
+	char *line = 0;
+	int read;
+	while((read = getLine(&line, &size, stdin)) > 0){
+		line[read - 1] = '\0';
+		p = firstPosition(line);
+		t = mallocPtree();
+		if(start(p, t)){
+			puts("String parsed successfully!  Output:");
+			flattenTagged(t);
+			printPtree(t, 0);
+		}else{
+			puts("String parsed unsuccessfully!");
+		}
+		deletePtree(t);
+		free(t);
+	}
+	free(line);
+	_exit(0);
 }
 

@@ -1,8 +1,8 @@
 //calculator_parser.c
-
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 #include "get_line.h"
 #include "ptree.h"
 #include "parser_llk.h"
@@ -48,7 +48,7 @@ int start(Position *p, Ptree *t){
 
 int additive(Position *p, Ptree *t){
 	setString(t, __func__, strlen(__func__));
-	return sepBy(p, t, ADD, ADD, multiplicative, addition);
+	return sepBy(p, t, ADD, ADD, multiplicative, addition, 1, 0);
 }
 
 int addition(Position *p, Ptree *t){
@@ -58,7 +58,7 @@ int addition(Position *p, Ptree *t){
 
 int multiplicative(Position *p, Ptree *t){
 	setString(t, __func__, strlen(__func__));
-	return sepBy(p, t, ADD, ADD, primary, multiplication);
+	return sepBy(p, t, ADD, ADD, primary, multiplication, 1, 0);
 }
 
 int multiplication(Position *p, Ptree *t){
@@ -84,7 +84,7 @@ int primary(Position *p, Ptree *t){
 
 int integer(Position *p, Ptree *t){
 	//setString(t, __func__, strlen(__func__));
-	return repeatMinMax(p, t, PASS, digit, 1, -1);
+	return repeat(p, t, PASS, digit, 1, -1);
 }
 
 int digit(Position *p, Ptree *t){
@@ -92,44 +92,27 @@ int digit(Position *p, Ptree *t){
 	return oneOf(p, t, PASS, "0123456789");
 }
 
-
-int main(int argc, char **argv){
-	FILE *file;
-	if(argc == 1){
-		puts("No file specified.  Reading from stdin.");
-		file = stdin;
-	}else if(argc > 2){
-		printf("Too many command line arguments.  Usage: %s <input file>\n", argv[0]);
-		return 1;
-	}else{
-		file = fopen(argv[1], "r");
-		if(!file){
-			printf("Could not open file \"%s\"\n", argv[1]);
-		}
-		return 1;
-	}
-	char *line = 0;
-	size_t length = 0;
-	int read = 0;
+int main(){
+	Ptree *t;
 	Position *p;
-	char success = 0;
-	Ptree *root;	
-	while((read = getLine(&line, &length, file)) != -1){
+	size_t size = 0;
+	char *line = 0;
+	int read;
+	while((read = getLine(&line, &size, stdin)) > 0){
 		line[read - 1] = '\0';
-		root = mallocPtree();
 		p = firstPosition(line);
-		success = start(p, root);
-		printf("string \"%s\" parsed %ssuccessfully.  Output:\n", line, success?"":"un");
-		flattenTagged(root);
-		puts("flattened:");
-		printPtree(root, 0);
-		puts("evaluated:");
-		printf("%f\n", eval(root));
-		deletePtree(root);
-		free(root);
-		free(p);
+		t = mallocPtree();
+		if(start(p, t)){
+			puts("String parsed successfully!  Output:");
+			flattenTagged(t);
+			printf("Evaluated: %f\n", eval(t));
+		}else{
+			puts("String parsed unsuccessfully!");
+		}
+		deletePtree(t);
+		free(t);
 	}
 	free(line);
-	fclose(file);
+	_exit(0);
 }
 
