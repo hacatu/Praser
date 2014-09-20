@@ -4,9 +4,11 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "get_line.h"
+#include <stdio.h>
 #include "debug.h"
 
 pid_t spawn_process(const char *path, char *const *args){
+	printf("sp: \"%s\", \"%s\"\n", path, args[0]);
 	pid_t childPID = fork();
 	if(childPID == -1){
 		return -1;
@@ -14,8 +16,8 @@ pid_t spawn_process(const char *path, char *const *args){
 	if(childPID != 0){
 		return childPID;
 	}
-	execv(path, args);
-	puts("execv failed!");
+	execvp(path, args);
+	perror("execv");
 	_exit(-1);
 }
 

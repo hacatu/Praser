@@ -1,4 +1,4 @@
-//run_parser.c
+//parser_repl.c
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -22,28 +22,42 @@ int main(int argc, char **argv){
 			file = stdin;
 		}
 	}
-	size_t length = 0;
+	size_t line_len = 0, parserPath_len = 0;
 	char *line = NULL;
 	int read = 0;
 	pid_t childPID;
-	char *parserPath;
+	char *parserPath = NULL, *temp;
 	char *const *parserArgs;
-	while((read = getLine(&line, &length, file)) > 0){
+	char pwd[1024];
+	getcwd(pwd, 1024);
+	printf("pwd: %s\n", pwd);
+	while((read = getLine(&line, &line_len, file)) > 0){
 		line[read - 1] = '\0';
-		if(!strcmp(line, "calculator")){
-			parserPath = "bin/calculator.parser";
-			parserArgs = (char *const[]){"calculator.parser", NULL};
-		}else if(!strcmp(line, "tree")){
-			parserPath = "bin/tree.parser";
-			parserArgs = (char *const[]){"tree.parser", NULL};
-		}else{
-			puts("No such command found!");
+		if(read + 11 > parserPath_len){//read + strlen(".parser" > parserPath_len)
+			temp = realloc(parserPath, (read + 11)*sizeof(char));
+			if(!temp){
+				puts("Out of memory");
+				free(parserPath);
+				free(line);
+				fclose(file);
+				return 1;
+			}
+			parserPath = temp;
+			strcpy(parserPath, "bin/");
+			strcat(parserPath, line);
+			strcat(parserPath, ".parser");
+			parserPath_len = read + 11;
+		}
+		if(access(parserPath, F_OK) == -1){
+			printf("No parser \"%s\" found!\n", parserPath);
 			continue;
 		}
+		parserArgs = (char *const[]){line, NULL};
 		childPID = spawn_process(parserPath, parserArgs);
 		printf("Created process (pid: %i)\n", childPID);
 		if(childPID == -1){
 			puts("Failed to create child process!");
+			free(parserPath);
 			free(line);
 			fclose(file);
 			return 1;
@@ -51,6 +65,7 @@ int main(int argc, char **argv){
 		waitPID(childPID);
 		puts("Child finished");
 	}
+	free(parserPath);
 	free(line);
 	fclose(file);
 }
