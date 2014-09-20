@@ -18,7 +18,7 @@ void printPtree(const Ptree *t, int indent){
 		return;
 	}
 	if(isTerminal(t)){
-		printf("%*s\"", indent, "", t->string);
+		printf("%*s\"", indent, "");
 		printString(t);
 		printf("\"\n");
 		return;

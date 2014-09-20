@@ -7,8 +7,7 @@ typedef struct Ptree Ptree;
 
 typedef enum{
 	ADD,
-	PASS,//Note: PASS is supposed to allow Ptrees to be flattened,
-	//but this way of doing that is pointless, so I am replacing it with flatten().
+	PASS,
 	SKIP
 } AppendMode;
 
@@ -38,7 +37,7 @@ char isTerminal(const Ptree *t);
 
 const char* getString(Ptree *t);
 
-int getSize(Ptree *t);
+int getSize(const Ptree *t);
 
 
 /* Replaces all Ptrees with only one child by their child.
@@ -60,7 +59,7 @@ Ptree* lastChild(Ptree *t);
  * Negative wraparound indicies may be used.
  * Returns a null pointer if n is out of bounds.
  */
-Ptree* nthChild(Ptree *t, int n);
+Ptree* nthChild(const Ptree *t, int n);
 
 /* Returns the first node of a ptree in postorder.
  */
@@ -70,6 +69,9 @@ Ptree* firstPostorder(Ptree *root);
  */
 Ptree* nextPostorder(Ptree *current);
 
+/* Creates a copy of the given Ptree.
+ */
+Ptree* copyPtree(const Ptree *t);
 
 /* Deletes all nodes in a Ptree except the root, regardless of what node is actually given.
  * If the root was malloc'd, it still has to be free'd elsewhere. 

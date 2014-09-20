@@ -63,6 +63,7 @@ void setString(Ptree *p, const char *string, int length){
 	debug_calls("returning");
 }
 
+
 void appendString(Ptree *p, const char *string, int length){
 	debug_calls("called on: %p, %*s, %d", p, length, string, length);
 	char *temp;
@@ -77,5 +78,30 @@ void appendString(Ptree *p, const char *string, int length){
 	p->length += length;
 	p->string[p->length] = '\0';
 	debug_calls("returning");
+}
+
+//TODO: make iterative
+
+char copyChildren(Ptree *dest, const Ptree *src){
+	Ptree *current;
+	for(int i = 0; i < getSize(src); ++i){
+		current = nthChild(src, i);
+		if(!appendNewPtree(dest, current->string, current->length)){
+			return 0;
+		}
+		if(!copyChildren(nthChild(dest, i), current)){
+			return 0;
+		}
+	}
+	return 1;
+}
+
+Ptree* copyPtree(const Ptree *t){
+	Ptree *cpy = mallocPtree();
+	*cpy = newPtree(NULL, t->string, t->length);
+	if(!copyChildren(cpy, t)){
+		puts("Failed to copy");
+	}
+	return cpy;
 }
 

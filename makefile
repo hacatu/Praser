@@ -4,7 +4,7 @@ LIB = parser.a
 _LOBJS = parser_llk.o ptree_create.o ptree_util.o ptree_delete.o ptree_print.o
 _OBJS = get_line.o spawn_process.o
 _PARSERS = calculator.parser tree.parser
-CFLAGS = -std=c11 -lm
+CFLAGS = -std=c11 -Wall -Werror -lm
 OBJDIR = obj
 LIBDIR = lib
 SRCDIR = src
@@ -35,7 +35,7 @@ $(BINDIR)/%.parser: $(OBJDIR)/%_parser.o $(OBJDIR)/%_interpreter.o $(OBJS) $(LIB
 	$(CC) -o $@ $^ $(CFLAGS)
 	
 clean:
-	rm $(OBJDIR)/*.o $(BINDIR)/$(EXE) $(LIBDIR)/$(LIB)
+	rm $(OBJDIR)/*.o $(BINDIR)/$(EXE) $(LIBDIR)/$(LIB) $(BINDIR)/*.parser
 	
 rebuild: clean all
 rebug: clean debug

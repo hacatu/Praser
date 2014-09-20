@@ -23,8 +23,13 @@ int comma(Position *p, Ptree *t);
 
 
 int start(Position *p, Ptree *t){
-	expect(p, t, PASS, tree);
-	expectEnd(p);
+	if(!expect(p, t, PASS, tree)){
+		return 0;
+	}
+	if(!expectEnd(p)){
+		return 0;
+	}
+	return 1;
 }
 
 int tree(Position *p, Ptree *t){

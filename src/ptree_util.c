@@ -46,7 +46,7 @@ char isTerminal(const Ptree *t){
 	return !t->nodec;
 }
 
-int getSize(Ptree *t){
+int getSize(const Ptree *t){
 	debug_calls("called on: %p", t);
 	debug_calls("returning: %i", t->nodec);
 	return t->nodec;
@@ -110,7 +110,7 @@ Ptree* parent(Ptree *t){
 
 
 //Functions to access child nodes:    ================================
-Ptree* nthChild(Ptree *t, int n){
+Ptree* nthChild(const Ptree *t, int n){
 	debug_calls("called on: %p, %d", t, n);
 	if(n < 0){
 		n += t->nodec;

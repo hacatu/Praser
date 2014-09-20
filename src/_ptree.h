@@ -8,9 +8,6 @@
  */
 char appendNewPtree(Ptree *parent, const char *string, int length);
 
-/* Gets the number of children a Ptree has (t->nodec).
- */
-int getSize(Ptree *t);
 
 /* Resizes a Ptree.  Currently requires deleteChildrenAfter to be used if shrinking the Ptree
  * and updateGrandchildPointer to be used after if t->nodes moves.

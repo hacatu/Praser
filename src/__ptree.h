@@ -19,6 +19,8 @@ char isDeleted(const Ptree *t);
 
 Ptree* firstChild(Ptree *t);
 
+char copyChildren(Ptree *dest, const Ptree *src);
+
 void updateChildPointers(Ptree *t);
 
 void updateGrandchildPointers(Ptree *t);

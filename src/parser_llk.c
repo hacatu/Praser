@@ -19,7 +19,7 @@ struct Position{
 void logUnexpectedError(Position *p, const char *name, const char *expected){
 	//TODO: count lines and include the line/column number for errors, and print the line with the error highlighted.
 	const char found[] = {currentChar(p), '\0'};
-	printf("%s: expected %s but found \"%s\" at %i: \"%10.s\"\n", name, expected, found, p->current - p->string, p->current);
+	printf("%s: expected %s but found \"%s\" at %li: \"%10.s\"\n", name, expected, found, p->current - p->string, p->current);
 }
 
 
@@ -313,5 +313,7 @@ int noneOf(Position *p, Ptree *t, AppendMode a, const char *options){
 		case SKIP:
 			return 1;
 	}
+	//needed to supress erronious warning from gcc.  The above switch can't fall through bcause a is an enum.
+	return 1;
 }
 
