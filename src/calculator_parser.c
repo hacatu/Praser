@@ -32,11 +32,11 @@ int primary(Position *p, Ptree *t);
 
 int start(Position *p, Ptree *t){
 	setString(t, __func__, strlen(__func__));
-	if(!expect(p, t, PASS, additive)){
+	if(!accept(p, t, PASS, additive)){
 		logUnexpectedError(p, "start", "additive");
 		return 0;
 	}
-	if(!expectEnd(p)){
+	if(!acceptEnd(p)){
 		logUnexpectedError(p, "start", "end of input");
 		return 0;
 	}
@@ -66,17 +66,17 @@ int multiplication(Position *p, Ptree *t){
 int primary(Position *p, Ptree *t){
 	setString(t, __func__, strlen(__func__));
 	if(acceptString(p, t, SKIP, "(")){
-		if(!expect(p, t, PASS, additive)){
+		if(!accept(p, t, PASS, additive)){
 			logUnexpectedError(p, "primary", "additive");
 			return 0;
 		}
-		if(!expectString(p, t, SKIP, ")")){
+		if(!acceptString(p, t, SKIP, ")")){
 			logUnexpectedError(p, "primary", ")");
 			return 0;
 		}
 		return 1;
 	}
-	return expect(p, t, ADD, integer);
+	return accept(p, t, ADD, integer);
 }
 
 int main(){

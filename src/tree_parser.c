@@ -22,10 +22,10 @@ int comma(Position *p, Ptree *t);
 
 
 int start(Position *p, Ptree *t){
-	if(!expect(p, t, PASS, tree)){
+	if(!accept(p, t, PASS, tree)){
 		return 0;
 	}
-	if(!expectEnd(p)){
+	if(!acceptEnd(p)){
 		return 0;
 	}
 	return 1;
@@ -34,26 +34,26 @@ int start(Position *p, Ptree *t){
 int tree(Position *p, Ptree *t){
 	debug_gets("%c", currentChar(p));
 	if(currentChar(p) == '"'){
-		if(!expectString(p, t, SKIP, "\"")){
+		if(!acceptString(p, t, SKIP, "\"")){
 			logUnexpectedError(p, __func__, "\"");
 			return 0;
 		}
 		repeat(p, t, PASS, schar, 0, 0);
-		if(!expectString(p, t, SKIP, "\"")){
+		if(!acceptString(p, t, SKIP, "\"")){
 			logUnexpectedError(p, __func__, "\"");
 			return 0;
 		}
 	}else{
 		repeat(p, t, PASS, nchar, 0, 0);
 	}
-	if(!expectString(p, t, SKIP, "(")){
+	if(!acceptString(p, t, SKIP, "(")){
 		logUnexpectedError(p, __func__, "(");
 		return 0;
 	}
 	if(!sepBy(p, t, ADD, SKIP, tree, comma, 0, 0)){
 		return 0;
 	}
-	if(!expectString(p, t, SKIP, ")")){
+	if(!acceptString(p, t, SKIP, ")")){
 		logUnexpectedError(p, __func__, ")");
 		return 0;
 	}
