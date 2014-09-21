@@ -7,7 +7,6 @@
 #include "debug.h"
 
 
-//TODO: remove expect
 //TODO: replace AppendMode with three functions: add, skip, and pass, and make parsers return ptrees instead of taking them
 
 struct Position{
@@ -60,19 +59,6 @@ int acceptChar(Position *p, char c){
 	return 0;
 }
 
-/* Local function not in header:
- * If the char c is not acceptChar'd, call logUnexpectedError and return 0.
- * Otherwise return 1.
- */
-int expectChar(Position *p, char c){
-	if(acceptChar(p, c)){
-		return 1;
-	}
-	const char expected[] = {c, '\0'};
-	logUnexpectedError(p, "expectChar", expected);
-	return 0;
-}
-
 
 int acceptString(Position *p, Ptree *t, AppendMode a, const char *s){
 	int i = 0;
@@ -88,17 +74,9 @@ int acceptString(Position *p, Ptree *t, AppendMode a, const char *s){
 	return 1;
 }
 
-int expectString(Position *p, Ptree *t, AppendMode a, const char *s){
-	if(acceptString(p, t, a, s)){
-		return 1;
-	}
-	logUnexpectedError(p, "expectString",  s);
-	return 0;
-}
 
-
-char expectEnd(Position *p){
-	return expectChar(p, '\0');
+char acceptEnd(Position *p){
+	return acceptChar(p, '\0');
 }
 
 
@@ -156,22 +134,12 @@ int accept(Position *p, Ptree *t, AppendMode a, parser parse){
 	return 1;
 }
 
-int expect(Position *p, Ptree *t, AppendMode a, parser parse){
-	if(accept(p, t, a, parse)){
-		return 1;
-	}
-	char expected[9];
-	snprintf(expected, 9, "%p", parse);
-	logUnexpectedError(p, "expect", expected);
-	return 0;
-}
-
 
 int repeat(Position *p, Ptree *t, AppendMode a, parser parse, int min, int max){
 	//t->string = __func__;
 	int count = 0;
 	while(count < min){
-		if(!expect(p, t, a, parse)){
+		if(!accept(p, t, a, parse)){
 			debug_log("not enough matches");
 			return 0;
 		}
@@ -203,10 +171,10 @@ int sepBy(Position *p, Ptree *t, AppendMode a, AppendMode aSeperator, parser par
 		return min <= 0;
 	}
 	while(count < min){
-		if(!expect(p, t, aSeperator, parseSeperator)){
+		if(!accept(p, t, aSeperator, parseSeperator)){
 			return 0;
 		}
-		if(!expect(p, t, a, parse)){
+		if(!accept(p, t, a, parse)){
 			return 0;
 		}
 		++count;
@@ -216,14 +184,14 @@ int sepBy(Position *p, Ptree *t, AppendMode a, AppendMode aSeperator, parser par
 			if(!accept(p, t, aSeperator, parseSeperator)){
 				return 1;
 			}
-			if(!expect(p, t, a, parse)){
+			if(!accept(p, t, a, parse)){
 				return 0;
 			}
 			++count;
 		}
 	}if(max < min || max == 0){
 		while(accept(p, t, aSeperator, parseSeperator)){
-			if(!expect(p, t, a, parse)){
+			if(!accept(p, t, a, parse)){
 				return 0;
 			}
 		}
@@ -236,7 +204,7 @@ int alternate(Position *p, Ptree *t, AppendMode aA, AppendMode aB, parser parseA
 	
 	//t->string = __func__;
 	while(accept(p, t, aA, parseA)){
-		if(!expect(p, t, aB, parseB)){
+		if(!accept(p, t, aB, parseB)){
 			return 0;
 		}
 	}
@@ -335,7 +303,7 @@ int cstring(Position *p, Ptree *t){
 		logUnexpectedError(p, __func__, "a string");
 		return 0;
 	}
-	if(!expectString(p, t, SKIP, "\""));
+	if(!acceptString(p, t, SKIP, "\""));
 	return 1;
 }
 

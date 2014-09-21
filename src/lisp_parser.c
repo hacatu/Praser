@@ -38,11 +38,11 @@ int name(Position *p, Ptree *t);
 int nchar(Position *p, Ptree *t);
 
 int start(Position *p, Ptree *t){
-	if(!expect(p, t, PASS, sxpr)){
+	if(!accept(p, t, PASS, sxpr)){
 		logUnexpectedError(p, __func__, "s-expression");
 		return 0;
 	}
-	if(!expectEnd(p)){
+	if(!acceptEnd(p)){
 		logUnexpectedError(p, __func__, "end of input");
 		return 0;
 	}
@@ -58,7 +58,7 @@ int sxpr(Position *p, Ptree *t){
 		logUnexpectedError(p, __func__, "atom");
 		return 0;
 	}
-	if(!expectString(p, t, SKIP, ")")){
+	if(!acceptString(p, t, SKIP, ")")){
 		logUnexpectedError(p, __func__, ")");
 		return 0;
 	}
@@ -137,7 +137,7 @@ int alist(Position *p, Ptree *t){
 	}else{
 		return 0;
 	}
-	if(!expect(p, t, ADD, sxpr)){
+	if(!accept(p, t, ADD, sxpr)){
 		logUnexpectedError(p, __func__, "s-expr");
 		return 0;
 	}

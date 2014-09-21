@@ -40,21 +40,16 @@ char nthChar(Position *p, int n);
 
 
 /* A parser that expects the end of input ('\0').
- * Calls logUnexpectedError if the input does not end.
  * Do not try to use this except for the end of input, thus do not make the starting parser recursive.
  * Returns 0 on failure, nonzero otherwise.
  */
-char expectEnd(Position *p);
+char acceptEnd(Position *p);
 
 
 /* A parser that accepts a string and adds it to the parse tree if found.
  * Returns 0 on failure, nonzero otherwise.
  */
 int acceptString(Position *p, Ptree *t, AppendMode a, const char *s);
-
-/* A parser that expects a string, adding it to the parse tree if found, otherwise calling logUnexpectedError and returning 0.
- */
-int expectString(Position *p, Ptree *t, AppendMode a, const char *s);
 
 
 /* Trys a parser and resets Position p if the parser fails.
@@ -68,11 +63,6 @@ int try(Position *p, Ptree *t, AppendMode a, parser parse);
  * Returns 0 on failure, nonzero otherwise
  */
 int accept(Position *p, Ptree *t, AppendMode a, parser parse);
-
-/* Runs a parser and calls logUnexpectedError if it fails.
- * Returns 0 on failure, nonzero otherwise.
- */
-int expect(Position *p, Ptree *t, AppendMode a, parser parse);
 
 
 /* Run a parser from min to max times, inclusive.
