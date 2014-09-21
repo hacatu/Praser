@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <unistd.h>
 #include "get_line.h"
 #include "ptree.h"
 #include "parser_llk.h"
@@ -29,8 +28,6 @@ int addition(Position *p, Ptree *t);
 int multiplicative(Position *p, Ptree *t);
 int multiplication(Position *p, Ptree *t);
 int primary(Position *p, Ptree *t);
-int integer(Position *p, Ptree *t);
-int digit(Position *p, Ptree *t);
 
 
 int start(Position *p, Ptree *t){
@@ -82,16 +79,6 @@ int primary(Position *p, Ptree *t){
 	return expect(p, t, ADD, integer);
 }
 
-int integer(Position *p, Ptree *t){
-	//setString(t, __func__, strlen(__func__));
-	return repeat(p, t, PASS, digit, 1, -1);
-}
-
-int digit(Position *p, Ptree *t){
-	//setString(t, __func__, strlen(__func__));
-	return oneOf(p, t, PASS, "0123456789");
-}
-
 int main(){
 	Ptree *t;
 	Position *p;
@@ -100,19 +87,21 @@ int main(){
 	int read;
 	while((read = getLine(&line, &size, stdin)) > 0){
 		line[read - 1] = '\0';
+		printf("\"%s\"\n", line);
 		p = firstPosition(line);
 		t = mallocPtree();
 		if(start(p, t)){
 			puts("String parsed successfully!  Output:");
 			flattenTagged(t);
+			printPtree(t, 0);
 			printf("Evaluated: %f\n", eval(t));
 		}else{
 			puts("String parsed unsuccessfully!");
 		}
 		deletePtree(t);
 		free(t);
+		free(p);
 	}
 	free(line);
-	_exit(0);
 }
 

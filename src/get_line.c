@@ -36,14 +36,14 @@ int getLine(char **line, size_t *size, FILE *file){
 		}
 		switch((*line)[*size - 2]){
 			case '\0':
-				for(size_t i = *size / MULT; i < *size; ++i){
+				for(size_t i = *size / MULT; i < *size - 1; ++i){
 					if((*line)[i] == '\0'){
 						return i;
 					}
 				}
-				return *size - 1;
+				return *size - 2;
 			case '\n':
-				return *size;
+				return *size - 1;
 		}
 		temp = realloc(*line, MULT**size*sizeof(char));//that ** is a rare operator.  Actually its x*(*y).
 		if(!temp){

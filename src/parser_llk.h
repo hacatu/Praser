@@ -103,3 +103,17 @@ int oneOf(Position *p, Ptree *t, AppendMode a, const char *options);
 /* Accepts any char not in the string options given.
  */
 int noneOf(Position *p, Ptree *t, AppendMode a, const char *options);
+
+/* Accepts a string literal.
+ */
+int cstring(Position *p, Ptree *t);
+
+/* Accepts and discards whitespace.
+ */
+int spaces(Position *p, Ptree *t);
+
+int letter(Position *p, Ptree *t);
+
+int digit(Position *p, Ptree *t);
+
+int integer(Position *p, Ptree *t);

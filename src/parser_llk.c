@@ -7,8 +7,8 @@
 #include "debug.h"
 
 
-//TODO: Fix PASS so that it is useful.
-
+//TODO: remove expect
+//TODO: replace AppendMode with three functions: add, skip, and pass, and make parsers return ptrees instead of taking them
 
 struct Position{
 	const char* string;
@@ -316,4 +316,48 @@ int noneOf(Position *p, Ptree *t, AppendMode a, const char *options){
 	//needed to supress erronious warning from gcc.  The above switch can't fall through bcause a is an enum.
 	return 1;
 }
+
+int cchar(Position *p, Ptree *t){
+	if(currentChar(p) == '\\'){
+		getChar(p);
+		appendString(t, p->current, 1);
+		getChar(p);
+		return 1;
+	}
+	return noneOf(p, t, PASS, "\"");
+}
+
+int cstring(Position *p, Ptree *t){
+	if(!acceptString(p, t, SKIP, "\"")){
+		return 0;
+	}
+	if(!repeat(p, t, PASS, cchar, 0, 0)){
+		logUnexpectedError(p, __func__, "a string");
+		return 0;
+	}
+	if(!expectString(p, t, SKIP, "\""));
+	return 1;
+}
+
+int space(Position *p, Ptree *t){
+	return oneOf(p, t, SKIP, " \t\n\r\v\f");
+}
+
+int spaces(Position *p, Ptree *t){
+	return repeat(p, t, SKIP, space, 0, 0);
+}
+
+int letter(Position *p, Ptree *t){
+	return oneOf(p, t, PASS, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+}
+
+int digit(Position *p, Ptree *t){
+	return oneOf(p, t, PASS, "0123456789");
+}
+
+int integer(Position *p, Ptree *t){
+	return repeat(p, t, PASS, digit, 1, 0);
+}
+
+
 

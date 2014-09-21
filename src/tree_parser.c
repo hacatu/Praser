@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <unistd.h>
 #include "get_line.h"
 #include "ptree.h"
 #include "parser_llk.h"
@@ -96,8 +95,8 @@ int main(){
 		}
 		deletePtree(t);
 		free(t);
+		free(p);
 	}
 	free(line);
-	_exit(0);
 }
 

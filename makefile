@@ -3,13 +3,14 @@ EXE = parser_repl
 LIB = parser.a
 _LOBJS = parser_llk.o ptree_create.o ptree_util.o ptree_delete.o ptree_print.o
 _OBJS = get_line.o spawn_process.o
-_PARSERS = calculator.parser tree.parser
-CFLAGS = -std=c11 -Wall -Werror -lm
-OBJDIR = obj
+_PARSERS = calculator.parser tree.parser lisp.parser
+CFLAGS = -std=c11 -lm -Wall -Werror
 LIBDIR = lib
 SRCDIR = src
 BINDIR = bin
+OBJDIR = obj
 DBGFLAGS = DEBUG_LOG
+.DEFAULT_GOAL = all
 
 OBJS = $(patsubst %,$(OBJDIR)/%,$(_OBJS))
 LOBJS = $(patsubst %,$(OBJDIR)/%,$(_LOBJS))
