@@ -190,6 +190,7 @@ int sepBy(Position *p, Ptree *t, AppendMode a, AppendMode aSeperator, parser par
 			++count;
 		}
 	}if(max < min || max == 0){
+		puts("sepBy passes max < min || max == 0");
 		while(accept(p, t, aSeperator, parseSeperator)){
 			if(!accept(p, t, a, parse)){
 				return 0;
@@ -300,7 +301,6 @@ int cstring(Position *p, Ptree *t){
 		return 0;
 	}
 	if(!repeat(p, t, PASS, cchar, 0, 0)){
-		logUnexpectedError(p, __func__, "a string");
 		return 0;
 	}
 	if(!acceptString(p, t, SKIP, "\""));
@@ -312,7 +312,7 @@ int space(Position *p, Ptree *t){
 }
 
 int spaces(Position *p, Ptree *t){
-	return repeat(p, t, SKIP, space, 0, 0);
+	return repeat(p, t, SKIP, space, 1, 0);
 }
 
 int letter(Position *p, Ptree *t){

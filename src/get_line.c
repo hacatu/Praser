@@ -36,7 +36,7 @@ int getLine(char **line, size_t *size, FILE *file){
 		}
 		switch((*line)[*size - 2]){
 			case '\0':
-				for(size_t i = *size / MULT; i < *size - 1; ++i){
+				for(size_t i = 0; i < *size - 1; ++i){
 					if((*line)[i] == '\0'){
 						return i;
 					}

@@ -50,12 +50,13 @@ int start(Position *p, Ptree *t){
 }
 
 int sxpr(Position *p, Ptree *t){
+	puts("called sxpr");
 	setString(t, __func__, strlen(__func__));
 	if(!acceptString(p, t, SKIP, "(")){
 		return 0;
 	}
 	if(!sepBy(p, t, ADD, SKIP, atom, spaces, 0, 0)){
-		logUnexpectedError(p, __func__, "atom");
+		puts("did not find atoms seperated by spaces");
 		return 0;
 	}
 	if(!acceptString(p, t, SKIP, ")")){
@@ -67,20 +68,25 @@ int sxpr(Position *p, Ptree *t){
 
 int atom(Position *p, Ptree *t){
 	if(accept(p, t, PASS, sxpr)){
+		puts("found sxpr");
 		return 1;
 	}
 	if(accept(p, t, ADD, cstring)){
+		puts("found string");
 		setString(t, "string", 6);
 		return 1;
 	}
 	if(accept(p, t, ADD, abool)){
+		puts("found bool");
 		setString(t, "bool", 4);
 		return 1;
 	}
 	if(accept(p, t, PASS, alist)){
+		puts("found list");
 		return 1;
 	}
 	if(accept(p, t, ADD, integer)){
+		puts("found number");
 		setString(t, "number", 6);
 		return 1;
 	}
@@ -108,7 +114,7 @@ int abool(Position *p, Ptree *t){
 }
 
 int aname(Position *p, Ptree *t){
-	return accept(p, t, ADD, name);
+	return accept(p, t, PASS, name);
 }
 
 int name(Position *p, Ptree *t){
@@ -157,7 +163,6 @@ int main(){
 		t = mallocPtree();
 		if(start(p, t)){
 			puts("String parsed successfully!  Output:");
-			flattenTagged(t);
 			printPtree(t, 0);
 		}else{
 			puts("String parsed unsuccessfully!");
