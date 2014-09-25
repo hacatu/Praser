@@ -1,7 +1,7 @@
 CC = gcc
 EXE = parser_repl
 LIB = parser.a
-_LOBJS = parser_llk.o ptree_create.o ptree_util.o ptree_delete.o ptree_print.o
+_LOBJS = parser_position.o parser_accept.o parser_combinators.o parser_parsers.o ptree_create.o ptree_util.o ptree_delete.o ptree_print.o
 _OBJS = get_line.o spawn_process.o
 _PARSERS = calculator.parser tree.parser lisp.parser
 CFLAGS = -std=c11 -lm -Wall -Werror

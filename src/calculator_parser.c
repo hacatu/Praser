@@ -4,7 +4,7 @@
 #include <string.h>
 #include "get_line.h"
 #include "ptree.h"
-#include "parser_llk.h"
+#include "parser.h"
 #include "calculator_interpreter.h"
 #include "debug.h"
 
