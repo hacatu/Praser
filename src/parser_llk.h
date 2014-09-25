@@ -98,6 +98,8 @@ int noneOf(Position *p, Ptree *t, AppendMode a, const char *options);
  */
 int cstring(Position *p, Ptree *t);
 
+int cchar(Position *p, Ptree *t);
+
 /* Accepts and discards whitespace.
  */
 int spaces(Position *p, Ptree *t);

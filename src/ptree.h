@@ -39,6 +39,8 @@ const char* getString(Ptree *t);
 
 int getSize(const Ptree *t);
 
+int getLength(const Ptree *t);
+
 
 /* Replaces all Ptrees with only one child by their child.
  */

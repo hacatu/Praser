@@ -27,12 +27,12 @@
 
 #define PUSH(DATA_TYPE, STACK, ELEMENT)                              \
 	{                                                                \
-		DATA_TYPE *temp;                                              \
+		DATA_TYPE *temp;                                             \
 		if(STACK.length == STACK.size){                              \
 			temp = realloc(STACK.data, MULT*STACK.size*sizeof(DATA_TYPE));\
 			if(temp){                                                \
 				STACK.data = temp;                                   \
-				STACK.size *= MULT;                           \
+				STACK.size *= MULT;                                  \
 			}                                                        \
 		}                                                            \
 		if(STACK.length != STACK.size){                              \

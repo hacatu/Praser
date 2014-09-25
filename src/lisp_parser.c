@@ -6,6 +6,7 @@
 #include "get_line.h"
 #include "ptree.h"
 #include "parser_llk.h"
+#include "lisp_interpreter.h"
 #include "debug.h"
 
 
@@ -14,18 +15,6 @@ start: sxpr
 sxpr: atom | "(" sxpr* ")"
 atom: 
  */
-
-typedef enum{NAME, LIST, NUMBER, STRING, BOOL} LispType;
-
-typedef struct LispVal{
-	LispType type;
-	union{
-		const char *string;
-		struct LispVal *list;
-		uint64_t number;
-		int boolean;
-	};
-} LispVal;
 
 
 int start(Position *p, Ptree *t);
@@ -51,7 +40,7 @@ int start(Position *p, Ptree *t){
 
 int sxpr(Position *p, Ptree *t){
 	puts("called sxpr");
-	setString(t, __func__, strlen(__func__));
+	setString(t, "(sxpr)", 6);
 	if(!acceptString(p, t, SKIP, "(")){
 		return 0;
 	}
@@ -73,12 +62,12 @@ int atom(Position *p, Ptree *t){
 	}
 	if(accept(p, t, ADD, cstring)){
 		puts("found string");
-		setString(t, "string", 6);
+		setString(t, "(string)", 8);
 		return 1;
 	}
 	if(accept(p, t, ADD, abool)){
 		puts("found bool");
-		setString(t, "bool", 4);
+		setString(t, "(bool)", 6);
 		return 1;
 	}
 	if(accept(p, t, PASS, alist)){
@@ -87,11 +76,11 @@ int atom(Position *p, Ptree *t){
 	}
 	if(accept(p, t, ADD, integer)){
 		puts("found number");
-		setString(t, "number", 6);
+		setString(t, "(number)", 8);
 		return 1;
 	}
 	if(accept(p, t, ADD, aname)){
-		setString(t, "name", 4);
+		setString(t, "(name)", 6);
 		return 1;
 	}
 	return 0;
@@ -102,11 +91,11 @@ int abool(Position *p, Ptree *t){
 		return 0;
 	}
 	if(acceptString(p, t, SKIP, "t")){
-		setString(t, "true", 4);
+		setString(t, "t", 1);
 		return 1;
 	}
 	if(acceptString(p, t, SKIP, "f")){
-		setString(t, "false", 5);
+		setString(t, "f", 1);
 		return 1;
 	}
 	logUnexpectedError(p, __func__, "t or f");
@@ -131,14 +120,14 @@ int nchar(Position *p, Ptree *t){
 
 int alist(Position *p, Ptree *t){
 	if(acceptString(p, t, SKIP, "'")){
-		setString(t, "quote", 5);
+		setString(t, "(quote)", 7);
 	}else if(acceptString(p, t, SKIP, "`")){
-		setString(t, "quasiquote", 5);
+		setString(t, "(quasiquote)", 12);
 	}else if(acceptString(p, t, SKIP, ",")){
 		if(acceptString(p, t, SKIP, "@")){
-			setString(t, "unquote-splicing", 16);
+			setString(t, "(unquote-splicing)", 18);
 		}else{
-			setString(t, "unquote", 7);
+			setString(t, "(unquote)", 9);
 		}
 	}else{
 		return 0;
@@ -154,6 +143,7 @@ int alist(Position *p, Ptree *t){
 int main(){
 	Ptree *t;
 	Position *p;
+	LispVal v;
 	size_t size = 0;
 	char *line = 0;
 	int read;
@@ -164,6 +154,11 @@ int main(){
 		if(start(p, t)){
 			puts("String parsed successfully!  Output:");
 			printPtree(t, 0);
+			v = expr(t);
+			puts("S-expression:");
+			printLispVal(&v);
+			puts("");
+			deleteLispVal(&v);
 		}else{
 			puts("String parsed unsuccessfully!");
 		}

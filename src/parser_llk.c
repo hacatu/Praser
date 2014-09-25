@@ -286,7 +286,7 @@ int noneOf(Position *p, Ptree *t, AppendMode a, const char *options){
 	return 1;
 }
 
-int cchar(Position *p, Ptree *t){
+int cschar(Position *p, Ptree *t){
 	if(currentChar(p) == '\\'){
 		getChar(p);
 		appendString(t, p->current, 1);
@@ -300,11 +300,27 @@ int cstring(Position *p, Ptree *t){
 	if(!acceptString(p, t, SKIP, "\"")){
 		return 0;
 	}
-	if(!repeat(p, t, PASS, cchar, 0, 0)){
+	if(!repeat(p, t, PASS, cschar, 0, 0)){
 		return 0;
 	}
 	if(!acceptString(p, t, SKIP, "\""));
 	return 1;
+}
+
+int cchar(Position *p, Ptree *t){
+	if(!acceptString(p, t, SKIP, "'")){
+		return 0;
+	}
+	if(currentChar(p) == '\\'){
+		getChar(p);
+		appendString(t, p->current, 1);
+		getChar(p);
+		return acceptString(p, t, SKIP, "'");
+	}
+	if(!noneOf(p, t, PASS, "'")){
+		return 0;
+	}
+	return acceptString(p, t, SKIP, "'");
 }
 
 int space(Position *p, Ptree *t){
@@ -326,6 +342,4 @@ int digit(Position *p, Ptree *t){
 int integer(Position *p, Ptree *t){
 	return repeat(p, t, PASS, digit, 1, 0);
 }
-
-
 

@@ -52,6 +52,10 @@ int getSize(const Ptree *t){
 	return t->nodec;
 }
 
+int getLength(const Ptree *t){
+	return t->length;
+}
+
 const char* getString(Ptree *t){
 	return t->string;
 }
