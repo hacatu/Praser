@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "__ptree.h"
-#include "debug.h"
+#include "../util/debug.h"
 
 //Error functions, do not invlove Ptrees:    =========================
 void logMemoryError(const char *name){

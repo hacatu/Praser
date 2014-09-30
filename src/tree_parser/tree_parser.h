@@ -1,7 +1,7 @@
 //tree_parser.h
 #pragma once
-#include "ptree.h"
-#include "parser_llk.h"
+#include "../ptree/ptree.h"
+#include "../parser/parser.h"
 
 int start(Position *p, Ptree *t);
 

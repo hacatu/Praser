@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "_ptree.h"
+#include "../ptree/_ptree.h"
 #include "_parser.h"
-#include "debug.h"
+#include "../util/debug.h"
 
 /* Local function not in header:
  * Attempts to parse the char c.

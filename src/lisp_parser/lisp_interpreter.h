@@ -1,7 +1,7 @@
 //lisp_interpreter.h
 #pragma once
 #include <stdint.h>
-#include "ptree.h"
+#include "../ptree/ptree.h"
 
 typedef enum{NAME, LIST, NUMBER, STRING, CHAR, BOOL} LispType;
 

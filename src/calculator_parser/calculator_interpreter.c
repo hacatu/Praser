@@ -4,9 +4,9 @@
 #include <stdint.h>
 #include <math.h>
 #include "calculator_interpreter.h"
-#include "stack.h"
-#include "ptree.h"
-#include "debug.h"
+#include "../util/stack.h"
+#include "../ptree/ptree.h"
+#include "../util/debug.h"
 
 DEFINE_STACK(Stack, double)
 

@@ -5,8 +5,8 @@
 #include <string.h>
 #include <math.h>
 #include "lisp_interpreter.h"
-#include "ptree.h"
-#include "debug.h"
+#include "../ptree/ptree.h"
+#include "../util/debug.h"
 
 struct Env{
 	struct Env *parent;

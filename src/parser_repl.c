@@ -5,11 +5,11 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include "get_line.h"
-#include "ptree.h"
-#include "parser.h"
-#include "spawn_process.h"
-#include "debug.h"
+#include "util/get_line.h"
+#include "ptree/ptree.h"
+#include "parser/parser.h"
+#include "util/spawn_process.h"
+#include "util/debug.h"
 
 int main(int argc, char **argv){
 	FILE *file = stdin;

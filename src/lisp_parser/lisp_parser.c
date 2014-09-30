@@ -3,11 +3,11 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
-#include "get_line.h"
-#include "ptree.h"
-#include "parser.h"
+#include "../util/get_line.h"
+#include "../ptree/ptree.h"
+#include "../parser/parser.h"
 #include "lisp_interpreter.h"
-#include "debug.h"
+#include "../util/debug.h"
 
 
 /* GRAMMAR:

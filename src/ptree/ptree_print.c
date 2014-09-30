@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "__ptree.h"
-#include "debug.h"
+#include "../util/debug.h"
 
 
 //Functions to print Ptrees:    ======================================

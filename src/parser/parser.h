@@ -1,6 +1,6 @@
 //parser_llk.h
 #pragma once
-#include "ptree.h"
+#include "../ptree/ptree.h"
 
 typedef struct Position Position;//holds the string being parsed and a pointer to the current char
 typedef int (*parser)(Position*, Ptree*);//a function pointer to a parsing function

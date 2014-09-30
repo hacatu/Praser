@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "_ptree.h"
+#include "../ptree/_ptree.h"
 #include "_parser.h"
-#include "debug.h"
+#include "../util/debug.h"
 
 
 //TODO: replace AppendMode with three functions: add, skip, and pass, and make parsers return ptrees instead of taking them

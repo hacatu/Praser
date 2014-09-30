@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "_ptree.h"
+#include "../ptree/_ptree.h"
 #include "_parser.h"
-#include "debug.h"
+#include "../util/debug.h"
 
 int repeat(Position *p, Ptree *t, AppendMode a, parser parse, int min, int max){
 	//t->string = __func__;
