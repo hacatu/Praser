@@ -7,6 +7,8 @@
 #include "../ptree/ptree.h"
 #include "../parser/parser.h"
 #include "lisp_interpreter.h"
+#include "lisp_value.h"
+#include "base_env.h"
 #include "../util/debug.h"
 
 
@@ -156,9 +158,10 @@ int main(){
 			printPtree(t, 0);
 			v = expr(t);
 			puts("S-expression:");
-			printLispVal(&v);
+			printLispVal(v);
 			puts("");
-			deleteLispVal(&v);
+			printLispVal(eval(v, baseEnv));
+			deleteLispVal(v);
 		}else{
 			puts("String parsed unsuccessfully!");
 		}

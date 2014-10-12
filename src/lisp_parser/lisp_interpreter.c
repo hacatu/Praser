@@ -5,32 +5,13 @@
 #include <string.h>
 #include <math.h>
 #include "lisp_interpreter.h"
+#include "lisp_env.h"
+#include "base_eval.h"
+#include "lisp_value.h"
 #include "../ptree/ptree.h"
 #include "../util/debug.h"
 
-struct Env{
-	struct Env *parent;
-	struct Env *left;
-	struct Env *right;
-	const char *name;
-	LispVal value;
-};
-
-void deleteLispVal(LispVal *v){
-	if(v->type != LIST){
-		return;
-	}
-	if(v->car){
-		deleteLispVal(v->car);
-		free(v->car);
-		v->car = NULL;
-	}
-	if(v->cdr){
-		deleteLispVal(v->cdr);
-		free(v->cdr);
-		v->cdr = NULL;
-	}
-}
+//TODO: Implement CHAR
 
 LispVal exprNAME(Ptree *t){
 	LispVal temp = {.type = NAME, .name = malloc(getLength(t)*sizeof(char))};
@@ -48,6 +29,7 @@ LispVal exprBOOL(Ptree *t){
 	return (LispVal){.type = BOOL, .code = getString(t)[0]=='t'?1:0};
 }
 
+//TODO: Create some kind of malloc LispVal function to malloc and assign a LispVal in one go
 LispVal exprSTRING(Ptree *t){
 	LispVal s = {.type = LIST};
 	LispVal *cdr = &s;
@@ -55,7 +37,7 @@ LispVal exprSTRING(Ptree *t){
 	for(int i = 0;;){
 		cdr->car = malloc(1*sizeof(LispVal));
 		if(!cdr->car){
-			deleteLispVal(&s);
+			deleteLispVal(s);
 			return s;
 		}
 		*(cdr->car) = (LispVal){.type = CHAR, .code = string[i]};
@@ -65,7 +47,7 @@ LispVal exprSTRING(Ptree *t){
 		}
 		cdr->cdr = malloc(1*sizeof(LispVal));
 		if(!cdr->cdr){
-			deleteLispVal(&s);
+			deleteLispVal(s);
 			return s;
 		}
 		cdr = cdr->cdr;
@@ -80,7 +62,7 @@ LispVal exprLIST(Ptree *t){
 	for(int i = 0;;){
 		cdr->car = malloc(1*sizeof(LispVal));
 		if(!cdr->car){
-			deleteLispVal(&s);
+			deleteLispVal(s);
 			return s;
 		}
 		*(cdr->car) = expr(nthChild(t, i));
@@ -90,7 +72,7 @@ LispVal exprLIST(Ptree *t){
 		}
 		cdr->cdr = malloc(1*sizeof(LispVal));
 		if(!cdr->cdr){
-			deleteLispVal(&s);
+			deleteLispVal(s);
 			return s;
 		}
 		cdr = cdr->cdr;
@@ -100,21 +82,21 @@ LispVal exprLIST(Ptree *t){
 }
 
 LispVal exprQUOTE(const char *string, Ptree *t){
-	LispVal s = {.type = LIST};
+	LispVal s = BASE_NIL;
 	s.car = malloc(1*sizeof(LispVal));
 	if(!s.car){
-		deleteLispVal(&s);
+		deleteLispVal(s);
 		return s;
 	}
 	*(s.car) = (LispVal){.type = NAME, .name = malloc(getLength(t)*sizeof(char))};
 	if(!s.car->name){
-		deleteLispVal(&s);
+		deleteLispVal(s);
 		return s;
 	}
 	strcpy(s.car->name, getString(t));
 	s.cdr = malloc(1*sizeof(LispVal));
 	if(!s.cdr){
-		deleteLispVal(&s);
+		deleteLispVal(s);
 		return s;
 	}
 	*(s.cdr) = expr(t);
@@ -123,7 +105,7 @@ LispVal exprQUOTE(const char *string, Ptree *t){
 
 LispVal expr(Ptree *t){
 	if(!t){
-		return (LispVal){.type = LIST};
+		return BASE_NIL;
 	}
 	const char *string = getString(t);
 	if(!strcmp(string, "(name)")){
@@ -154,34 +136,52 @@ LispVal expr(Ptree *t){
 		return exprQUOTE("unquote-splicing", nthChild(t, 0));
 	}
 	//NYI
-	return (LispVal){.type = LIST};
+	return BASE_NIL;
 }
 
-LispVal eval(LispVal expr, Env *env);
+LispVal evalLAMBDA(LispVal lambda, LispVal args, Env *env){
+	LispVal a = car(lambda);
+	if(lengthLIST(a) > lengthLIST(args)){
+		return BASE_NYI;
+	}
+	Env *new = copyEnv(env);
+	while(!isNIL(a)){
+		if(!addName(new, car(a).name, car(args))){
+			deleteEnv(new);
+			return BASE_NYI;
+		}
+		a = cdr(a);
+		args = cdr(args);
+	}
+	a = eval(cdr(lambda), new);
+	deleteEnv(new);
+	return a;
+}
 
-void printLispVal(const LispVal *v){
-	switch(v->type){
+LispVal evalLIST(LispVal expr, Env *env){
+	LispVal a = car(expr);
+	if(isLIST(a)){
+		a = evalLIST(a, env);
+	}else if(isNAME(a)){
+		a = getName(env, car(expr).name);
+		if(isNYI(a)){
+			return evalBASE(expr, env);
+		}
+	}
+	if(isLAMBDA(a)){
+		return evalLAMBDA(a, cdr(expr), env);
+	}
+	return expr;
+}
+
+LispVal eval(LispVal expr, Env *env){
+	switch(expr.type){
 		case NAME:
-			printf("NAME:%s ", v->name);
-			break;
+			return getName(env, expr.name);
 		case LIST:
-			printf("LIST:(");
-			if(v->car){
-				printLispVal(v->car);
-			}
-			if(v->cdr){
-				printLispVal(v->cdr);
-			}
-			printf(")");
-			break;
-		case NUMBER:
-			printf("NUMBER:%li ", v->number);
-			break;
-		case BOOL:
-			printf(v->code?"BOOL:true ":"BOOL:false ");
-			break;
+			return evalLIST(expr, env);
 		default:
-			printf("NYI");
+			return expr;
 	}
 }
 
