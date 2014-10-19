@@ -12,6 +12,7 @@ SRCDIR = src
 BINDIR = bin
 OBJDIR = obj
 DBGFLAGS = DEBUG_LOG
+MAKE_SUBTARGET =
 .DEFAULT_GOAL = all
 
 _LOBJS = $(patsubst %,parser/%,$(_PARSER_LOBJS))
@@ -54,11 +55,13 @@ $(SRCDIR)/util/obj/%.o: $(SRCDIR)/util/%.c
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 $(BINDIR)/%.parser:
-	$(MAKE) -C $(SRCDIR)/$*_parser
+	$(MAKE) -C $(SRCDIR)/$*_parser $(MAKE_SUBTARGET)
 	
 clean:
-	rm $(OBJDIR)/*.o $(BINDIR)/$(EXE) $(LIBDIR)/$(LIB) $(BINDIR)/*.parser
+	-rm $(OBJDIR)/*.o $(BINDIR)/$(EXE) $(LIBDIR)/$(LIB) $(BINDIR)/*.parser
 	
+rebuild: MAKE_SUBTARGET = rebuild
+
 rebuild: clean all
 rebug: clean debug
 retest: clean test

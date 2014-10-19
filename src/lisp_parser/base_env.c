@@ -14,7 +14,6 @@
 Env *baseEnv;
 
 char initBaseEnv(){
-	Env *empty = createOneAttrEnv((const Attribute){.name = "nil", .value = BASE_NIL});
 	Attribute baseAttrs[] = {
 		/*
 		{"min", BASE_min},

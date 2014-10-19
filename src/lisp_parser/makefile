@@ -9,12 +9,13 @@ parser: obj ../../bin/$(EXE)
 obj:
 	mkdir $@
 
-../../bin/$(EXE): obj/lisp_parser.o obj/lisp_interpreter.o ../util/obj/get_line.o ../../lib/parser.a
+../../bin/$(EXE): obj/lisp_parser.o obj/lisp_interpreter.o obj/lisp_env.o obj/lisp_value.o obj/base_eval.o obj/base_env.o ../util/obj/get_line.o ../../lib/parser.a
 	$(CC) -o $@ $^ $(CFLAGS)
 
 obj/%.o: %.c
 	$(CC) -c -o $@ $^ $(CFLAGS)
 
 clean:
-	rm obj/*
-	rm ../../bin/$(EXE)
+	-rm obj/* ../../bin/$(EXE)
+
+rebuild: clean parser

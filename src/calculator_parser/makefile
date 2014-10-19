@@ -16,5 +16,6 @@ obj/%.o: %.c
 	$(CC) -c -o $@ $^ $(CFLAGS)
 
 clean:
-	rm obj/*
-	rm ../../bin/$(EXE)
+	-rm obj/* ../../bin/$(EXE)
+
+rebuild: clean parser

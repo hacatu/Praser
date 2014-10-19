@@ -146,7 +146,7 @@ LispVal cdr(LispVal v){
 	if(isNIL(v)){
 		return BASE_NYI;
 	}
-	return *v.car;
+	return *v.cdr;
 }
 
 //TODO: Make iterative
@@ -180,7 +180,7 @@ LispVal copyLispVal(LispVal v){
 void printLispVal(const LispVal v){
 	switch(v.type){
 		case NAME:
-			printf("NAME:%s ", v.name);
+			printf("NAME:%s", v.name);
 			break;
 		case LIST:
 			if(isNIL(v)){
@@ -189,14 +189,18 @@ void printLispVal(const LispVal v){
 			}
 			printf("LIST:(");
 			printLispVal(car(v));
+			printf(" ");
 			printLispVal(cdr(v));
 			printf(")");
 			break;
 		case NUMBER:
-			printf("NUMBER:%li ", v.number);
+			printf("NUMBER:%li", v.number);
 			break;
 		case BOOL:
-			printf(v.code?"BOOL:true ":"BOOL:false ");
+			printf(v.code?"BOOL:true":"BOOL:false");
+			break;
+		case CHAR:
+			printf("'%c'", v.code);
 			break;
 		case LAMBDA:
 			printf("LAMBDA:(");

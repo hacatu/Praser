@@ -143,6 +143,7 @@ int alist(Position *p, Ptree *t){
 
 
 int main(){
+	initBaseEnv();
 	Ptree *t;
 	Position *p;
 	LispVal v;
@@ -161,6 +162,7 @@ int main(){
 			printLispVal(v);
 			puts("");
 			printLispVal(eval(v, baseEnv));
+			puts("");
 			deleteLispVal(v);
 		}else{
 			puts("String parsed unsuccessfully!");
