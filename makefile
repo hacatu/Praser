@@ -25,8 +25,10 @@ $(LIBDIR)/$(LIB): $(LOBJS)
 	ar rcs $@ $^
 
 debug: CFLAGS += $(addprefix -D, $(DBGFLAGS))
+debug: MAKE_SUBTARGET = debug
 debug: test
 test: CFLAGS += -g
+test: MAKE_SUBTARGET = test
 test: all
 
 all: dirs $(BINDIR)/$(EXE) $(LIBDIR)/$(LIB) $(PARSERS)
@@ -56,11 +58,10 @@ $(SRCDIR)/util/obj/%.o: $(SRCDIR)/util/%.c
 
 $(BINDIR)/%.parser:
 	$(MAKE) -C $(SRCDIR)/$*_parser $(MAKE_SUBTARGET)
-	
+
+clean: MAKE_SUBTARGET = clean
 clean:
 	-rm $(OBJDIR)/*.o $(BINDIR)/$(EXE) $(LIBDIR)/$(LIB) $(BINDIR)/*.parser
-	
-rebuild: MAKE_SUBTARGET = rebuild
 
 rebuild: clean all
 rebug: clean debug

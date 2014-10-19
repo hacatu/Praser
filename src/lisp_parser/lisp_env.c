@@ -45,17 +45,14 @@ char addName(Env *e, const char *name, LispVal val){
 }
 
 Env* getNode(Env *e, const char *name){
+	if(!e){
+		return NULL;
+	}
 	int o = strcmp(e->attr.name, name);
 	if(o < 0){
-		if(!e->left){
-			return NULL;
-		}
 		return getNode(e->left, name);
 	}
 	if(o > 0){
-		if(!e->right){
-			return NULL;
-		}
 		return getNode(e->right, name);
 	}
 	return e;
