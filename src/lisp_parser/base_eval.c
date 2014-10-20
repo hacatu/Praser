@@ -49,7 +49,7 @@ LispVal BASE_mul(LispVal args, Env *env){
 	if(!isNUMBER(v)){
 		return BASE_NYI;
 	}
-	r = BASE_add(cdr(args), env);
+	r = BASE_mul(cdr(args), env);
 	if(isNYI(r)){
 		return BASE_NYI;
 	}
@@ -69,7 +69,7 @@ LispVal BASE_div(LispVal args, Env *env){
 		return (LispVal){.type = NUMBER, .number = 1/v.number};
 	}
 	r = BASE_mul(cdr(args), env);
-	if(isNYI(r)){
+	if(!isNUMBER(r)){
 		return BASE_NYI;
 	}
 	return (LispVal){.type = NUMBER, .number = v.number/r.number};
@@ -88,7 +88,7 @@ LispVal BASE_quotient(LispVal args, Env *env){
 		return (LispVal){.type = NUMBER, .number = 1/v.number};
 	}
 	r = BASE_mul(cdr(args), env);
-	if(isNYI(r)){
+	if(!isNUMBER(r)){
 		return BASE_NYI;
 	}
 	return (LispVal){.type = NUMBER, .number = v.number/r.number};
@@ -115,7 +115,7 @@ LispVal BASE_modulo(LispVal args, Env *env){
 
 LispVal BASE_lt(LispVal args, Env *env){
 	LispVal a, b;
-	if(lengthLIST(args) != 2){
+	if(lengthLIST(args) < 2){
 		return BASE_NYI;
 	}
 	a = eval(car(args), env);
@@ -126,12 +126,12 @@ LispVal BASE_lt(LispVal args, Env *env){
 	if(!isNUMBER(b)){
 		return BASE_NYI;
 	}
-	return liftBOOL((char)(a.number < b.number));
+	return liftBOOL(a.number < b.number);
 }
 
 LispVal BASE_gt(LispVal args, Env *env){
 	LispVal a, b;
-	if(lengthLIST(args) != 2){
+	if(lengthLIST(args) < 2){
 		return BASE_NYI;
 	}
 	a = eval(car(args), env);
@@ -142,7 +142,7 @@ LispVal BASE_gt(LispVal args, Env *env){
 	if(!isNUMBER(b)){
 		return BASE_NYI;
 	}
-	return liftBOOL((char)(a.number > b.number));
+	return liftBOOL(a.number > b.number);
 }
 
 LispVal BASE_integer(LispVal args, Env *env){

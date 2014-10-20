@@ -28,13 +28,16 @@ void deleteLispVal(LispVal v){
 }
 
 size_t lengthLIST(LispVal list){
-	if(list.type == NYI){
+	if(isNYI(list)){
 		return 0;
 	}
-	if(list.type != LIST){
+	if(!isLIST(list)){
 		return 1;
 	}
-	return 1 + lengthLIST(*list.cdr);
+	if(isNIL(list)){
+		return 0;
+	}
+	return 1 + lengthLIST(cdr(list));
 }
 
 char isLIST(LispVal v){

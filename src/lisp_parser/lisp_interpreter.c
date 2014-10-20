@@ -14,7 +14,6 @@
 //TODO: Implement CHAR
 
 LispVal exprNAME(Ptree *t){
-	puts("exprNAME called");
 	LispVal temp = {.type = NAME, .name = malloc(getLength(t)*sizeof(char))};
 	if(temp.name){
 		strcpy(temp.name, getString(t));
@@ -23,18 +22,15 @@ LispVal exprNAME(Ptree *t){
 }
 
 LispVal exprNUMBER(Ptree *t){
-	puts("exprNUMBER called");
 	return (LispVal){.type = NUMBER, .number = atoll(getString(t))};
 }
 
 LispVal exprBOOL(Ptree *t){
-	puts("exprBOOL called");
 	return liftBOOL(getString(t)[0] == 't');
 }
 
 //TODO: Create some kind of malloc LispVal function to malloc and assign a LispVal in one go
 LispVal exprSTRING(Ptree *t){
-	puts("exprSTRING called");
 	LispVal s = BASE_NIL;
 	LispVal *cdr = &s;
 	const char *string = getString(t);
@@ -59,7 +55,6 @@ LispVal exprSTRING(Ptree *t){
 }
 
 LispVal exprLIST(Ptree *t){
-	puts("exprLIST called");
 	LispVal s = BASE_NIL;
 	LispVal *cdr = &s;
 	for(int i = 0; i < getSize(t); ++i){
@@ -83,7 +78,6 @@ LispVal exprLIST(Ptree *t){
 }
 
 LispVal exprQUOTE(const char *string, Ptree *t){
-	puts("exprQUOTE called");
 	LispVal s = BASE_NIL;
 	s.car = malloc(1*sizeof(LispVal));
 	if(!s.car){
@@ -106,7 +100,6 @@ LispVal exprQUOTE(const char *string, Ptree *t){
 }
 
 LispVal expr(Ptree *t){
-	puts("expr called");
 	if(!t){
 		puts("expr error: null ptree");
 		return BASE_NYI;

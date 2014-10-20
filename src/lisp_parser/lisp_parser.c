@@ -41,7 +41,6 @@ int start(Position *p, Ptree *t){
 }
 
 int sxpr(Position *p, Ptree *t){
-	puts("called sxpr");
 	setString(t, "(sxpr)", 6);
 	if(!acceptString(p, t, SKIP, "(")){
 		return 0;
@@ -146,7 +145,7 @@ int main(){
 	initBaseEnv();
 	Ptree *t;
 	Position *p;
-	LispVal v;
+	LispVal v, e;
 	size_t size = 0;
 	char *line = 0;
 	int read;
@@ -155,15 +154,16 @@ int main(){
 		p = firstPosition(line);
 		t = mallocPtree();
 		if(start(p, t)){
-			puts("String parsed successfully!  Output:");
-			printPtree(t, 0);
+			//printPtree(t, 0);
 			v = expr(t);
 			puts("S-expression:");
 			printLispVal(v);
 			puts("");
-			printLispVal(eval(v, baseEnv));
+			e = eval(v, baseEnv);
+			printLispVal(e);
 			puts("");
 			deleteLispVal(v);
+			deleteLispVal(e);
 		}else{
 			puts("String parsed unsuccessfully!");
 		}
