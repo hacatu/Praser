@@ -1,12 +1,11 @@
 //lisp_env.h
 #pragma once
-#include "lisp_interpreter.h"
-#include "stdlib.h"
+#include "lisp_all_types.h"
 
-typedef struct Attribute{
+struct Attribute{
 	const char *name;
-	LispVal value;
-} Attribute;
+	LispVal *value;
+};
 
 Env* createOneAttrEnv(Attribute attr);
 
@@ -14,7 +13,7 @@ char addAttr(Env *e, Attribute attr);
 
 char addName(Env *e, const char *name, LispVal val);
 
-LispVal getName(Env *e, const char *name);
+LispVal* getName(Env *e, const char *name);
 
 char setName(Env *e, const char *name, LispVal val);
 

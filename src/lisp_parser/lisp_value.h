@@ -2,23 +2,29 @@
 #pragma once
 #include <stdlib.h>
 #include <stdint.h>
+#include "lisp_all_types.h"
 
-typedef enum{NYI, NAME, LIST, NUMBER, CHAR, BOOL, LAMBDA} LispType;
+enum LispType{NYI, NAME, LIST, NUMBER, CHAR, BOOL, LAMBDA};
 
 //TODO: Implement CHAR
 
-typedef struct LispVal{
+struct LispVal{
 	LispType type;
 	union{
-		char *name;
-		char code;
-		struct{
-			struct LispVal *car;//params for lambda
-			struct LispVal *cdr;//body for lambda
+		char *name;//NAME
+		char code;//CHAR, BOOL
+		struct{//LIST
+			struct LispVal *car;
+			struct LispVal *cdr;
 		};
-		uint64_t number;
+		struct{//LAMBDA
+			struct LispVal *params;
+			struct LispVal *body;
+			Env *closure;
+		};
+		uint64_t number;//NUMBER
 	};
-} LispVal;
+};
 
 void deleteLispVal(LispVal v);
 
@@ -46,7 +52,7 @@ LispVal liftAND(LispVal a, LispVal b);
 
 LispVal liftCONS(LispVal a, LispVal d);
 
-LispVal liftLAMBDA(LispVal params, LispVal body);
+LispVal liftLAMBDA(LispVal params, LispVal body, Env *closure);
 
 LispVal liftEQV(LispVal a, LispVal b);
 

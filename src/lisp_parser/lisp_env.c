@@ -1,8 +1,8 @@
 //lisp_env.c
 #include <stdio.h>
 #include <stdlib.h>
-#include "lisp_interpreter.h"
 #include "lisp_env.h"
+#include "lisp_value.h"
 #include "../util/debug.h"
 
 struct Env{
@@ -37,11 +37,18 @@ char addAttr(Env *e, Attribute attr){
 		}
 		return addAttr(e->right, attr);
 	}
-	return 0;
+	//replace existing variable (shadow external variable):
+	e->attr.value = attr.value;
+	return 1;
 }
 
 char addName(Env *e, const char *name, LispVal val){
-	return addAttr(e, (Attribute){.name = name, .value = val});
+	Attribute attr = {.name = name, .value = malloc(1*sizeof(val))};
+	if(!attr.value){
+		return 0;
+	}
+	*(attr.value) = val;
+	return addAttr(e, attr);
 }
 
 Env* getNode(Env *e, const char *name){
@@ -58,10 +65,10 @@ Env* getNode(Env *e, const char *name){
 	return e;
 }
 
-LispVal getName(Env *e, const char *name){
+LispVal* getName(Env *e, const char *name){
 	Env *temp = getNode(e, name);
 	if(!temp){
-		return BASE_NYI;
+		return NULL;
 	}
 	return temp->attr.value;
 }
@@ -71,7 +78,7 @@ char setName(Env *e, const char *name, LispVal val){
 	if(!temp){
 		return 0;
 	}
-	temp->attr.value = val;
+	*(temp->attr.value) = val;
 	return 1;
 }
 
@@ -106,7 +113,9 @@ void deleteEnv(Env *e){
 		free(e->right);
 		e->right = 0;
 	}
-	deleteLispVal(e->attr.value);
+	deleteLispVal(*(e->attr.value));
+	free(e->attr.value);
+	e->attr.value = NULL;
 }
 
 Env* createEnvFrom(size_t attrc, Attribute attrv[]){
@@ -155,7 +164,7 @@ Env* nextPostorderEnv(Env *e){
 Env* copyEnv(const Env *e){
 	Env *cpy = createOneAttrEnv(e->attr);
 	while((e = nextPreorderEnv(e))){
-		if(!addName(cpy, e->attr.name, copyLispVal(e->attr.value))){
+		if(!addAttr(cpy, e->attr)){
 			deleteEnv(cpy);
 			return NULL;
 		}

@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include "lisp_env.h"
 #include "lisp_value.h"
 
 LispVal BASE_NYI = {.type = NYI};
@@ -87,8 +88,14 @@ LispVal liftAND(LispVal a, LispVal b){
 }
 
 LispVal liftCONS(LispVal a, LispVal d){
-	LispVal cell = {.type = LIST, .car = malloc(1*sizeof(LispVal)), .cdr = malloc(1*sizeof(LispVal))};
-	if(!cell.car || !cell.cdr){
+	LispVal cell = {.type = LIST};
+	cell.car = malloc(1*sizeof(LispVal));
+	if(!cell.car){
+		return BASE_NYI;
+	}
+	cell.cdr = malloc(1*sizeof(LispVal));
+	if(!cell.cdr){
+		free(cell.car);
 		return BASE_NYI;
 	}
 	*cell.car = a;
@@ -96,19 +103,26 @@ LispVal liftCONS(LispVal a, LispVal d){
 	return cell;
 }
 
-LispVal liftLAMBDA(LispVal params, LispVal body){
+LispVal liftLAMBDA(LispVal params, LispVal body, Env *closure){
 	LispVal lambda = {.type = LAMBDA};
-	lambda.car = malloc(1*sizeof(LispVal));
-	if(!lambda.car){
+	lambda.params = malloc(1*sizeof(LispVal));
+	if(!lambda.params){
 		return BASE_NYI;
 	}
-	lambda.cdr = malloc(1*sizeof(LispVal));
-	if(!lambda.cdr){
-		free(lambda.car);
+	lambda.body = malloc(1*sizeof(LispVal));
+	if(!lambda.body){
+		free(lambda.params);
 		return BASE_NYI;
 	}
-	*lambda.car = params;
-	*lambda.cdr = body;
+	lambda.closure = copyEnv(closure);
+	if(!lambda.closure){
+		free(lambda.params);
+		free(lambda.body);
+		return BASE_NYI;
+	}
+	//TODO: possibly initialize parameters to BASE_NIL here
+	*lambda.params = params;
+	*lambda.body = body;
 	return lambda;
 }
 
