@@ -160,6 +160,9 @@ char reallocPtree(Ptree *t, int size){
 		debug_calls("returning: 0");
 		return 0;
 	}
+	if(size > t->nodec){
+		memset(nthChild(t, -1), 0, (size - t->nodec)*sizeof(Ptree));
+	}
 	if(temp != t->nodes){
 		t->nodes = temp;
 		t->nodec = size;

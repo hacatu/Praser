@@ -137,7 +137,7 @@ LispVal expr(Ptree *t){
 	return BASE_NYI;
 }
 
-LispVal evalLAMBDA(LispVal lambda, LispVal args, Env *env){
+LispVal evalLAMBDA(LispVal lambda, LispVal args, Env *env){//TODO: fix
 	LispVal a = car(lambda);
 	if(lengthLIST(a) > lengthLIST(args)){
 		return BASE_NYI;
@@ -161,7 +161,7 @@ LispVal evalLIST(LispVal expr, Env *env){
 	if(isLIST(a)){
 		a = evalLIST(a, env);
 	}else if(isNAME(a)){
-		a = getName(env, car(expr).name);
+		a = getValue(env, car(expr).name);
 		if(isNYI(a)){
 			return evalBASE(expr, env);
 		}
@@ -175,7 +175,7 @@ LispVal evalLIST(LispVal expr, Env *env){
 LispVal eval(LispVal expr, Env *env){
 	switch(expr.type){
 		case NAME:
-			return getName(env, expr.name);
+			return getValue(env, expr.name);
 		case LIST:
 			return evalLIST(expr, env);
 		default:

@@ -40,7 +40,7 @@ char appendNewPtree(Ptree *parent, const char *string, int length){
 		debug_calls("returning: 0");
 		return 0;
 	}
-	*lastChild(parent) = newPtree(parent, string, length);
+	setString(lastChild(parent), string, length);
 	debug_calls("returning: 1");
 	return 1;
 }

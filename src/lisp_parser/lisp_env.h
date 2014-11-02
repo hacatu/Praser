@@ -15,6 +15,8 @@ char addName(Env *e, const char *name, LispVal val);
 
 LispVal* getName(Env *e, const char *name);
 
+LispVal getValue(Env *e, const char *name);
+
 char setName(Env *e, const char *name, LispVal val);
 
 void deleteEnv(Env *e);

@@ -219,6 +219,7 @@ LispVal BASE_display(LispVal args, Env *env){
 		return BASE_NYI;
 	}
 	printLispVal(eval(car(args), env));
+	puts("");
 	return BASE_NIL;
 }
 
@@ -336,7 +337,7 @@ LispVal BASE_lambda(LispVal args, Env *env){
 	if(lengthLIST(args) < 2){
 		return BASE_NYI;
 	}
-	return liftLAMBDA(car(args), car(cdr(args)));
+	return liftLAMBDA(car(args), car(cdr(args)), env);
 }
 
 //TODO: Put BASE functions in search tree

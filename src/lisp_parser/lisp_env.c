@@ -73,6 +73,14 @@ LispVal* getName(Env *e, const char *name){
 	return temp->attr.value;
 }
 
+LispVal getValue(Env *e, const char *name){
+	LispVal *var = getName(e, name);
+	if(!var){
+		return BASE_NYI;
+	}
+	return *var;
+}
+
 char setName(Env *e, const char *name, LispVal val){
 	Env *temp = getNode(e, name);
 	if(!temp){
