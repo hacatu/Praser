@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <string.h>
 #include "lisp_env.h"
 #include "lisp_value.h"
 
@@ -14,7 +15,34 @@ LispVal BASE_TRUE = {.type = BOOL, .code = 1};
 LispVal BASE_FALSE = {.type = BOOL};
 
 void deleteLispVal(LispVal v){
+	//puts("deleteLispVal called");
+	//printLispVal(v);
+	//puts("");
 	if(!isLIST(v)){
+		if(isNAME(v)){
+			free(v.name);
+			return;
+		}
+		if(isLAMBDA(v)){
+			LispVal *l = v.params;
+			Env *e;
+			if(l){
+				deleteLispVal(*l);
+				free(l);
+				v.params = NULL;
+			}
+			l = v.body;
+			if(l){
+				deleteLispVal(*l);
+				free(l);
+				v.body = NULL;
+			}
+			e = v.closure;
+			if(e){
+				deleteEnv(e);
+				e = NULL;
+			}
+		}
 		return;
 	}
 	if(isNIL(v)){
@@ -168,23 +196,33 @@ LispVal cdr(LispVal v){
 
 //TODO: Make iterative
 LispVal copyLispVal(LispVal v){
-	LispVal cpy = {.type = LIST};
+	LispVal cpy = {0};
 	switch(v.type){
-		case NAME:
 		case NUMBER:
 		case BOOL:
 			return v;
+		case NAME:
+			cpy.type = NAME;
+			cpy.name = malloc((strlen(v.name) + 1)*sizeof(char));//TODO: not use strlen
+			if(!cpy.name){
+				return BASE_NYI;
+			}
+			strcpy(cpy.name, v.name);
+			return cpy;
 		case LIST:
+			if(isNIL(v)){
+				return BASE_NIL;
+			}
 			cpy.type = LIST;
 			cpy.car = malloc(1*sizeof(LispVal));
 			if(!cpy.car){
-				return BASE_NIL;
+				return BASE_NYI;
 			}
 			*cpy.car = copyLispVal(*v.car);
 			cpy.cdr = malloc(1*sizeof(LispVal));
 			if(!cpy.cdr){
 				deleteLispVal(cpy);
-				return BASE_NIL;
+				return BASE_NYI;
 			}
 			*cpy.cdr = copyLispVal(*v.cdr);
 			return cpy;

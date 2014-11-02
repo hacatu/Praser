@@ -75,13 +75,13 @@ int atom(Position *p, Ptree *t){
 		puts("found list");
 		return 1;
 	}
-	if(accept(p, t, ADD, integer)){
+	if(accept(p, t, ADD, integer)){//never freed (ibid.) x 2
 		puts("found number");
-		setString(t, "(number)", 8);
+		setString(t, "(number)", 8);//never freed x 2
 		return 1;
 	}
-	if(accept(p, t, ADD, aname)){
-		setString(t, "(name)", 6);
+	if(accept(p, t, ADD, aname)){//never freed (appendNewPtree (ptree_create.c:38), reallocPtree (ptree_util.c:157))
+		setString(t, "(name)", 6);//never freed
 		return 1;
 	}
 	return 0;
@@ -154,15 +154,16 @@ int main(){
 		p = firstPosition(line);
 		t = mallocPtree();
 		if(start(p, t)){
-			//printPtree(t, 0);
+			printPtree(t, 0);
 			v = expr(t);
 			puts("S-expression:");
 			printLispVal(v);
 			puts("");
 			e = eval(v, baseEnv);
+			deleteLispVal(v);
+			puts("Evaluated:");
 			printLispVal(e);
 			puts("");
-			deleteLispVal(v);
 			deleteLispVal(e);
 		}else{
 			puts("String parsed unsuccessfully!");
@@ -172,6 +173,5 @@ int main(){
 		free(p);
 	}
 	free(line);
-	return 1;
 }
 

@@ -54,14 +54,20 @@ void freePtree(Ptree *t){
 	free(t->string);
 	t->length = 0;
 	t->nodec = 0;
-	t->parent = 0;
+	t->parent = NULL;
+	t->nodes = NULL;
+	t->string = NULL;
 	debug_calls("returning");
 }
 
+/*
 void deletePtree(Ptree *t){
 	const Ptree *top = t;
+	//puts("deletePtree called");
 	debug_calls("called on: %p", t);
+	//printPtree(t, 0);
 	while(1){
+		//puts("looping");
 		while(firstChild(t)){//while t has children, set t to its first child
 			t = firstChild(t);
 		}
@@ -70,7 +76,9 @@ void deletePtree(Ptree *t){
 		//and if t's parent is null, t is the root.
 		//if(!t->parent){
 		if(t == top){
+			//puts("deleting last node");
 			freePtree(t);
+			//printPtree(t, 0);
 			debug_calls("returning");
 			return;
 		}
@@ -79,7 +87,21 @@ void deletePtree(Ptree *t){
 		//Set t equal to is parent and freePtree its firstChild.
 		t = t->parent;
 		freePtree(firstChild(t));
+		//printPtree(t, 0);
 	}
-	debug_calls("returning");
+}
+*/
+
+//TODO: make iterative
+void deletePtree(Ptree *t){
+	for(int i = 0; i < getSize(t); ++i){
+		deletePtree(nthChild(t, i));
+	}
+	free(t->nodes);
+	free(t->string);
+	t->length = 0;
+	t->nodec = 0;
+	t->nodes = NULL;
+	t->string = NULL;
 }
 

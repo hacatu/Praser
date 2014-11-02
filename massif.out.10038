@@ -1,0 +1,563 @@
+desc: (none)
+cmd: bin/lisp.parser
+time_unit: i
+#-----------
+snapshot=0
+#-----------
+time=0
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=1
+#-----------
+time=141476
+mem_heap_B=4
+mem_heap_extra_B=20
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=2
+#-----------
+time=144013
+mem_heap_B=8
+mem_heap_extra_B=16
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=3
+#-----------
+time=144352
+mem_heap_B=24
+mem_heap_extra_B=24
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=4
+#-----------
+time=145434
+mem_heap_B=64
+mem_heap_extra_B=40
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=5
+#-----------
+time=145544
+mem_heap_B=71
+mem_heap_extra_B=57
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=6
+#-----------
+time=147564
+mem_heap_B=111
+mem_heap_extra_B=73
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=7
+#-----------
+time=148845
+mem_heap_B=112
+mem_heap_extra_B=96
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=8
+#-----------
+time=149002
+mem_heap_B=112
+mem_heap_extra_B=96
+mem_stacks_B=0
+heap_tree=detailed
+n6: 112 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 40 0x40764A: mallocPtree (ptree_create.c:32)
+  n0: 40 0x400F9F: main (lisp_parser.c:155)
+ n1: 40 0x407D98: reallocPtree (ptree_util.c:157)
+  n1: 40 0x407677: appendNewPtree (ptree_create.c:38)
+   n1: 40 0x406CE7: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+    n1: 40 0x406ED8: sepBy (parser_combinators.c:41)
+     n1: 40 0x400AAB: sxpr (lisp_parser.c:48)
+      n1: 40 0x406D5D: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+       n1: 40 0x4009DE: start (lisp_parser.c:32)
+        n0: 40 0x400FB6: main (lisp_parser.c:156)
+ n1: 16 0x406A84: firstPosition (in /home/hac/Projects/Praser/bin/lisp.parser)
+  n0: 16 0x400F91: main (lisp_parser.c:154)
+ n1: 8 0x4069BC: getLine (in /home/hac/Projects/Praser/bin/lisp.parser)
+  n0: 8 0x4010CE: main (lisp_parser.c:152)
+ n2: 8 0x4076E7: setString (ptree_create.c:53)
+  n1: 7 0x400A59: sxpr (lisp_parser.c:44)
+   n1: 7 0x406D5D: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+    n1: 7 0x4009DE: start (lisp_parser.c:32)
+     n0: 7 0x400FB6: main (lisp_parser.c:156)
+  n0: 1 in 1 place, below massif's threshold (01.00%)
+ n0: 0 in 1 place, below massif's threshold (01.00%)
+#-----------
+snapshot=9
+#-----------
+time=149002
+mem_heap_B=111
+mem_heap_extra_B=73
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=10
+#-----------
+time=149036
+mem_heap_B=118
+mem_heap_extra_B=90
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=11
+#-----------
+time=149282
+mem_heap_B=158
+mem_heap_extra_B=106
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=12
+#-----------
+time=149556
+mem_heap_B=159
+mem_heap_extra_B=129
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=13
+#-----------
+time=149914
+mem_heap_B=159
+mem_heap_extra_B=129
+mem_stacks_B=0
+heap_tree=detailed
+n6: 159 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 80 0x407D98: reallocPtree (ptree_util.c:157)
+  n1: 80 0x407677: appendNewPtree (ptree_create.c:38)
+   n2: 80 0x406CE7: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+    n1: 40 0x406ED8: sepBy (parser_combinators.c:41)
+     n1: 40 0x400AAB: sxpr (lisp_parser.c:48)
+      n1: 40 0x406D5D: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+       n1: 40 0x4009DE: start (lisp_parser.c:32)
+        n0: 40 0x400FB6: main (lisp_parser.c:156)
+    n1: 40 0x400B62: atom (lisp_parser.c:64)
+     n1: 40 0x406D14: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+      n1: 40 0x406ED8: sepBy (parser_combinators.c:41)
+       n1: 40 0x400AAB: sxpr (lisp_parser.c:48)
+        n1: 40 0x406D5D: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+         n1: 40 0x4009DE: start (lisp_parser.c:32)
+          n0: 40 0x400FB6: main (lisp_parser.c:156)
+ n1: 40 0x40764A: mallocPtree (ptree_create.c:32)
+  n0: 40 0x400F9F: main (lisp_parser.c:155)
+ n1: 16 0x406A84: firstPosition (in /home/hac/Projects/Praser/bin/lisp.parser)
+  n0: 16 0x400F91: main (lisp_parser.c:154)
+ n2: 15 0x4076E7: setString (ptree_create.c:53)
+  n1: 14 0x400A59: sxpr (lisp_parser.c:44)
+   n2: 14 0x406D5D: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+    n1: 7 0x4009DE: start (lisp_parser.c:32)
+     n0: 7 0x400FB6: main (lisp_parser.c:156)
+    n1: 7 0x400B30: atom (lisp_parser.c:60)
+     n1: 7 0x406D14: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+      n1: 7 0x406ED8: sepBy (parser_combinators.c:41)
+       n1: 7 0x400AAB: sxpr (lisp_parser.c:48)
+        n1: 7 0x406D5D: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+         n1: 7 0x4009DE: start (lisp_parser.c:32)
+          n0: 7 0x400FB6: main (lisp_parser.c:156)
+  n0: 1 in 1 place, below massif's threshold (01.00%)
+ n1: 8 0x4069BC: getLine (in /home/hac/Projects/Praser/bin/lisp.parser)
+  n0: 8 0x4010CE: main (lisp_parser.c:152)
+ n0: 0 in 1 place, below massif's threshold (01.00%)
+#-----------
+snapshot=14
+#-----------
+time=149914
+mem_heap_B=158
+mem_heap_extra_B=106
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=15
+#-----------
+time=149968
+mem_heap_B=118
+mem_heap_extra_B=90
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=16
+#-----------
+time=150095
+mem_heap_B=158
+mem_heap_extra_B=106
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=17
+#-----------
+time=150369
+mem_heap_B=159
+mem_heap_extra_B=129
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=18
+#-----------
+time=150727
+mem_heap_B=158
+mem_heap_extra_B=106
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=19
+#-----------
+time=150781
+mem_heap_B=118
+mem_heap_extra_B=90
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=20
+#-----------
+time=151133
+mem_heap_B=158
+mem_heap_extra_B=106
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=21
+#-----------
+time=151407
+mem_heap_B=159
+mem_heap_extra_B=129
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=22
+#-----------
+time=151710
+mem_heap_B=160
+mem_heap_extra_B=128
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=23
+#-----------
+time=154272
+mem_heap_B=153
+mem_heap_extra_B=111
+mem_stacks_B=0
+heap_tree=detailed
+n7: 153 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 80 0x407D98: reallocPtree (ptree_util.c:157)
+  n1: 80 0x407677: appendNewPtree (ptree_create.c:38)
+   n3: 80 0x406CE7: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+    n1: 40 0x406ED8: sepBy (parser_combinators.c:41)
+     n1: 40 0x400AAB: sxpr (lisp_parser.c:48)
+      n1: 40 0x406D5D: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+       n1: 40 0x4009DE: start (lisp_parser.c:32)
+        n0: 40 0x400FB6: main (lisp_parser.c:156)
+    n1: 40 0x400C24: atom (lisp_parser.c:78)
+     n1: 40 0x406D14: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+      n1: 40 0x406ED8: sepBy (parser_combinators.c:41)
+       n1: 40 0x400AAB: sxpr (lisp_parser.c:48)
+        n1: 40 0x406D5D: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+         n1: 40 0x4009DE: start (lisp_parser.c:32)
+          n0: 40 0x400FB6: main (lisp_parser.c:156)
+    n0: 0 in 2 places, all below massif's threshold (01.00%)
+ n1: 40 0x40764A: mallocPtree (ptree_create.c:32)
+  n0: 40 0x400F9F: main (lisp_parser.c:155)
+ n1: 16 0x406A84: firstPosition (in /home/hac/Projects/Praser/bin/lisp.parser)
+  n0: 16 0x400F91: main (lisp_parser.c:154)
+ n1: 8 0x4069BC: getLine (in /home/hac/Projects/Praser/bin/lisp.parser)
+  n0: 8 0x4010CE: main (lisp_parser.c:152)
+ n2: 7 0x4076E7: setString (ptree_create.c:53)
+  n1: 7 0x400A59: sxpr (lisp_parser.c:44)
+   n2: 7 0x406D5D: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+    n1: 7 0x4009DE: start (lisp_parser.c:32)
+     n0: 7 0x400FB6: main (lisp_parser.c:156)
+    n0: 0 in 1 place, below massif's threshold (01.00%)
+  n0: 0 in 1 place, below massif's threshold (01.00%)
+ n1: 2 0x40778A: appendString (ptree_create.c:70)
+  n1: 2 0x407209: oneOf (parser_combinators.c:127)
+   n1: 2 0x407579: digit (in /home/hac/Projects/Praser/bin/lisp.parser)
+    n1: 2 0x406D5D: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+     n1: 2 0x406E27: repeat (parser_combinators.c:13)
+      n1: 2 0x4075B1: integer (in /home/hac/Projects/Praser/bin/lisp.parser)
+       n1: 2 0x406D14: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+        n1: 2 0x400C24: atom (lisp_parser.c:78)
+         n1: 2 0x406D14: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+          n1: 2 0x406ED8: sepBy (parser_combinators.c:41)
+           n1: 2 0x400AAB: sxpr (lisp_parser.c:48)
+            n1: 2 0x406D5D: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+             n1: 2 0x4009DE: start (lisp_parser.c:32)
+              n0: 2 0x400FB6: main (lisp_parser.c:156)
+ n0: 0 in 1 place, below massif's threshold (01.00%)
+#-----------
+snapshot=24
+#-----------
+time=154306
+mem_heap_B=162
+mem_heap_extra_B=126
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=25
+#-----------
+time=154470
+mem_heap_B=202
+mem_heap_extra_B=142
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=26
+#-----------
+time=154594
+mem_heap_B=242
+mem_heap_extra_B=158
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=27
+#-----------
+time=155002
+mem_heap_B=242
+mem_heap_extra_B=158
+mem_stacks_B=0
+heap_tree=detailed
+n6: 242 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 120 0x40764A: mallocPtree (ptree_create.c:32)
+  n2: 80 0x406D79: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+   n1: 40 0x406FE9: sepBy (parser_combinators.c:64)
+    n1: 40 0x400AAB: sxpr (lisp_parser.c:48)
+     n1: 40 0x406D5D: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+      n1: 40 0x4009DE: start (lisp_parser.c:32)
+       n0: 40 0x400FB6: main (lisp_parser.c:156)
+   n1: 40 0x406E27: repeat (parser_combinators.c:13)
+    n1: 40 0x407521: spaces (in /home/hac/Projects/Praser/bin/lisp.parser)
+     n1: 40 0x406D9F: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+      n1: 40 0x406FE9: sepBy (parser_combinators.c:64)
+       n1: 40 0x400AAB: sxpr (lisp_parser.c:48)
+        n1: 40 0x406D5D: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+         n1: 40 0x4009DE: start (lisp_parser.c:32)
+          n0: 40 0x400FB6: main (lisp_parser.c:156)
+  n0: 40 0x400F9F: main (lisp_parser.c:155)
+ n1: 80 0x407D98: reallocPtree (ptree_util.c:157)
+  n1: 80 0x407677: appendNewPtree (ptree_create.c:38)
+   n3: 80 0x406CE7: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+    n1: 40 0x406ED8: sepBy (parser_combinators.c:41)
+     n1: 40 0x400AAB: sxpr (lisp_parser.c:48)
+      n1: 40 0x406D5D: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+       n1: 40 0x4009DE: start (lisp_parser.c:32)
+        n0: 40 0x400FB6: main (lisp_parser.c:156)
+    n1: 40 0x400C24: atom (lisp_parser.c:78)
+     n1: 40 0x406D14: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+      n1: 40 0x406ED8: sepBy (parser_combinators.c:41)
+       n1: 40 0x400AAB: sxpr (lisp_parser.c:48)
+        n1: 40 0x406D5D: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+         n1: 40 0x4009DE: start (lisp_parser.c:32)
+          n0: 40 0x400FB6: main (lisp_parser.c:156)
+    n0: 0 in 2 places, all below massif's threshold (01.00%)
+ n1: 16 0x406A84: firstPosition (in /home/hac/Projects/Praser/bin/lisp.parser)
+  n0: 16 0x400F91: main (lisp_parser.c:154)
+ n3: 16 0x4076E7: setString (ptree_create.c:53)
+  n1: 9 0x400C48: atom (lisp_parser.c:80)
+   n1: 9 0x406D14: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+    n1: 9 0x406ED8: sepBy (parser_combinators.c:41)
+     n1: 9 0x400AAB: sxpr (lisp_parser.c:48)
+      n1: 9 0x406D5D: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+       n1: 9 0x4009DE: start (lisp_parser.c:32)
+        n0: 9 0x400FB6: main (lisp_parser.c:156)
+  n1: 7 0x400A59: sxpr (lisp_parser.c:44)
+   n2: 7 0x406D5D: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+    n1: 7 0x4009DE: start (lisp_parser.c:32)
+     n0: 7 0x400FB6: main (lisp_parser.c:156)
+    n0: 0 in 1 place, below massif's threshold (01.00%)
+  n0: 0 in 1 place, below massif's threshold (01.00%)
+ n1: 8 0x4069BC: getLine (in /home/hac/Projects/Praser/bin/lisp.parser)
+  n0: 8 0x4010CE: main (lisp_parser.c:152)
+ n0: 2 in 2 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=28
+#-----------
+time=155002
+mem_heap_B=202
+mem_heap_extra_B=142
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=29
+#-----------
+time=155156
+mem_heap_B=162
+mem_heap_extra_B=126
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=30
+#-----------
+time=163859
+mem_heap_B=194
+mem_heap_extra_B=134
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=31
+#-----------
+time=163900
+mem_heap_B=226
+mem_heap_extra_B=142
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=32
+#-----------
+time=168576
+mem_heap_B=258
+mem_heap_extra_B=150
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=33
+#-----------
+time=168662
+mem_heap_B=290
+mem_heap_extra_B=158
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=34
+#-----------
+time=168982
+mem_heap_B=290
+mem_heap_extra_B=158
+mem_stacks_B=0
+heap_tree=peak
+n10: 290 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 80 0x407D98: reallocPtree (ptree_util.c:157)
+  n1: 80 0x407677: appendNewPtree (ptree_create.c:38)
+   n3: 80 0x406CE7: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+    n1: 40 0x406ED8: sepBy (parser_combinators.c:41)
+     n1: 40 0x400AAB: sxpr (lisp_parser.c:48)
+      n1: 40 0x406D5D: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+       n1: 40 0x4009DE: start (lisp_parser.c:32)
+        n0: 40 0x400FB6: main (lisp_parser.c:156)
+    n1: 40 0x400C24: atom (lisp_parser.c:78)
+     n1: 40 0x406D14: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+      n1: 40 0x406ED8: sepBy (parser_combinators.c:41)
+       n1: 40 0x400AAB: sxpr (lisp_parser.c:48)
+        n1: 40 0x406D5D: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+         n1: 40 0x4009DE: start (lisp_parser.c:32)
+          n0: 40 0x400FB6: main (lisp_parser.c:156)
+    n0: 0 in 2 places, all below massif's threshold (01.00%)
+ n2: 40 0x40764A: mallocPtree (ptree_create.c:32)
+  n0: 40 0x400F9F: main (lisp_parser.c:155)
+  n0: 0 in 1 place, below massif's threshold (01.00%)
+ n1: 32 0x4032D7: copyLispVal (lisp_value.c:222)
+  n1: 32 0x401EF4: evalLIST (lisp_interpreter.c:172)
+   n1: 32 0x401F55: eval (lisp_interpreter.c:180)
+    n0: 32 0x40102D: main (lisp_parser.c:162)
+ n1: 32 0x401479: exprLIST (lisp_interpreter.c:67)
+  n1: 32 0x4018F9: expr (lisp_interpreter.c:121)
+   n0: 32 0x400FE2: main (lisp_parser.c:158)
+ n1: 32 0x40324A: copyLispVal (lisp_value.c:217)
+  n1: 32 0x401EF4: evalLIST (lisp_interpreter.c:172)
+   n1: 32 0x401F55: eval (lisp_interpreter.c:180)
+    n0: 32 0x40102D: main (lisp_parser.c:162)
+ n1: 32 0x401433: exprLIST (lisp_interpreter.c:61)
+  n1: 32 0x4018F9: expr (lisp_interpreter.c:121)
+   n0: 32 0x400FE2: main (lisp_parser.c:158)
+ n3: 16 0x4076E7: setString (ptree_create.c:53)
+  n1: 9 0x400C48: atom (lisp_parser.c:80)
+   n1: 9 0x406D14: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+    n1: 9 0x406ED8: sepBy (parser_combinators.c:41)
+     n1: 9 0x400AAB: sxpr (lisp_parser.c:48)
+      n1: 9 0x406D5D: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+       n1: 9 0x4009DE: start (lisp_parser.c:32)
+        n0: 9 0x400FB6: main (lisp_parser.c:156)
+  n1: 7 0x400A59: sxpr (lisp_parser.c:44)
+   n2: 7 0x406D5D: accept (in /home/hac/Projects/Praser/bin/lisp.parser)
+    n1: 7 0x4009DE: start (lisp_parser.c:32)
+     n0: 7 0x400FB6: main (lisp_parser.c:156)
+    n0: 0 in 1 place, below massif's threshold (01.00%)
+  n0: 0 in 1 place, below massif's threshold (01.00%)
+ n1: 16 0x406A84: firstPosition (in /home/hac/Projects/Praser/bin/lisp.parser)
+  n0: 16 0x400F91: main (lisp_parser.c:154)
+ n1: 8 0x4069BC: getLine (in /home/hac/Projects/Praser/bin/lisp.parser)
+  n0: 8 0x4010CE: main (lisp_parser.c:152)
+ n0: 2 in 2 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=35
+#-----------
+time=168982
+mem_heap_B=258
+mem_heap_extra_B=150
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=36
+#-----------
+time=169144
+mem_heap_B=226
+mem_heap_extra_B=142
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=37
+#-----------
+time=171434
+mem_heap_B=194
+mem_heap_extra_B=134
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=38
+#-----------
+time=171596
+mem_heap_B=162
+mem_heap_extra_B=126
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=39
+#-----------
+time=171797
+mem_heap_B=122
+mem_heap_extra_B=110
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=40
+#-----------
+time=171830
+mem_heap_B=115
+mem_heap_extra_B=93
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=41
+#-----------
+time=171877
+mem_heap_B=75
+mem_heap_extra_B=77
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=42
+#-----------
+time=171909
+mem_heap_B=59
+mem_heap_extra_B=69
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=43
+#-----------
+time=172280
+mem_heap_B=51
+mem_heap_extra_B=53
+mem_stacks_B=0
+heap_tree=empty

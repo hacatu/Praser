@@ -61,7 +61,6 @@ int sepBy(Position *p, Ptree *t, AppendMode a, AppendMode aSeperator, parser par
 			++count;
 		}
 	}if(max < min || max == 0){
-		puts("sepBy passes max < min || max == 0");
 		while(accept(p, t, aSeperator, parseSeperator)){
 			if(!accept(p, t, a, parse)){
 				return 0;

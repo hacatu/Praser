@@ -169,7 +169,7 @@ LispVal evalLIST(LispVal expr, Env *env){
 	if(isLAMBDA(a)){
 		return evalLAMBDA(a, cdr(expr), env);
 	}
-	return expr;
+	return copyLispVal(expr);
 }
 
 LispVal eval(LispVal expr, Env *env){
@@ -179,7 +179,7 @@ LispVal eval(LispVal expr, Env *env){
 		case LIST:
 			return evalLIST(expr, env);
 		default:
-			return expr;
+			return copyLispVal(expr);
 	}
 }
 
