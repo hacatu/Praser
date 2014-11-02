@@ -14,7 +14,7 @@
 //TODO: Implement CHAR
 
 LispVal exprNAME(Ptree *t){
-	LispVal temp = {.type = NAME, .name = malloc(getLength(t)*sizeof(char))};
+	LispVal temp = {.type = NAME, .name = malloc((getLength(t) + 1)*sizeof(char))};
 	if(temp.name){
 		strcpy(temp.name, getString(t));
 	}
