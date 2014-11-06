@@ -178,7 +178,11 @@ LispVal BASE_list(LispVal args, Env *env){
 }
 
 LispVal BASE_quote(LispVal args, Env *env){//surprisingly, does not work at all (72 errors)
-	return args;
+	LispVal copy = copyLispVal(args);
+	if(isNYI(copy)){
+		return BASE_NYI;
+	}
+	return copy;
 }
 
 LispVal BASE_car(LispVal args, Env *env){
