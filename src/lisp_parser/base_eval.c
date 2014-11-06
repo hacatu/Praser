@@ -224,7 +224,7 @@ LispVal BASE_display(LispVal args, Env *env){
 }
 
 LispVal BASE_define(LispVal args, Env *env){
-	LispVal k, v;
+	LispVal k, v, c;
 	if(lengthLIST(args) < 2){
 		return BASE_NYI;
 	}
@@ -236,7 +236,12 @@ LispVal BASE_define(LispVal args, Env *env){
 	if(isNYI(v)){
 		return BASE_NYI;
 	}
-	if(!addName(env, k.name, v)){
+	c = copyLispVal(v);
+	if(isNYI(c)){
+		deleteLispVal(v);
+		return BASE_NYI;
+	}
+	if(!addName(env, k.name, c)){
 		return BASE_NYI;
 	}
 	return v;
