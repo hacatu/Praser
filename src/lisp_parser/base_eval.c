@@ -177,7 +177,7 @@ LispVal BASE_list(LispVal args, Env *env){
 	return liftBOOL(isLIST(v));
 }
 
-LispVal BASE_quote(LispVal args, Env *env){
+LispVal BASE_quote(LispVal args, Env *env){//surprisingly, does not work at all (72 errors)
 	return args;
 }
 
@@ -189,7 +189,7 @@ LispVal BASE_cdr(LispVal args, Env *env){
 	return cdr(eval(car(args), env));
 }
 
-LispVal BASE_cons(LispVal args, Env *env){
+LispVal BASE_cons(LispVal args, Env *env){//can leak memory
 	LispVal a, d;
 	if(lengthLIST(args) < 2){
 		return BASE_NYI;

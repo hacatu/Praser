@@ -161,7 +161,7 @@ LispVal evalLIST(LispVal expr, Env *env){
 	if(isLIST(a)){
 		a = evalLIST(a, env);
 	}else if(isNAME(a)){
-		a = getValue(env, car(expr).name);
+		a = getName(env, car(expr).name);
 		if(isNYI(a)){
 			return evalBASE(expr, env);
 		}
@@ -175,7 +175,7 @@ LispVal evalLIST(LispVal expr, Env *env){
 LispVal eval(LispVal expr, Env *env){
 	switch(expr.type){
 		case NAME:
-			return getValue(env, expr.name);
+			return getName(env, expr.name);
 		case LIST:
 			return evalLIST(expr, env);
 		default:

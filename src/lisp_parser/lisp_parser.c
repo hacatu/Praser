@@ -174,8 +174,8 @@ int main(){
 		free(t);
 		free(p);
 	}
-	deleteEnv(e);
-	deleteEnv(baseEnv);
+	deleteEnvData(e);
+	deleteEnvData(baseEnv);
 	free(line);
 }
 

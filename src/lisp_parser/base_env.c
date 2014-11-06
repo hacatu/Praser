@@ -6,8 +6,6 @@
 #include "lisp_env.h"
 #include "base_env.h"
 
-#define lengthof(list) (sizeof(list)/sizeof(list[0]))
-
 //BUILTIN FUNCTIONS: + - * / magnitude quotient modulo remainder = eqv? < > integer? string? char?
 //list? bool? quote car cdr cons if display exit define lambda set? let let* letrec unquote
 //quasiquote unquote-splicing
@@ -18,7 +16,7 @@ LispVal BASE_nil;
 char initBaseEnv(){
 	BASE_nil = BASE_NIL;
 	Attribute baseAttrs[] = {
-		{"nil", &BASE_nil},
+		{"nil", BASE_nil},
 		/*
 		{"min", BASE_min},
 		{"max", BASE_max},
@@ -39,10 +37,11 @@ char initBaseEnv(){
 		{"do", BASE_do},
 		{"cond", BASE_cond},
 		{"case", BASE_case},
-		{"begin", BASE_begin}
+		{"begin", BASE_begin},
 		*/
+		{NULL, BASE_NYI},
 	};
-	baseEnv = createEnvFrom(lengthof(baseAttrs), baseAttrs);
+	baseEnv = createEnvFrom(baseAttrs);
 	return 1;
 }
 

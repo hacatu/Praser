@@ -19,6 +19,13 @@ Env* createOneAttrEnv(Attribute attr){
 	if(!temp){
 		return NULL;
 	}
+	char *name = malloc((strlen(attr.name) + 1)*sizeof(char));
+	if(!name){
+		free(temp);
+		return NULL;
+	}
+	strcpy(name, attr.name);
+	attr.name = name;
 	*temp = (Env){.attr = attr};
 	return temp;
 }
@@ -44,13 +51,8 @@ char addAttr(Env *e, Attribute attr){
 	return 1;
 }
 
-char addName(Env *e, const char *name, LispVal val){
-	Attribute attr = {.name = name, .value = malloc(1*sizeof(val))};
-	if(!attr.value){
-		return 0;
-	}
-	*(attr.value) = val;
-	return addAttr(e, attr);
+char addName(Env *e, const char *name, LispVal value){
+	return addAttr(e, (Attribute){.name = (char*)name, .value = value});
 }
 
 Env* getNode(Env *e, const char *name){
@@ -67,28 +69,20 @@ Env* getNode(Env *e, const char *name){
 	return e;
 }
 
-LispVal* getName(Env *e, const char *name){
+LispVal getName(Env *e, const char *name){
 	Env *temp = getNode(e, name);
 	if(!temp){
-		return NULL;
+		return BASE_NYI;
 	}
 	return temp->attr.value;
 }
 
-LispVal getValue(Env *e, const char *name){
-	LispVal *var = getName(e, name);
-	if(!var){
-		return BASE_NYI;
-	}
-	return *var;
-}
-
-char setName(Env *e, const char *name, LispVal val){
+char setName(Env *e, const char *name, LispVal value){
 	Env *temp = getNode(e, name);
 	if(!temp){
 		return 0;
 	}
-	*(temp->attr.value) = val;
+	temp->attr.value = value;
 	return 1;
 }
 
@@ -115,28 +109,39 @@ Env* nextPreorderEnv(const Env *e){
 void deleteEnv(Env *e){
 	if(e->left){
 		deleteEnv(e->left);
-		free(e->left);
 		e->left = 0;
 	}
 	if(e->right){
 		deleteEnv(e->right);
-		free(e->right);
 		e->right = 0;
 	}
-	deleteLispVal(*(e->attr.value));
-	free(e->attr.value);
-	e->attr.value = NULL;
+	free(e->attr.name);
+	free(e);
 }
 
-Env* createEnvFrom(size_t attrc, Attribute attrv[]){
-	if(!attrc){
+void deleteEnvData(Env *e){
+	if(e->left){
+		deleteEnv(e->left);
+		e->left = 0;
+	}
+	if(e->right){
+		deleteEnv(e->right);
+		e->right = 0;
+	}
+	deleteLispVal(e->attr.value);
+	free(e->attr.name);
+	free(e);
+}
+
+Env* createEnvFrom(Attribute attrv[]){
+	if(!attrv || !attrv[0].name){
 		return NULL;
 	}
 	Env *e = createOneAttrEnv(attrv[0]);
 	if(!e){
 		return NULL;
 	}
-	for(size_t i = 1; i < attrc; ++i){
+	for(size_t i = 1; attrv[i].name; ++i){
 		if(!addAttr(e, attrv[i])){
 			deleteEnv(e);
 			return NULL;
