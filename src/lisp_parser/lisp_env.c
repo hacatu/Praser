@@ -5,6 +5,8 @@
 #include "lisp_value.h"
 #include "../util/debug.h"
 
+//will -Wincompatible-pointer-types -Wint-converison -Wint-to-pointer-cast warn about assigning *int = int;?
+
 struct Env{
 	struct Env *parent;
 	struct Env *left;

@@ -8,6 +8,7 @@
 #include "../parser/parser.h"
 #include "lisp_interpreter.h"
 #include "lisp_value.h"
+#include "lisp_env.h"
 #include "base_env.h"
 #include "../util/debug.h"
 
@@ -145,26 +146,27 @@ int main(){
 	initBaseEnv();
 	Ptree *t;
 	Position *p;
-	LispVal v, e;
+	LispVal v, r;
 	size_t size = 0;
 	char *line = 0;
 	int read;
+	Env *e = copyEnv(baseEnv);
 	while((read = getLine(&line, &size, stdin)) > 0){
 		line[read - 1] = '\0';
 		p = firstPosition(line);
 		t = mallocPtree();
 		if(start(p, t)){
-			printPtree(t, 0);
+			//printPtree(t, 0);
 			v = expr(t);
 			puts("S-expression:");
 			printLispVal(v);
 			puts("");
-			e = eval(v, baseEnv);
+			r = eval(v, e);
 			deleteLispVal(v);
 			puts("Evaluated:");
-			printLispVal(e);
+			printLispVal(r);
 			puts("");
-			deleteLispVal(e);
+			deleteLispVal(r);
 		}else{
 			puts("String parsed unsuccessfully!");
 		}
@@ -172,6 +174,8 @@ int main(){
 		free(t);
 		free(p);
 	}
+	deleteEnv(e);
+	deleteEnv(baseEnv);
 	free(line);
 }
 

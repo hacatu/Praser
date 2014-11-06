@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "lisp_interpreter.h"
+#include "lisp_value.h"
 #include "lisp_env.h"
 #include "base_env.h"
 
@@ -12,9 +13,12 @@
 //quasiquote unquote-splicing
 
 Env *baseEnv;
+LispVal BASE_nil;
 
 char initBaseEnv(){
+	BASE_nil = BASE_NIL;
 	Attribute baseAttrs[] = {
+		{"nil", &BASE_nil},
 		/*
 		{"min", BASE_min},
 		{"max", BASE_max},
