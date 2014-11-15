@@ -10,7 +10,7 @@ void logMemoryError(const char *name){
 }
 
 
-void updateChildPointers(Ptree *t){
+static void updateChildPointers(Ptree *t){
 	debug_calls("called on: %p", t);
 	Ptree *child;
 	for(int i = 0; (child = nthChild(t, i)); ++i){
@@ -19,7 +19,7 @@ void updateChildPointers(Ptree *t){
 	debug_calls("returning");
 }
 
-void updateGrandchildPointers(Ptree *t){
+static void updateGrandchildPointers(Ptree *t){
 	debug_calls("called on: %p", t);
 	Ptree *child;
 	for(int i = 0; (child = nthChild(t, i)); ++i){
@@ -28,7 +28,7 @@ void updateGrandchildPointers(Ptree *t){
 	debug_calls("returning");
 }
 
-void deleteChildrenAfter(Ptree *t, int n){
+static void deleteChildrenAfter(Ptree *t, int n){
 	debug_calls("called on: %p, %d", t, n);
 	Ptree *current = nthChild(t, n + 1), *last = lastChild(t);
 	while(current <= last){

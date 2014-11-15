@@ -7,7 +7,7 @@
 
 //Functions to print Ptrees:    ======================================
 
-void printString(const Ptree *t){
+static void printString(const Ptree *t){
 	printf("%s", t->string);
 }
 

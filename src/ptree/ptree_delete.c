@@ -4,15 +4,16 @@
 #include "__ptree.h"
 #include "../util/debug.h"
 
-
-char isDeleted(const Ptree *t){
+/*
+static char isDeleted(const Ptree *t){
 	debug_calls("called on: %p", t);
 	debug_calls("returning: %i", t->parent);
 	return !t->parent;
 }
+*/
 
-
-Ptree* firstChild(Ptree *t){
+/*
+static Ptree* firstChild(Ptree *t){
 	debug_calls("called on: %p", t);
 	if(!t){
 		debug_calls("returning: %p", 0);
@@ -37,14 +38,14 @@ Ptree* firstChild(Ptree *t){
 	}
 	return nthChild(t, i);
 }
-
+*/
 
 //Functions to delete Ptrees.    =====================================
 //Note that mallocPtree'd Ptrees still need to be free'd:
 
 /* Free a Ptree's node list and mark it deleted.
  */
-void freePtree(Ptree *t){
+static void freePtree(Ptree *t){
 	debug_calls("called on: %p", t);
 	if(!t){
 		debug_calls("returning");
@@ -97,11 +98,6 @@ void deletePtree(Ptree *t){
 	for(int i = 0; i < getSize(t); ++i){
 		deletePtree(nthChild(t, i));
 	}
-	free(t->nodes);
-	free(t->string);
-	t->length = 0;
-	t->nodec = 0;
-	t->nodes = NULL;
-	t->string = NULL;
+	freePtree(t);
 }
 

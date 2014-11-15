@@ -8,9 +8,5 @@ struct Position{
 	const char* current;
 };
 
-int cschar(Position *p, Ptree *t);
-
-int space(Position *p, Ptree *t);
-
 int acceptChar(Position *p, char c);
 

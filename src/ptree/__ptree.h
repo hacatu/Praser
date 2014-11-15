@@ -13,19 +13,3 @@ struct Ptree{//an n-ary string tagged tree to store parse data for postprocessin
 	char *string;//the string tag
 };
 
-/* Returns 1 if the parent is null, 0 otherwise.
- */
-char isDeleted(const Ptree *t);
-
-Ptree* firstChild(Ptree *t);
-
-char copyChildren(Ptree *dest, const Ptree *src);
-
-void updateChildPointers(Ptree *t);
-
-void updateGrandchildPointers(Ptree *t);
-
-void deleteChildrenAfter(Ptree *t, int n);
-
-void freePtree(Ptree *t);
-

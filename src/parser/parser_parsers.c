@@ -9,7 +9,7 @@
 
 //TODO: replace AppendMode with three functions: add, skip, and pass, and make parsers return ptrees instead of taking them
 
-int cschar(Position *p, Ptree *t){
+static int cschar(Position *p, Ptree *t){
 	if(currentChar(p) == '\\'){
 		getChar(p);
 		appendString(t, p->current, 1);
@@ -46,7 +46,7 @@ int cchar(Position *p, Ptree *t){
 	return acceptString(p, t, SKIP, "'");
 }
 
-int space(Position *p, Ptree *t){
+static int space(Position *p, Ptree *t){
 	return oneOf(p, t, SKIP, " \t\n\r\v\f");
 }
 

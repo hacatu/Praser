@@ -9,7 +9,7 @@
 /* Local function not in header
  * Create an empty ptree.
  */
-Ptree newPtree(Ptree *parent, const char *string, int length){
+static Ptree newPtree(Ptree *parent, const char *string, int length){
 	debug_calls("called on: %p, %*s, %d", parent, length, string, length);
 	Ptree ptree = {.parent = parent,
 				   .nodec = 0,
@@ -82,7 +82,7 @@ void appendString(Ptree *p, const char *string, int length){
 
 //TODO: make iterative
 
-char copyChildren(Ptree *dest, const Ptree *src){
+static char copyChildren(Ptree *dest, const Ptree *src){
 	Ptree *current;
 	for(int i = 0; i < getSize(src); ++i){
 		current = nthChild(src, i);
