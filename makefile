@@ -6,7 +6,7 @@ _PARSER_LOBJS = parser_position.o parser_accept.o parser_combinators.o parser_pa
 _PTREE_LOBJS = ptree_create.o ptree_util.o ptree_delete.o ptree_print.o
 _OBJS = get_line.o spawn_process.o
 _PARSERS = calculator.parser tree.parser lisp.parser
-CFLAGS = -std=c11 -lm -Wall -Werror
+CFLAGS = -std=c1x -lm -Wall -Werror
 LIBDIR = lib
 SRCDIR = src
 BINDIR = bin

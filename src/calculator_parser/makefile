@@ -1,6 +1,6 @@
 CC = gcc
 EXE = calculator.parser
-CFLAGS = -std=c11 -lm -Wall -Werror
+CFLAGS = -std=c1x -lm -Wall -Werror
 DBGFLAGS = DEBUG_LOG
 
 .DEFAULT_GOAL = parser
