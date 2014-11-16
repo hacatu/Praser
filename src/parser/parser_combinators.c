@@ -89,7 +89,7 @@ int not(Position *p, Ptree *t, AppendMode a, parser parse){
 		logMemoryError(__func__);
 		return 0;
 	}
-	if(parse(p, temp)){
+	if(parse(&start, temp)){
 		deletePtree(temp);
 		free(temp);
 		return 0;
@@ -98,11 +98,12 @@ int not(Position *p, Ptree *t, AppendMode a, parser parse){
 	free(temp);
 	switch(a){
 		case ADD:
-			return appendNewPtree(t, start.current, 1);
+			return appendNewPtree(t, getChar(p), 1);
 		case PASS:
-			appendString(t, start.current, 1);
+			appendString(t, getChar(p), 1);
 			return 1;
 		case SKIP:
+			getChar(p);
 			return 1;
 	}
 	//needed to supress erronious warning from gcc.  The above switch can't fall through bcause a is an enum.
