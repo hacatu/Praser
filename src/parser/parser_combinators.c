@@ -98,9 +98,9 @@ int not(Position *p, Ptree *t, AppendMode a, parser parse){
 	free(temp);
 	switch(a){
 		case ADD:
-			return appendNewPtree(t, getChar(p), 1);
+			return appendNewPtree(t, (const char[]){getChar(p), '\0'}, 1);
 		case PASS:
-			appendString(t, getChar(p), 1);
+			appendString(t, (const char[]){getChar(p), '\0'}, 1);
 			return 1;
 		case SKIP:
 			getChar(p);
