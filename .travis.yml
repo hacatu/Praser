@@ -2,5 +2,5 @@ language: c
 compiler:
   - gcc
   - clang
-script: make rebuild
+script: make
 

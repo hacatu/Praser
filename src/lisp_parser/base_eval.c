@@ -314,14 +314,16 @@ LispVal BASE_set(LispVal args, Env *env){
 }
 
 LispVal BASE_let(LispVal args, Env *env){
-	//(let ((name value) ...) block)
+	//(let ((name value) ...) (block))
 	LispVal v, b;
 	Env *new;
 	if(lengthLIST(args) < 2){
+		puts("let called on too few arguments, expected (let ((name value) ...) (block))");
 		return BASE_NYI;
 	}
 	v = car(args);
 	if(!isLIST(v)){
+		puts("first argument to let needs to be a list, (let ((name value) ...) (block))");
 		return BASE_NYI;
 	}
 	new = copyEnv(env);
@@ -329,10 +331,12 @@ LispVal BASE_let(LispVal args, Env *env){
 		b = car(v);
 		if(lengthLIST(b) < 2 || !isNAME(car(b))){
 			deleteEnv(new);
+			puts("let expects a list of name value cells, ((name value) ...)");
 			return BASE_NYI;
 		}
-		if(!addName(new, b.name, eval(car(cdr(v)), env))){
+		if(!addName(new, car(b).name, eval(car(cdr(b)), env))){
 			deleteEnv(new);
+			puts("addName failed in let");
 			return BASE_NYI;
 		}
 		v = cdr(v);
