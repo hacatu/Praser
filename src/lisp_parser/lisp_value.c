@@ -149,8 +149,8 @@ LispVal liftLAMBDA(LispVal params, LispVal body, Env *closure){
 		return BASE_NYI;
 	}
 	//TODO: possibly initialize parameters to BASE_NIL here
-	*lambda.params = params;
-	*lambda.body = body;
+	*lambda.params = copyLispVal(params);
+	*lambda.body = copyLispVal(body);
 	return lambda;
 }
 
@@ -259,10 +259,11 @@ void printLispVal(const LispVal v){
 			break;
 		case LAMBDA:
 			printf("LAMBDA:(");
-			printLispVal(car(v));
+			printLispVal(*v.params);
 			printf(")->(");
-			printLispVal(cdr(v));
-			printf(")");
+			printLispVal(*v.body);
+			printf("))");
+			break;
 		default:
 			printf("NYI");
 	}
