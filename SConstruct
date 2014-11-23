@@ -1,5 +1,6 @@
 import os
 import os.path
+import sys
 
 join = os.path.join
 
@@ -19,7 +20,7 @@ print("BASE={}".format(BASE))
 INCLUDES = ["parser", "ptree", "util"]
 INCLUDES = map(lambda i: join(BASE, "src", i), INCLUDES)
 
-env = Environment(CCFLAGS="-std=c1x -Wall -Werror", CPPPATH=INCLUDES)
+env = Environment(ENV=os.environ, CCFLAGS="-std=c1x -Wall -Werror", CPPPATH=INCLUDES)
 
 debug = ARGUMENTS.get("debug", 0)
 if int(debug):
@@ -33,5 +34,19 @@ if int(demos):
 
 install = ARGUMENTS.get("install", "")
 if install != "":
-	Install(install, Glob(join("lib", "*.a")))
+	lib = install
+	include = install
+	LIBEXTENSION = ""
+	if sys.platform=="win32":
+		lib = join(lib, "VC", "Lib")
+		include = join(include, "VC", "Include")
+		LIBEXTENSION = "lib"
+	else:
+		lib = join(lib, "lib")
+		include = join(include, "include")
+		LIBEXTENSION = "a"
+	HEADERS = [join("src", "parser", "parser.h"), join("src", "ptree", "ptree.h")]
+	HEADERS += Glob(join("src", "util", "*.h"))
+	Install(lib, Glob(join("lib", "*."+LIBEXTENSION)))
+	Install(include, HEADERS)
 
