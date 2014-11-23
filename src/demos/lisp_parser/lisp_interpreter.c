@@ -8,8 +8,8 @@
 #include "lisp_env.h"
 #include "base_eval.h"
 #include "lisp_value.h"
-#include "../ptree/ptree.h"
-#include "../util/debug.h"
+#include <ptree.h>
+#include <debug.h>
 
 //TODO: Implement CHAR
 

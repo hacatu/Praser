@@ -1,0 +1,9 @@
+import os
+import os.path
+
+join = os.path.join
+
+Import("env BASE LIBS LIBPATH")
+
+env.Program(join(BASE, "bin", "lisp.parser"), Glob("*.c"), LIBPATH=LIBPATH, LIBS=LIBS)
+

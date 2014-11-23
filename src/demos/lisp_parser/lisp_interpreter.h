@@ -2,7 +2,7 @@
 #pragma once
 #include <stdint.h>
 #include "lisp_all_types.h"
-#include "../ptree/ptree.h"
+#include <ptree.h>
 
 LispVal expr(Ptree *t);
 

@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "../util/get_line.h"
-#include "../ptree/ptree.h"
-#include "../parser/parser.h"
+#include <get_line.h>
+#include <parser.h>
+#include <ptree.h>
 #include "calculator_interpreter.h"
-#include "../util/debug.h"
+#include <debug.h>
 
 
 /*GRAMMAR:

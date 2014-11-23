@@ -1,0 +1,9 @@
+import os
+import os.path
+
+join = os.path.join
+
+Import("env BASE LIBS LIBPATH")
+
+SConscript(Glob(join("*_parser", "SConstruct")), exports="env BASE LIBS LIBPATH")
+

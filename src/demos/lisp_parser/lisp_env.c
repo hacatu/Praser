@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "lisp_env.h"
 #include "lisp_value.h"
-#include "../util/debug.h"
+#include <debug.h>
 
 //will -Wincompatible-pointer-types -Wint-converison -Wint-to-pointer-cast warn about assigning *int = int;?
 

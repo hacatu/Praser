@@ -1,6 +1,6 @@
 //calculator_interpreter.h
 #pragma once
-#include "../ptree/ptree.h"
+#include <ptree.h>
 
 double eval(Ptree *t);
 

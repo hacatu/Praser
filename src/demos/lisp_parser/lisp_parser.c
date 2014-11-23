@@ -3,14 +3,14 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
-#include "../util/get_line.h"
-#include "../ptree/ptree.h"
-#include "../parser/parser.h"
+#include <get_line.h>
+#include <ptree.h>
+#include <parser.h>
 #include "lisp_interpreter.h"
 #include "lisp_value.h"
 #include "lisp_env.h"
 #include "base_env.h"
-#include "../util/debug.h"
+#include <debug.h>
 
 
 /* GRAMMAR:
