@@ -1,9 +1,19 @@
 //spawn_process.h
+#ifdef _WIN32
+#include <process.h>
+
+typedef intptr_t Pid;
+#endif
+#ifdef __unix__
 #include <sys/types.h>
 #include <stdio.h>
 #include <unistd.h>
 
-pid_t spawn_process(const char *path, char *const *args);
+typedef pid_t Pid;
+#endif
+Pid spawn_process(const char *path, char *const *args);
 
-void waitPID(pid_t childPID);
+void waitPID(Pid childPID);
+
+char checkFile(const char *path);
 

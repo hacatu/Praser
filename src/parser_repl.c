@@ -2,9 +2,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <sys/wait.h>
-#include <sys/types.h>
-#include <unistd.h>
 #include "util/get_line.h"
 #include "ptree/ptree.h"
 #include "parser/parser.h"
@@ -25,7 +22,7 @@ int main(int argc, char **argv){
 	size_t line_len = 0, parserPath_len = 0;
 	char *line = NULL;
 	int read = 0;
-	pid_t childPID;
+	Pid childPID;
 	char *parserPath = NULL, *temp;
 	char *const *parserArgs;
 	char pwd[1024];
@@ -48,7 +45,7 @@ int main(int argc, char **argv){
 			strcat(parserPath, ".parser");
 			parserPath_len = read + 11;
 		}
-		if(access(parserPath, F_OK) == -1){
+		if(!checkFile(parserPath)){
 			printf("No parser \"%s\" found!\n", parserPath);
 			continue;
 		}

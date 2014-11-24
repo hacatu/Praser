@@ -1,15 +1,37 @@
 //spawn_process.c
-#include <sys/types.h>
-#include <sys/wait.h>
+#ifdef _WIN32
 #include <stdlib.h>
-#include <unistd.h>
+#include <windows.h>
 #include "get_line.h"
 #include <stdio.h>
 #include "debug.h"
+#include "spawn_process.h"
 
-pid_t spawn_process(const char *path, char *const *args){
+Pid spawn_process(const char *path, char *const *args){
 	printf("sp: \"%s\", \"%s\"\n", path, args[0]);
-	pid_t childPID = fork();
+	Pid childPID = spawnv(P_WAIT, path, args);
+}
+
+void waitPID(Pid childPID){
+	return;
+}
+
+char checkFile(const char *path){
+	return GetFileAttributes(path);
+}
+#endif
+#ifdef __unix__
+#include <sys/wait.h>
+#include <stdlib.h>
+#include "get_line.h"
+#include "debug.h"
+#include "spawn_process.h"
+
+typedef pid_t Pid;
+
+Pid spawn_process(const char *path, char *const *args){
+	printf("sp: \"%s\", \"%s\"\n", path, args[0]);
+	Pid childPID = fork();
 	if(childPID == -1){
 		return -1;
 	}
@@ -21,8 +43,13 @@ pid_t spawn_process(const char *path, char *const *args){
 	_exit(-1);
 }
 
-void waitPID(pid_t childPID){
+void waitPID(Pid childPID){
 	int status;
 	(void)waitpid(childPID, &status, 0);
 }
+
+char checkFile(const char *path){
+	return access(path, F_OK) != -1;
+}
+#endif
 
