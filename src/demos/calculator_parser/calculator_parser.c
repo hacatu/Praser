@@ -31,7 +31,7 @@ int primary(Position *p, Ptree *t);
 
 
 int start(Position *p, Ptree *t){
-	setString(t, __func__, strlen(__func__));
+	setString(t, __FUNCTION__, strlen(__FUNCTION__));
 	if(!accept(p, t, PASS, additive)){
 		logUnexpectedError(p, "start", "additive");
 		return 0;
@@ -44,27 +44,27 @@ int start(Position *p, Ptree *t){
 }
 
 int additive(Position *p, Ptree *t){
-	setString(t, __func__, strlen(__func__));
+	setString(t, __FUNCTION__, strlen(__FUNCTION__));
 	return sepBy(p, t, ADD, ADD, multiplicative, addition, 1, 0);
 }
 
 int addition(Position *p, Ptree *t){
-	//setString(t, __func__, strlen(__func__));
+	//setString(t, __FUNCTION__, strlen(__FUNCTION__));
 	return oneOf(p, t, PASS, "+-");
 }
 
 int multiplicative(Position *p, Ptree *t){
-	setString(t, __func__, strlen(__func__));
+	setString(t, __FUNCTION__, strlen(__FUNCTION__));
 	return sepBy(p, t, ADD, ADD, primary, multiplication, 1, 0);
 }
 
 int multiplication(Position *p, Ptree *t){
-	//setString(t, __func__, strlen(__func__));
+	//setString(t, __FUNCTION__, strlen(__FUNCTION__));
 	return oneOf(p, t, PASS, "*/%");
 }
 
 int primary(Position *p, Ptree *t){
-	setString(t, __func__, strlen(__func__));
+	setString(t, __FUNCTION__, strlen(__FUNCTION__));
 	if(acceptString(p, t, SKIP, "(")){
 		if(!accept(p, t, PASS, additive)){
 			logUnexpectedError(p, "primary", "additive");

@@ -35,26 +35,26 @@ int tree(Position *p, Ptree *t){
 	debug_gets("%c", currentChar(p));
 	if(currentChar(p) == '"'){
 		if(!acceptString(p, t, SKIP, "\"")){
-			logUnexpectedError(p, __func__, "\"");
+			logUnexpectedError(p, __FUNCTION__, "\"");
 			return 0;
 		}
 		repeat(p, t, PASS, schar, 0, 0);
 		if(!acceptString(p, t, SKIP, "\"")){
-			logUnexpectedError(p, __func__, "\"");
+			logUnexpectedError(p, __FUNCTION__, "\"");
 			return 0;
 		}
 	}else{
 		repeat(p, t, PASS, nchar, 0, 0);
 	}
 	if(!acceptString(p, t, SKIP, "(")){
-		logUnexpectedError(p, __func__, "(");
+		logUnexpectedError(p, __FUNCTION__, "(");
 		return 0;
 	}
 	if(!sepBy(p, t, ADD, SKIP, tree, comma, 0, 0)){
 		return 0;
 	}
 	if(!acceptString(p, t, SKIP, ")")){
-		logUnexpectedError(p, __func__, ")");
+		logUnexpectedError(p, __FUNCTION__, ")");
 		return 0;
 	}
 	return 1;

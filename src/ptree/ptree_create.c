@@ -36,7 +36,7 @@ Ptree* mallocPtree(){
 char appendNewPtree(Ptree *parent, const char *string, int length){
 	debug_calls("called on: %p, %*s, %d", parent, length, string, length);
 	if(!reallocPtree(parent, parent->nodec + 1)){
-		logMemoryError(__func__);
+		logMemoryError(__FUNCTION__);
 		debug_calls("returning: 0");
 		return 0;
 	}
@@ -52,7 +52,7 @@ void setString(Ptree *p, const char *string, int length){
 	free(p->string);
 	p->string = malloc((length + 1)*sizeof(char));
 	if(!p->string){
-		logMemoryError(__func__);
+		logMemoryError(__FUNCTION__);
 		p->length = 0;
 		debug_calls("returning");
 		return;
@@ -69,7 +69,7 @@ void appendString(Ptree *p, const char *string, int length){
 	char *temp;
 	temp = realloc(p->string, (p->length + length + 1)*sizeof(char));
 	if(!temp){
-		logMemoryError(__func__);
+		logMemoryError(__FUNCTION__);
 		debug_calls("returning");
 		return;
 	}

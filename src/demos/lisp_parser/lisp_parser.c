@@ -31,11 +31,11 @@ int nchar(Position *p, Ptree *t);
 
 int start(Position *p, Ptree *t){
 	if(!accept(p, t, PASS, sxpr)){
-		logUnexpectedError(p, __func__, "s-expression");
+		logUnexpectedError(p, __FUNCTION__, "s-expression");
 		return 0;
 	}
 	if(!acceptEnd(p)){
-		logUnexpectedError(p, __func__, "end of input");
+		logUnexpectedError(p, __FUNCTION__, "end of input");
 		return 0;
 	}
 	return 1;
@@ -51,7 +51,7 @@ int sxpr(Position *p, Ptree *t){
 		return 0;
 	}
 	if(!acceptString(p, t, SKIP, ")")){
-		logUnexpectedError(p, __func__, ")");
+		logUnexpectedError(p, __FUNCTION__, ")");
 		return 0;
 	}
 	return 1;
@@ -100,7 +100,7 @@ int abool(Position *p, Ptree *t){
 		setString(t, "f", 1);
 		return 1;
 	}
-	logUnexpectedError(p, __func__, "t or f");
+	logUnexpectedError(p, __FUNCTION__, "t or f");
 	return 0;
 }
 
@@ -135,7 +135,7 @@ int alist(Position *p, Ptree *t){
 		return 0;
 	}
 	if(!accept(p, t, ADD, sxpr)){
-		logUnexpectedError(p, __func__, "s-expr");
+		logUnexpectedError(p, __FUNCTION__, "s-expr");
 		return 0;
 	}
 	return 1;

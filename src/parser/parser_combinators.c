@@ -7,7 +7,7 @@
 #include "../util/debug.h"
 
 int repeat(Position *p, Ptree *t, AppendMode a, parser parse, int min, int max){
-	//t->string = __func__;
+	//t->string = __FUNCTION__;
 	int count = 0;
 	while(count < min){
 		if(!accept(p, t, a, parse)){
@@ -37,7 +37,7 @@ int repeat(Position *p, Ptree *t, AppendMode a, parser parse, int min, int max){
 
 int sepBy(Position *p, Ptree *t, AppendMode a, AppendMode aSeperator, parser parse, parser parseSeperator, int min, int max){
 	int count = 1;
-	//t->string = __func__;
+	//t->string = __FUNCTION__;
 	if(!accept(p, t, a, parse)){
 		return min <= 0;
 	}
@@ -73,7 +73,7 @@ int sepBy(Position *p, Ptree *t, AppendMode a, AppendMode aSeperator, parser par
 
 int alternate(Position *p, Ptree *t, AppendMode aA, AppendMode aB, parser parseA, parser parseB){
 	
-	//t->string = __func__;
+	//t->string = __FUNCTION__;
 	while(accept(p, t, aA, parseA)){
 		if(!accept(p, t, aB, parseB)){
 			return 0;
@@ -86,7 +86,7 @@ int not(Position *p, Ptree *t, AppendMode a, parser parse){
 	Position start = *p;
 	Ptree* temp = mallocPtree();
 	if(!temp){
-		logMemoryError(__func__);
+		logMemoryError(__FUNCTION__);
 		return 0;
 	}
 	if(parse(&start, temp)){
