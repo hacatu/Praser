@@ -11,7 +11,7 @@ LIBS = ["m", "parser", "parser_util"]
 LIBNAME = "lib{name}.a"
 EXENAME = "{name}"
 WERROR = "-Werror "
-STD = "-std=c0x "
+STD = "-std=c1x "
 WALL = "-Wall "
 if sys.platform == "win32":
 	LIBS = ["parser", "parser_util"]
