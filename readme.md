@@ -24,8 +24,10 @@ entering `python` into a terminal if you don't know.
 * Windows
 
     Install SCons from [www.scons.org](www.scons.org "www.scons.org").  Just open the link, go to downloads, and pick the
-scons ... setup.exe. You will also need to have [Python](www.python.org "www.python.org"), which you can download from
-that link.
+scons ... setup.exe. You will need to have [Python](www.python.org "www.python.org"), which you can download from
+that link.  You will also need to add Python to your path, so keep note of where you install it and add it by going to
+control panel and searching for "path".  I should add pre built Windows binaries for 32 and 64 bit when I release version
+1.0.
 
 * Mac
 
@@ -34,7 +36,7 @@ as explained in the Linux instructions above.  You definitely already have Pytho
 
 ###Installing a C compiler
 
-This only applies to Windows, Linux and Mac com with C compilers.  You can either use Microsoft Visual C++ (msvc), or
+This only applies to Windows, Linux and Mac come with C compilers.  You can either use Microsoft Visual C++ (msvc), or
 MinGW.  Currently, I only have instructions for msvc.  Download it from
 [www.visualstudio.com](www.visualstudio.com "www.visualstudio.com").  There is a good free version available called
 Visual Studio Community; do not pay for it or download Visual Studio Express.

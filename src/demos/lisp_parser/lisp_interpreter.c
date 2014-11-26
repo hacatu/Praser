@@ -138,11 +138,14 @@ LispVal expr(Ptree *t){
 }
 
 LispVal evalLAMBDA(LispVal lambda, LispVal args, Env *env){//TODO: fix
-	LispVal a = car(lambda);
+	LispVal a = *lambda.params;
 	if(lengthLIST(a) > lengthLIST(args)){
 		return BASE_NYI;
 	}
-	Env *new = copyEnv(env);
+	Env *new = copyEnv(lambda.closure);
+	if(!new){
+		return BASE_NYI;
+	}
 	while(!isNIL(a)){
 		if(!addName(new, car(a).name, car(args))){
 			deleteEnv(new);
@@ -151,7 +154,9 @@ LispVal evalLAMBDA(LispVal lambda, LispVal args, Env *env){//TODO: fix
 		a = cdr(a);
 		args = cdr(args);
 	}
-	a = eval(cdr(lambda), new);
+	printLispVal(*lambda.body);
+	puts("");
+	a = eval(*lambda.body, new);
 	deleteEnv(new);
 	return a;
 }
@@ -161,15 +166,18 @@ LispVal evalLIST(LispVal expr, Env *env){
 	if(isLIST(a)){
 		a = evalLIST(a, env);
 	}else if(isNAME(a)){
-		a = getName(env, car(expr).name);
+		a = getName(env, a.name);
 		if(isNYI(a)){
 			return evalBASE(expr, env);
 		}
 	}
+	if(lengthLIST(expr) == 1){
+		return a;
+	}
 	if(isLAMBDA(a)){
 		return evalLAMBDA(a, cdr(expr), env);
 	}
-	return copyLispVal(expr);
+	return liftCONS(a, cdr(expr));
 }
 
 LispVal eval(LispVal expr, Env *env){
