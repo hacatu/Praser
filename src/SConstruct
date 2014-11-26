@@ -4,23 +4,17 @@ import sys
 
 join = os.path.join
 
-Import("env BASE LIBS LIBPATH")
+Import("env BASE LIBS LIBPATH LIBNAME EXENAME")
 
 PARSER_FILES = Glob(join("parser", "*.c"))
 PTREE_FILES = Glob(join("ptree", "*.c"))
 UTIL_FILES = Glob(join("util", "*.c"))
 
-LIBEXTENSION = ""
-if sys.platform=="win32":
-	LIBEXTENSION = "lib"
-else:
-	LIBEXTENSION = "a"
-
 OBJECTS = ["parser_repl.c"]
 
-env.Library(join(BASE, "lib", "libparser."+LIBEXTENSION), PARSER_FILES + PTREE_FILES)
+parser_lib = env.Library(join(BASE, "lib", LIBNAME.format(name="parser")), PARSER_FILES + PTREE_FILES)
 
-env.Library(join(BASE, "lib", "libparser_util."+LIBEXTENSION), UTIL_FILES)
+parser_util_lib = env.Library(join(BASE, "lib", LIBNAME.format(name="parser_util")), UTIL_FILES)
 
-env.Program(join(BASE, "bin", "parser_repl"), OBJECTS, LIBPATH=LIBPATH, LIBS=LIBS)
+env.Program(join(BASE, "bin", EXENAME.format(name="parser_repl")), OBJECTS, LIBPATH=LIBPATH, LIBS=LIBS)
 

@@ -3,8 +3,10 @@
 *.com
 *.class
 *.dll
+*.lib
 *.exe
 *.o
+*.obj
 *.so
 *.gch
  

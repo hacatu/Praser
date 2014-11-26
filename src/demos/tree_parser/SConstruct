@@ -3,7 +3,7 @@ import os.path
 
 join = os.path.join
 
-Import("env BASE LIBS LIBPATH")
+Import("env BASE LIBS LIBPATH EXENAME")
 
-env.Program(join(BASE, "bin", "tree.parser"), Glob("*.c"), LIBPATH=LIBPATH, LIBS=LIBS)
+env.Program(join(BASE, "bin", EXENAME.format(name="tree.parser")), Glob("*.c"), LIBPATH=LIBPATH, LIBS=LIBS)
 
