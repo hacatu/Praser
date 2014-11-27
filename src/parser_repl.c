@@ -8,6 +8,14 @@
 #include "util/spawn_process.h"
 #include "util/debug.h"
 
+#ifdef _WIN32
+#define EXE ".exe"
+#define SLASH "\\"
+#else
+#define EXE
+#define SLASH "/"
+#endif
+
 int main(int argc, char **argv){
 	FILE *file = stdin;
 	if(argc < 2){
@@ -31,8 +39,8 @@ int main(int argc, char **argv){
 	while((s_read = getLine(&line, &line_len, file)) > 0){
 		read = (unsigned int)s_read;
 		line[read - 1] = '\0';
-		if(read + 11 > parserPath_len){//read + strlen(".parser") > parserPath_len
-			temp = realloc(parserPath, (read + 11)*sizeof(char));
+		if(read + 15 > parserPath_len){//read + strlen(".parser.exe") > parserPath_len
+			temp = realloc(parserPath, (read + 15)*sizeof(char));
 			if(!temp){
 				puts("Out of memory");
 				free(parserPath);
@@ -41,9 +49,9 @@ int main(int argc, char **argv){
 				return 1;
 			}
 			parserPath = temp;
-			strcpy(parserPath, "bin/");
+			strcpy(parserPath, "bin" SLASH);
 			strcat(parserPath, line);
-			strcat(parserPath, ".parser");
+			strcat(parserPath, ".parser" EXE);
 			parserPath_len = read + 11;
 		}
 		if(!checkFile(parserPath)){
