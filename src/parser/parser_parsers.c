@@ -12,7 +12,7 @@
 static int cschar(Position *p, Ptree *t){
 	if(currentChar(p) == '\\'){
 		getChar(p);
-		appendString(t, p->current, 1);
+		appendString(t, (const char[]){currentChar(p), '\0'}, 1);
 		getChar(p);
 		return 1;
 	}
@@ -38,7 +38,7 @@ int cchar(Position *p, Ptree *t){
 	}
 	if(currentChar(p) == '\\'){
 		getChar(p);
-		appendString(t, p->current, 1);
+		appendString(t, (const char[]){currentChar(p), '\0'}, 1);
 		getChar(p);
 		return acceptString(p, t, SKIP, "'");
 	}

@@ -83,19 +83,21 @@ int alternate(Position *p, Ptree *t, AppendMode aA, AppendMode aB, parser parseA
 }
 
 int not(Position *p, Ptree *t, AppendMode a, parser parse){
-	Position start = *p;
+	size_t start = currentIndex(p);
 	Ptree* temp = mallocPtree();
 	if(!temp){
 		logMemoryError(__FUNCTION__);
 		return 0;
 	}
-	if(parse(&start, temp)){
+	if(parse(p, temp)){
 		deletePtree(temp);
 		free(temp);
+		resetIndex(p, start);
 		return 0;
 	}
 	deletePtree(temp);
 	free(temp);
+	resetIndex(p, start);
 	switch(a){
 		case ADD:
 			return appendNewPtree(t, (const char[]){getChar(p), '\0'}, 1);
@@ -142,18 +144,16 @@ int noneOf(Position *p, Ptree *t, AppendMode a, const char *options){
 		}
 		++c;
 	}
-	c = p->current;
-	getChar(p);
 	switch(a){
 		case ADD:
-			return appendNewPtree(t, c, 1);
+			if(!appendNewPtree(t, (const char[]){currentChar(p), '\0'}, 1)){
+				return 0;
+			}
 		case PASS:
-			appendString(t, c, 1);
-			return 1;
-		case SKIP:
-			return 1;
+			appendString(t, (const char[]){currentChar(p), '\0'}, 1);
+		case SKIP:;
 	}
-	//needed to supress erronious warning from gcc.  The above switch can't fall through bcause a is an enum.
+	getChar(p);
 	return 1;
 }
 

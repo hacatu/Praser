@@ -38,15 +38,15 @@ char acceptEnd(Position *p){
 }
 
 int try(Position *p, Ptree *t, AppendMode a, parser parse){
-	Position current = *p;
+	size_t start = currentIndex(p);
 	int children = getSize(t);
-	if(accept(&current, t, a, parse)){
-		*p = current;
+	if(accept(p, t, a, parse)){
 		return 1;
 	}
 	if(a != SKIP){
 		reallocPtree(t, children);
 	}
+	resetIndex(p, start);
 	return 0;
 }
 

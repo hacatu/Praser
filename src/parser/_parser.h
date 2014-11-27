@@ -3,10 +3,9 @@
 #include "parser.h"
 #include "../ptree/ptree.h"
 
-struct Position{
-	const char* string;
-	const char* current;
-};
+size_t currentIndex(Position *p);
+
+void resetIndex(Position *p, size_t index);
 
 int acceptChar(Position *p, char c);
 

@@ -17,6 +17,11 @@ void logUnexpectedError(Position *p, const char *name, const char *expected);
  */
 Position* firstPosition(const char *string);
 
+/* Returns a pointer to the initial position in a file.
+ * If the file is closed, this position is invalid.
+ * This pointer must be free'd.
+ */
+Position *startPosition(FILE *file);
 
 /* Returns the current character in a Position.
  */
