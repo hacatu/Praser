@@ -19,18 +19,19 @@ int main(int argc, char **argv){
 			file = stdin;
 		}
 	}
-	size_t line_len = 0, parserPath_len = 0;
+	size_t line_len = 0, parserPath_len = 0, read;
 	char *line = NULL;
-	int read = 0;
+	int s_read = 0;
 	Pid childPID;
 	char *parserPath = NULL, *temp;
 	char *const *parserArgs;
 	char pwd[1024];
-	getcwd(pwd, 1024);
+	getpwd(pwd, 1024);
 	printf("pwd: %s\n", pwd);
-	while((read = getLine(&line, &line_len, file)) > 0){
+	while((s_read = getLine(&line, &line_len, file)) > 0){
+		read = (unsigned int)s_read;
 		line[read - 1] = '\0';
-		if(read + 11 > parserPath_len){//read + strlen(".parser" > parserPath_len)
+		if(read + 11 > parserPath_len){//read + strlen(".parser") > parserPath_len
 			temp = realloc(parserPath, (read + 11)*sizeof(char));
 			if(!temp){
 				puts("Out of memory");

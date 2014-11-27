@@ -280,3 +280,16 @@ and there is no need to print a new line at the end since this happens automatic
 
     Sets the string for a `Ptree`.
 
+***
+
+##Cross Compiling for Windows
+
+The Windows binaries in the releases are cross compiled on Linux.  To cross compile, just set the compiler, archiver,
+and ranlib to the right cross compiler tools like this: `export CC=i686-w64-mingw32-gcc`,
+`export AR=i686-w64-mingw32-ar`, `export RANLIB=i686-w64-mingw32-ranlib`, `scons demos=1`.  These i686-w64-mingw32
+tools are for 32 bit Windows and can be found in the mingw-w64 toolchain.  This package is available for Arch Linux,
+Fedora, Redhat, CentOS, Ubuntu, and many other distributions, try searching your package manager.  There are also
+"x86_64-w64-mingw32- _name_ " tools for 64 bit Windows.  Once you cross compile the binaries, rename the libraries
+in `lib` from "lib _name_ .a" to _name_ .lib, and the executables in bin from " _name_ "to " _name_ .exe".  You can
+test the executables with wine.
+

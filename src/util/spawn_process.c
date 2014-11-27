@@ -9,7 +9,7 @@
 
 Pid spawn_process(const char *path, char *const *args){
 	printf("sp: \"%s\", \"%s\"\n", path, args[0]);
-	Pid childPID = spawnv(P_WAIT, path, args);
+	return spawnv(P_WAIT, path, args);
 }
 
 void waitPID(Pid childPID){
@@ -18,6 +18,10 @@ void waitPID(Pid childPID){
 
 char checkFile(const char *path){
 	return GetFileAttributes(path);
+}
+
+char *getpwd(char *buf, int len){
+	return _getcwd(buf, len);
 }
 #endif
 #ifdef __unix__
@@ -50,6 +54,10 @@ void waitPID(Pid childPID){
 
 char checkFile(const char *path){
 	return access(path, F_OK) != -1;
+}
+
+char *getpwd(char *buf, int len){
+	return getcwd(buf, len);
 }
 #endif
 

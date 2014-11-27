@@ -26,7 +26,9 @@ int cstring(Position *p, Ptree *t){
 	if(!repeat(p, t, PASS, cschar, 0, 0)){
 		return 0;
 	}
-	if(!acceptString(p, t, SKIP, "\""));
+	if(!acceptString(p, t, SKIP, "\"")){
+		return 0;
+	}
 	return 1;
 }
 

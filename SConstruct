@@ -10,7 +10,7 @@ LIBPATH = [join(BASE, "lib")]
 LIBS = ["m", "parser", "parser_util"]
 LIBNAME = "lib{name}.a"
 EXENAME = "{name}"
-WERROR = "-Werror "
+WERROR = ""#"-Werror "
 STD = "-std=c1x "
 WALL = "-Wall "
 if sys.platform == "win32":
@@ -31,7 +31,14 @@ print("BASE={}".format(BASE))
 INCLUDES = ["parser", "ptree", "util"]
 INCLUDES = map(lambda i: join(BASE, "src", i), INCLUDES)
 
-env = Environment(ENV=os.environ, CCFLAGS=STD+WALL+WERROR, CPPPATH=INCLUDES)
+env = Environment(CCFLAGS=STD+WALL+WERROR, CPPPATH=INCLUDES)
+
+if "CC" in os.environ:
+	env["CC"] = os.environ["CC"]
+if "AR" in os.environ:
+	env["AR"] = os.environ["AR"]
+if "RANLIB" in os.environ:
+	env["RANLIB"] = os.environ["RANLIB"]
 
 debug = ARGUMENTS.get("debug", 0)
 if int(debug):

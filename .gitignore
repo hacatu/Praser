@@ -45,3 +45,5 @@ Thumbs.db
 bin/*
 obj/*
 lib/*
+win32/*
+win64/*
