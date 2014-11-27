@@ -70,7 +70,9 @@ char getChar(Position *p){
 		case STRING_POS:
 		return p->string[++p->index];
 		case FILE_POS:
-		fread(&temp, sizeof(char), 1, p->file);
+		if(!fread(&temp, sizeof(char), 1, p->file)){
+			return 0;
+		}
 		return temp;
 	}
 	//Not reachable:
@@ -90,9 +92,29 @@ char nthChar(Position *p, int n){
 		case FILE_POS:
 		start = ftell(p->file);
 		fseek(p->file, n*sizeof(char), SEEK_CUR);
-		fread(&temp, sizeof(char), 1, p->file);
+		if(!fread(&temp, sizeof(char), 1, p->file)){
+			return 0;
+		}
 		fseek(p->file, start, SEEK_SET);
 		return temp;
+	}
+	//Not reachable
+	return 0;
+}
+
+char acceptEnd(Position *p){
+	size_t start;
+	char temp;
+	switch(p->type){
+		case STRING_POS:
+		return acceptChar(p, '\0');
+		case FILE_POS:
+		start = ftell(p->file);
+		if(!fread(&temp, sizeof(char), 1, p->file)){
+			return 1;
+		}
+		fseek(p->file, start, SEEK_SET);
+		return 0;
 	}
 	//Not reachable
 	return 0;

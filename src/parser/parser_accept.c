@@ -33,10 +33,6 @@ int acceptString(Position *p, Ptree *t, AppendMode a, const char *s){
 	return 1;
 }
 
-char acceptEnd(Position *p){
-	return acceptChar(p, '\0');
-}
-
 int try(Position *p, Ptree *t, AppendMode a, parser parse){
 	size_t start = currentIndex(p);
 	int children = getSize(t);
