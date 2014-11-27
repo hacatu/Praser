@@ -1,6 +1,3 @@
 language: c
-compiler:
-  - gcc
-  - clang
 script: scons demos=1
 
