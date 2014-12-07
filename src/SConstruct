@@ -12,7 +12,9 @@ UTIL_FILES = Glob(join("util", "*.c"))
 
 OBJECTS = ["parser_repl.c"]
 
-parser_lib = env.Library(join(BASE, "lib", LIBNAME.format(name="parser")), PARSER_FILES + PTREE_FILES)
+PARSER_LIB = join(BASE, "lib", LIBNAME.format(name="parser"))
+
+parser_lib = env.Library(PARSER_LIB, PARSER_FILES + PTREE_FILES)
 
 parser_util_lib = env.Library(join(BASE, "lib", LIBNAME.format(name="parser_util")), UTIL_FILES)
 

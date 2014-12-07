@@ -11,15 +11,15 @@
  * If successfull, get the next char and return 1.
  * Otherwise return 0.
  */
-int acceptChar(Position *p, char c){
-	if(currentChar(p) == c){
-		getChar(p);
+int acceptChar(PRA_Position *p, char c){
+	if(PRA_currentChar(p) == c){
+		PRA_getChar(p);
 		return 1;
 	}
 	return 0;
 }
 
-int acceptString(Position *p, Ptree *t, AppendMode a, const char *s){
+int PRA_acceptString(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, const char *s){
 	int i = 0;
 	while(s[i]){
 		if(!acceptChar(p, s[i])){
@@ -27,58 +27,58 @@ int acceptString(Position *p, Ptree *t, AppendMode a, const char *s){
 		}
 			++i;
 	}
-	if(a == ADD || a == PASS){
+	if(a == PRA_ADD || a == PRA_PASS){
 		appendNewPtree(t, s, strlen(s));
 	}
 	return 1;
 }
 
-int try(Position *p, Ptree *t, AppendMode a, parser parse){
+int PRA_try(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, parser parse){
 	size_t start = currentIndex(p);
-	int children = getSize(t);
-	if(accept(p, t, a, parse)){
+	int children = PRA_getSize(t);
+	if(PRA_accept(p, t, a, parse)){
 		return 1;
 	}
-	if(a != SKIP){
+	if(a != PRA_SKIP){
 		reallocPtree(t, children);
 	}
 	resetIndex(p, start);
 	return 0;
 }
 
-int accept(Position *p, Ptree *t, AppendMode a, parser parse){
-	Ptree *temp;
+int PRA_accept(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, parser parse){
+	PRA_Ptree *temp;
 	switch(a){
-		case ADD:
+		case PRA_ADD:
 		if(!appendNewPtree(t, NULL, 0)){
 			debug_log("appendNewPtree failed");
 			return 0;
 		}
-		if(!parse(p, lastChild(t))){
+		if(!parse(p, PRA_lastChild(t))){
 			debug_log("parsing failed");
-			reallocPtree(t, getSize(t) - 1);
+			reallocPtree(t, PRA_getSize(t) - 1);
 			return 0;
 		}
 		return 1;
-		case PASS:
+		case PRA_PASS:
 		if(!parse(p, t)){
 			debug_log("parsing failed");
 			return 0;
 		}
 		return 1;
-		case SKIP:
-		temp = mallocPtree();
+		case PRA_SKIP:
+		temp = PRA_mallocPtree();
 		if(!temp){
-			debug_log("tempPtree failed");
+			debug_log("tempPRA_Ptree failed");
 			return 0;
 		}
 		if(!parse(p, temp)){
 			debug_log("parsing failed");
-			deletePtree(temp);
+			PRA_deletePtree(temp);
 			free(temp);
 			return 0;
 		}
-		deletePtree(temp);
+		PRA_deletePtree(temp);
 		free(temp);
 		return 1;
 	}

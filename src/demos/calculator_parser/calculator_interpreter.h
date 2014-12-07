@@ -2,5 +2,5 @@
 #pragma once
 #include <ptree.h>
 
-double eval(Ptree *t);
+double eval(PRA_Ptree *t);
 

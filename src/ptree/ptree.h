@@ -3,83 +3,83 @@
  */
 #pragma once
 
-typedef struct Ptree Ptree;
+typedef struct PRA_Ptree PRA_Ptree;
 
 typedef enum{
-	ADD,
-	PASS,
-	SKIP
-} AppendMode;
+	PRA_ADD,
+	PRA_PASS,
+	PRA_SKIP
+} PRA_AppendMode;
 
 
 /* Logs errors caused by malloc, realloc, etc failing.
  */
-void logMemoryError(const char *name);
+void PRA_logMemoryError(const char *name);
 
 
-/* Create a root ptree
+/* Create a root PRA_Ptree
  */
-Ptree* mallocPtree();
+PRA_Ptree* PRA_mallocPtree();
 
 
-/* Sets the string of a ptree
+/* Sets the string of a PRA_Ptree
  * */
-void setString(Ptree *p, const char *string, int length);
+void PRA_setString(PRA_Ptree *p, const char *string, int length);
 
-/* Appends a string to a ptree
+/* Appends a string to a PRA_Ptree
  */
-void appendString(Ptree *p, const char *string, int length);
+void PRA_appendString(PRA_Ptree *p, const char *string, int length);
 
 
-/* Returns 1 if Ptree *t has no children (represents a terminal symbol).
+/* Returns 1 if PRA_Ptree *t has no children (represents a terminal symbol).
  */
-char isTerminal(const Ptree *t);
+char PRA_isTerminal(const PRA_Ptree *t);
 
-const char* getString(Ptree *t);
+const char* PRA_getString(PRA_Ptree *t);
 
-int getSize(const Ptree *t);
+int PRA_getSize(const PRA_Ptree *t);
 
-int getLength(const Ptree *t);
+int PRA_getLength(const PRA_Ptree *t);
 
 
-/* Replaces all Ptrees with only one child by their child.
+/* Replaces all PRA_Ptrees with only one child by their child.
  */
-void flatten(Ptree *t);
+void PRA_flatten(PRA_Ptree *t);
 
-/* Like flatten, but leaves Ptrees with terminal children
+/* Like PRA_flatten, but leaves PRA_Ptrees with terminal children
  */
-void flattenTagged(Ptree *t);
+void PRA_flattenTagged(PRA_Ptree *t);
 
 
-Ptree* parent(Ptree *t);
+PRA_Ptree* PRA_parent(PRA_Ptree *t);
 
-/* Returns the last child of a ptree
+/* Returns the last child of a PRA_Ptree
  */
-Ptree* lastChild(Ptree *t);
+PRA_Ptree* PRA_lastChild(PRA_Ptree *t);
 
-/* Returns the nth Child of a Ptree *t.
+/* Returns the nth Child of a PRA_Ptree *t.
  * Negative wraparound indicies may be used.
  * Returns a null pointer if n is out of bounds.
  */
-Ptree* nthChild(const Ptree *t, int n);
+PRA_Ptree* PRA_nthChild(const PRA_Ptree *t, int n);
 
-/* Returns the first node of a ptree in postorder.
+/* Returns the first node of a PRA_Ptree in postorder.
  */
-Ptree* firstPostorder(Ptree *root);
+PRA_Ptree* PRA_firstPostorder(PRA_Ptree *root);
 
 /* Returns the next node from a current node in postorder, or null
  */
-Ptree* nextPostorder(Ptree *current);
+PRA_Ptree* PRA_nextPostorder(PRA_Ptree *current);
 
-/* Creates a copy of the given Ptree.
+/* Creates a copy of the given PRA_Ptree.
  */
-Ptree* copyPtree(const Ptree *t);
+PRA_Ptree* PRA_copyPtree(const PRA_Ptree *t);
 
-/* Deletes all nodes in a Ptree except the root, regardless of what node is actually given.
+/* Deletes all nodes in a PRA_Ptree except the root, regardless of what node is actually given.
  * If the root was malloc'd, it still has to be free'd elsewhere. 
  */
-void deletePtree(Ptree *t);
+void PRA_deletePtree(PRA_Ptree *t);
 
-/* Prints a Ptree *t.  Indent is the amount of spaces to indent each line.
+/* Prints a PRA_Ptree *t.  Indent is the amount of spaces to indent each line.
  */
-void printPtree(const Ptree *t, int indent);
+void PRA_printPtree(const PRA_Ptree *t, int indent);

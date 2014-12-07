@@ -2,115 +2,111 @@
 #pragma once
 #include <ptree.h>
 
-typedef struct Position Position;//holds the string being parsed and a pointer to the current char
-typedef int (*parser)(Position*, Ptree*);//a function pointer to a parsing function
+typedef struct PRA_Position PRA_Position;//holds the string being parsed and a pointer to the current char
+typedef int (*parser)(PRA_Position*, PRA_Ptree*);//a function pointer to a parsing function
 
 
 /* Logs errors caused by the string being parsed having improper formatting.
  */
-void logUnexpectedError(Position *p, const char *name, const char *expected);
+void PRA_logUnexpectedError(PRA_Position *p, const char *name, const char *expected);
 
 
 /* Returns a pointer to the initial position in a string.
  * If the string is deleted, this position is invalid.
  * This pointer must be free'd.
  */
-Position* firstPosition(const char *string);
+PRA_Position *PRA_firstPosition(const char *string);
 
 /* Returns a pointer to the initial position in a file.
  * If the file is closed, this position is invalid.
  * This pointer must be free'd.
  */
-Position *startPosition(FILE *file);
+PRA_Position *PRA_startPosition(FILE *file);
 
-/* Returns the current character in a Position.
+/* Returns the current character in a PRA_Position.
  */
-char currentChar(Position *p);
+char PRA_currentChar(PRA_Position *p);
 
-/* Increments a Position's position and returns the new character.
+/* Increments a PRA_Position's position and returns the new character.
  */
-char getChar(Position *p);
+char PRA_getChar(PRA_Position *p);
 
 /* Returns the next character without incrementing the position.
  * This makes the parser ll[1].
  */
-char nextChar(Position *p);
+char PRA_nextChar(PRA_Position *p);
 
-/* Returns the nth character in a Position.
- * nthChar(p, 0) == currentChar(p)
- * nthChar(p, 1) == nextChar(p)
+/* Returns the nth character in a PRA_Position.
+ * PRA_nthChar(p, 0) == PRA_currentChar(p)
+ * PRA_nthChar(p, 1) == PRA_nextChar(p)
  * This makes the parser ll[k].
  */
-char nthChar(Position *p, int n);
+char PRA_nthChar(PRA_Position *p, int n);
 
 
 /* A parser that expects the end of input ('\0').
- * Do not try to use this except for the end of input, thus do not make the starting parser recursive.
+ * Do PRA_not PRA_try to use this except for the end of input, thus do PRA_not make the starting parser recursive.
  * Returns 0 on failure, nonzero otherwise.
  */
-char acceptEnd(Position *p);
+char PRA_acceptEnd(PRA_Position *p);
 
 
-/* A parser that accepts a string and adds it to the parse tree if found.
+/* A parser that PRA_accepts a string and PRA_ADDs it to the parse tree if found.
  * Returns 0 on failure, nonzero otherwise.
  */
-int acceptString(Position *p, Ptree *t, AppendMode a, const char *s);
+int PRA_acceptString(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, const char *s);
 
 
-/* Trys a parser and resets Position p if the parser fails.
- * This is vital if a parser may consume input but fail, but makes the parser not ll[k]
+/* PRA_trys a parser and resets PRA_Position p if the parser fails.
+ * This is vital if a parser may consume input but fail, but makes the parser PRA_not ll[k]
  * Returns 0 on failure, nonzero otherwise.
  */
-int try(Position *p, Ptree *t, AppendMode a, parser parse);
+int PRA_try(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, parser parse);
 
 
 /* Runs a parser.
  * Returns 0 on failure, nonzero otherwise
  */
-int accept(Position *p, Ptree *t, AppendMode a, parser parse);
+int PRA_accept(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, parser parse);
 
 
 /* Run a parser from min to max times, inclusive.
  * If max is <= 0, there is no upper bound.
  * Returns 0 on failure, 1 otherwise.
  */
-int repeat(Position *p, Ptree *t, AppendMode a, parser parse, int min, int max);
+int PRA_repeat(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, parser parse, int min, int max);
 
-/* Takes two parsers, parse and parseSeperetor, and looks for them to alternate with parse matching on the outside.
- * Example: parse accepts numbers and parseSeperator accepts commas.  sepBy will accept "123,456,62", "0", or "1,2",
- * but not "123,456,", ",234", or ",0,".
+/* Takes two parsers, parse and parseSeperetor, and looks for them to PRA_alternate with parse matching on the outside.
+ * Example: parse PRA_accepts numbers and parseSeperator PRA_accepts commas.  PRA_sepBy will PRA_accept "123,456,62", "0", or "1,2",
+ * but PRA_not "123,456,", ",234", or ",0,".
  */
-int sepBy(Position *p, Ptree *t, AppendMode a, AppendMode aSeperator, parser parse, parser parseSeperator, int min, int max);
+int PRA_sepBy(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_AppendMode aSeperator, parser parse, parser parseSeperator, int min, int max);
 
 /* Takes two parsers, A and B, and looks for ABABABAB any number of times.
  */
-int alternate(Position *p, Ptree *t, AppendMode aA, AppendMode aB, parser parseA, parser parseB);
+int PRA_alternate(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode aA, PRA_AppendMode aB, parser parseA, parser parseB);
 
-/* Consumes a single character if a given parser does not match.
+/* Consumes a single character if a given parser does PRA_not match.
  * Good for ignoring comments or whitespace or strings.
  */
-int not(Position *p, Ptree *t, AppendMode a, parser parse);
+int PRA_not(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, parser parse);
 
-/* Accepts any char in the string options given.
+/* PRA_accepts any char in the string options given.
  */
-int oneOf(Position *p, Ptree *t, AppendMode a, const char *options);
+int PRA_oneOf(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, const char *options);
 
-/* Accepts any char not in the string options given.
+/* PRA_accepts any char PRA_not in the string options given.
  */
-int noneOf(Position *p, Ptree *t, AppendMode a, const char *options);
+int PRA_noneOf(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, const char *options);
 
-/* Accepts a string literal.
+/* PRA_accepts and discards whitespace.
  */
-int cstring(Position *p, Ptree *t);
+int PRA_spaces(PRA_Position *p, PRA_Ptree *t);
 
-int cchar(Position *p, Ptree *t);
+int PRA_cstring(PRA_Position *p, PRA_Ptree *t);
 
-/* Accepts and discards whitespace.
- */
-int spaces(Position *p, Ptree *t);
+int PRA_letter(PRA_Position *p, PRA_Ptree *t);
 
-int letter(Position *p, Ptree *t);
+int PRA_digit(PRA_Position *p, PRA_Ptree *t);
 
-int digit(Position *p, Ptree *t);
-
-int integer(Position *p, Ptree *t);
+int PRA_integer(PRA_Position *p, PRA_Ptree *t);

@@ -6,26 +6,26 @@
 #include "_parser.h"
 #include "../util/debug.h"
 
-int repeat(Position *p, Ptree *t, AppendMode a, parser parse, int min, int max){
+int PRA_repeat(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, parser parse, int min, int max){
 	//t->string = __FUNCTION__;
 	int count = 0;
 	while(count < min){
-		if(!accept(p, t, a, parse)){
-			debug_log("not enough matches");
+		if(!PRA_accept(p, t, a, parse)){
+			debug_log("PRA_not enough matches");
 			return 0;
 		}
 		++count;
 	}
 	if(max > 0){
 		while(count < max){
-			if(!accept(p, t, a, parse)){
+			if(!PRA_accept(p, t, a, parse)){
 				break;
 			}
 			++count;
 		}
 	}else{
 		while(1){
-			if(!accept(p, t, a, parse)){
+			if(!PRA_accept(p, t, a, parse)){
 				break;
 			}
 			++count;
@@ -35,34 +35,34 @@ int repeat(Position *p, Ptree *t, AppendMode a, parser parse, int min, int max){
 	return 1;
 }
 
-int sepBy(Position *p, Ptree *t, AppendMode a, AppendMode aSeperator, parser parse, parser parseSeperator, int min, int max){
+int PRA_sepBy(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_AppendMode aSeperator, parser parse, parser parseSeperator, int min, int max){
 	int count = 1;
 	//t->string = __FUNCTION__;
-	if(!accept(p, t, a, parse)){
+	if(!PRA_accept(p, t, a, parse)){
 		return min <= 0;
 	}
 	while(count < min){
-		if(!accept(p, t, aSeperator, parseSeperator)){
+		if(!PRA_accept(p, t, aSeperator, parseSeperator)){
 			return 0;
 		}
-		if(!accept(p, t, a, parse)){
+		if(!PRA_accept(p, t, a, parse)){
 			return 0;
 		}
 		++count;
 	}
 	if(max > min){
 		while(count < max){
-			if(!accept(p, t, aSeperator, parseSeperator)){
+			if(!PRA_accept(p, t, aSeperator, parseSeperator)){
 				return 1;
 			}
-			if(!accept(p, t, a, parse)){
+			if(!PRA_accept(p, t, a, parse)){
 				return 0;
 			}
 			++count;
 		}
 	}if(max < min || max == 0){
-		while(accept(p, t, aSeperator, parseSeperator)){
-			if(!accept(p, t, a, parse)){
+		while(PRA_accept(p, t, aSeperator, parseSeperator)){
+			if(!PRA_accept(p, t, a, parse)){
 				return 0;
 			}
 		}
@@ -71,48 +71,48 @@ int sepBy(Position *p, Ptree *t, AppendMode a, AppendMode aSeperator, parser par
 	return 1;
 }
 
-int alternate(Position *p, Ptree *t, AppendMode aA, AppendMode aB, parser parseA, parser parseB){
+int PRA_alternate(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode aA, PRA_AppendMode aB, parser parseA, parser parseB){
 	
 	//t->string = __FUNCTION__;
-	while(accept(p, t, aA, parseA)){
-		if(!accept(p, t, aB, parseB)){
+	while(PRA_accept(p, t, aA, parseA)){
+		if(!PRA_accept(p, t, aB, parseB)){
 			return 0;
 		}
 	}
 	return 1;
 }
 
-int not(Position *p, Ptree *t, AppendMode a, parser parse){
+int PRA_not(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, parser parse){
 	size_t start = currentIndex(p);
-	Ptree* temp = mallocPtree();
+	PRA_Ptree* temp = PRA_mallocPtree();
 	if(!temp){
-		logMemoryError(__FUNCTION__);
+		PRA_logMemoryError(__FUNCTION__);
 		return 0;
 	}
 	if(parse(p, temp)){
-		deletePtree(temp);
+		PRA_deletePtree(temp);
 		free(temp);
 		resetIndex(p, start);
 		return 0;
 	}
-	deletePtree(temp);
+	PRA_deletePtree(temp);
 	free(temp);
 	resetIndex(p, start);
 	switch(a){
-		case ADD:
-			return appendNewPtree(t, (const char[]){getChar(p), '\0'}, 1);
-		case PASS:
-			appendString(t, (const char[]){getChar(p), '\0'}, 1);
+		case PRA_ADD:
+			return appendNewPtree(t, (const char[]){PRA_getChar(p), '\0'}, 1);
+		case PRA_PASS:
+			PRA_appendString(t, (const char[]){PRA_getChar(p), '\0'}, 1);
 			return 1;
-		case SKIP:
-			getChar(p);
+		case PRA_SKIP:
+			PRA_getChar(p);
 			return 1;
 	}
 	//needed to supress erronious warning from gcc.  The above switch can't fall through bcause a is an enum.
 	return 1;
 }
 
-int oneOf(Position *p, Ptree *t, AppendMode a, const char *options){
+int PRA_oneOf(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, const char *options){
 	const char *c = options;
 	while(*c){
 		if(acceptChar(p, *c)){
@@ -124,36 +124,36 @@ int oneOf(Position *p, Ptree *t, AppendMode a, const char *options){
 		return 0;
 	}
 	switch(a){
-		case ADD:
+		case PRA_ADD:
 			return appendNewPtree(t, c, 1);
-		case PASS:
-			appendString(t, c, 1);
+		case PRA_PASS:
+			PRA_appendString(t, c, 1);
 			return 1;
-		case SKIP:
+		case PRA_SKIP:
 			return 1;
 	}
 	//needed to supress erronious warning from gcc.  The above switch can't fall through bcause a is an enum.
 	return 1;
 }
 
-int noneOf(Position *p, Ptree *t, AppendMode a, const char *options){
+int PRA_noneOf(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, const char *options){
 	const char *c = options;
 	while(*c){
-		if(currentChar(p) == *c){
+		if(PRA_currentChar(p) == *c){
 			return 0;
 		}
 		++c;
 	}
 	switch(a){
-		case ADD:
-			if(!appendNewPtree(t, (const char[]){currentChar(p), '\0'}, 1)){
+		case PRA_ADD:
+			if(!appendNewPtree(t, (const char[]){PRA_currentChar(p), '\0'}, 1)){
 				return 0;
 			}
-		case PASS:
-			appendString(t, (const char[]){currentChar(p), '\0'}, 1);
-		case SKIP:;
+		case PRA_PASS:
+			PRA_appendString(t, (const char[]){PRA_currentChar(p), '\0'}, 1);
+		case PRA_SKIP:;
 	}
-	getChar(p);
+	PRA_getChar(p);
 	return 1;
 }
 

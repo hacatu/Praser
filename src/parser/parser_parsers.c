@@ -7,64 +7,64 @@
 #include "../util/debug.h"
 
 
-//TODO: replace AppendMode with three functions: add, skip, and pass, and make parsers return ptrees instead of taking them
+//TODO: replace PRA_AppendMode with three functions: PRA_ADD, PRA_SKIP, and PRA_PASS, and make parsers return PRA_Ptrees instead of taking them
 
-static int cschar(Position *p, Ptree *t){
-	if(currentChar(p) == '\\'){
-		getChar(p);
-		appendString(t, (const char[]){currentChar(p), '\0'}, 1);
-		getChar(p);
+static int cschar(PRA_Position *p, PRA_Ptree *t){
+	if(PRA_currentChar(p) == '\\'){
+		PRA_getChar(p);
+		PRA_appendString(t, (const char[]){PRA_currentChar(p), '\0'}, 1);
+		PRA_getChar(p);
 		return 1;
 	}
-	return noneOf(p, t, PASS, "\"");
+	return PRA_noneOf(p, t, PRA_PASS, "\"");
 }
 
-int cstring(Position *p, Ptree *t){
-	if(!acceptString(p, t, SKIP, "\"")){
+int PRA_cstring(PRA_Position *p, PRA_Ptree *t){
+	if(!PRA_acceptString(p, t, PRA_SKIP, "\"")){
 		return 0;
 	}
-	if(!repeat(p, t, PASS, cschar, 0, 0)){
+	if(!PRA_repeat(p, t, PRA_PASS, cschar, 0, 0)){
 		return 0;
 	}
-	if(!acceptString(p, t, SKIP, "\"")){
+	if(!PRA_acceptString(p, t, PRA_SKIP, "\"")){
 		return 0;
 	}
 	return 1;
 }
 
-int cchar(Position *p, Ptree *t){
-	if(!acceptString(p, t, SKIP, "'")){
+int cchar(PRA_Position *p, PRA_Ptree *t){
+	if(!PRA_acceptString(p, t, PRA_SKIP, "'")){
 		return 0;
 	}
-	if(currentChar(p) == '\\'){
-		getChar(p);
-		appendString(t, (const char[]){currentChar(p), '\0'}, 1);
-		getChar(p);
-		return acceptString(p, t, SKIP, "'");
+	if(PRA_currentChar(p) == '\\'){
+		PRA_getChar(p);
+		PRA_appendString(t, (const char[]){PRA_currentChar(p), '\0'}, 1);
+		PRA_getChar(p);
+		return PRA_acceptString(p, t, PRA_SKIP, "'");
 	}
-	if(!noneOf(p, t, PASS, "'")){
+	if(!PRA_noneOf(p, t, PRA_PASS, "'")){
 		return 0;
 	}
-	return acceptString(p, t, SKIP, "'");
+	return PRA_acceptString(p, t, PRA_SKIP, "'");
 }
 
-static int space(Position *p, Ptree *t){
-	return oneOf(p, t, SKIP, " \t\n\r\v\f");
+static int space(PRA_Position *p, PRA_Ptree *t){
+	return PRA_oneOf(p, t, PRA_SKIP, " \t\n\r\v\f");
 }
 
-int spaces(Position *p, Ptree *t){
-	return repeat(p, t, SKIP, space, 1, 0);
+int PRA_spaces(PRA_Position *p, PRA_Ptree *t){
+	return PRA_repeat(p, t, PRA_SKIP, space, 1, 0);
 }
 
-int letter(Position *p, Ptree *t){
-	return oneOf(p, t, PASS, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+int PRA_letter(PRA_Position *p, PRA_Ptree *t){
+	return PRA_oneOf(p, t, PRA_PASS, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
 }
 
-int digit(Position *p, Ptree *t){
-	return oneOf(p, t, PASS, "0123456789");
+int PRA_digit(PRA_Position *p, PRA_Ptree *t){
+	return PRA_oneOf(p, t, PRA_PASS, "0123456789");
 }
 
-int integer(Position *p, Ptree *t){
-	return repeat(p, t, PASS, digit, 1, 0);
+int PRA_integer(PRA_Position *p, PRA_Ptree *t){
+	return PRA_repeat(p, t, PRA_PASS, PRA_digit, 1, 0);
 }
 

@@ -4,7 +4,7 @@
 #include "lisp_all_types.h"
 #include <ptree.h>
 
-LispVal expr(Ptree *t);
+LispVal expr(PRA_Ptree *t);
 
 LispVal eval(LispVal expr, Env *env);
 

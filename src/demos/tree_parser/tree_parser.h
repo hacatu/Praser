@@ -3,5 +3,5 @@
 #include <ptree.h>
 #include <parser.h>
 
-int start(Position *p, Ptree *t);
+int start(PRA_Position *p, PRA_Ptree *t);
 

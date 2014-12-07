@@ -20,122 +20,122 @@ atom:
  */
 
 
-int start(Position *p, Ptree *t);
-int sxpr(Position *p, Ptree *t);
-int atom(Position *p, Ptree *t);
-int alist(Position *p, Ptree *t);
-int aname(Position *p, Ptree *t);
-int abool(Position *p, Ptree *t);
-int name(Position *p, Ptree *t);
-int nchar(Position *p, Ptree *t);
+int start(PRA_Position *p, PRA_Ptree *t);
+int sxpr(PRA_Position *p, PRA_Ptree *t);
+int atom(PRA_Position *p, PRA_Ptree *t);
+int alist(PRA_Position *p, PRA_Ptree *t);
+int aname(PRA_Position *p, PRA_Ptree *t);
+int abool(PRA_Position *p, PRA_Ptree *t);
+int name(PRA_Position *p, PRA_Ptree *t);
+int nchar(PRA_Position *p, PRA_Ptree *t);
 
-int start(Position *p, Ptree *t){
-	if(!accept(p, t, PASS, sxpr)){
-		logUnexpectedError(p, __FUNCTION__, "s-expression");
+int start(PRA_Position *p, PRA_Ptree *t){
+	if(!PRA_accept(p, t, PRA_PASS, sxpr)){
+		PRA_logUnexpectedError(p, __FUNCTION__, "s-expression");
 		return 0;
 	}
-	if(!acceptEnd(p)){
-		logUnexpectedError(p, __FUNCTION__, "end of input");
+	if(!PRA_acceptEnd(p)){
+		PRA_logUnexpectedError(p, __FUNCTION__, "end of input");
 		return 0;
 	}
 	return 1;
 }
 
-int sxpr(Position *p, Ptree *t){
-	setString(t, "(sxpr)", 6);
-	if(!acceptString(p, t, SKIP, "(")){
+int sxpr(PRA_Position *p, PRA_Ptree *t){
+	PRA_setString(t, "(sxpr)", 6);
+	if(!PRA_acceptString(p, t, PRA_SKIP, "(")){
 		return 0;
 	}
-	if(!sepBy(p, t, ADD, SKIP, atom, spaces, 0, 0)){
+	if(!PRA_sepBy(p, t, PRA_ADD, PRA_SKIP, atom, PRA_spaces, 0, 0)){
 		puts("did not find atoms seperated by spaces");
 		return 0;
 	}
-	if(!acceptString(p, t, SKIP, ")")){
-		logUnexpectedError(p, __FUNCTION__, ")");
+	if(!PRA_acceptString(p, t, PRA_SKIP, ")")){
+		PRA_logUnexpectedError(p, __FUNCTION__, ")");
 		return 0;
 	}
 	return 1;
 }
 
-int atom(Position *p, Ptree *t){
-	if(accept(p, t, PASS, sxpr)){
+int atom(PRA_Position *p, PRA_Ptree *t){
+	if(PRA_accept(p, t, PRA_PASS, sxpr)){
 		puts("found sxpr");
 		return 1;
 	}
-	if(accept(p, t, ADD, cstring)){
+	if(PRA_accept(p, t, PRA_ADD, PRA_cstring)){
 		puts("found string");
-		setString(t, "(string)", 8);
+		PRA_setString(t, "(string)", 8);
 		return 1;
 	}
-	if(accept(p, t, ADD, abool)){
+	if(PRA_accept(p, t, PRA_ADD, abool)){
 		puts("found bool");
-		setString(t, "(bool)", 6);
+		PRA_setString(t, "(bool)", 6);
 		return 1;
 	}
-	if(accept(p, t, PASS, alist)){
+	if(PRA_accept(p, t, PRA_PASS, alist)){
 		puts("found list");
 		return 1;
 	}
-	if(accept(p, t, ADD, integer)){//never freed (ibid.) x 2
+	if(PRA_accept(p, t, PRA_ADD, PRA_integer)){//never freed (ibid.) x 2
 		puts("found number");
-		setString(t, "(number)", 8);//never freed x 2
+		PRA_setString(t, "(number)", 8);//never freed x 2
 		return 1;
 	}
-	if(accept(p, t, ADD, aname)){//never freed (appendNewPtree (ptree_create.c:38), reallocPtree (ptree_util.c:157))
-		setString(t, "(name)", 6);//never freed
+	if(PRA_accept(p, t, PRA_ADD, aname)){//never freed (appendNewPRA_Ptree (PRA_Ptree_create.c:38), reallocPRA_Ptree (PRA_Ptree_util.c:157))
+		PRA_setString(t, "(name)", 6);//never freed
 		return 1;
 	}
 	return 0;
 }
 
-int abool(Position *p, Ptree *t){
-	if(!acceptString(p, t, SKIP, "#")){
+int abool(PRA_Position *p, PRA_Ptree *t){
+	if(!PRA_acceptString(p, t, PRA_SKIP, "#")){
 		return 0;
 	}
-	if(acceptString(p, t, SKIP, "t")){
-		setString(t, "t", 1);
+	if(PRA_acceptString(p, t, PRA_SKIP, "t")){
+		PRA_setString(t, "t", 1);
 		return 1;
 	}
-	if(acceptString(p, t, SKIP, "f")){
-		setString(t, "f", 1);
+	if(PRA_acceptString(p, t, PRA_SKIP, "f")){
+		PRA_setString(t, "f", 1);
 		return 1;
 	}
-	logUnexpectedError(p, __FUNCTION__, "t or f");
+	PRA_logUnexpectedError(p, __FUNCTION__, "t or f");
 	return 0;
 }
 
-int aname(Position *p, Ptree *t){
-	return accept(p, t, PASS, name);
+int aname(PRA_Position *p, PRA_Ptree *t){
+	return PRA_accept(p, t, PRA_PASS, name);
 }
 
-int name(Position *p, Ptree *t){
-	if(!noneOf(p, t, PASS, ")")){
+int name(PRA_Position *p, PRA_Ptree *t){
+	if(!PRA_noneOf(p, t, PRA_PASS, ")")){
 		return 0;
 	}
-	repeat(p, t, PASS, nchar, 0, 0);
+	PRA_repeat(p, t, PRA_PASS, nchar, 0, 0);
 	return 1;
 }
 
-int nchar(Position *p, Ptree *t){
-	return noneOf(p, t, PASS, ") \n\t\v\f\r");
+int nchar(PRA_Position *p, PRA_Ptree *t){
+	return PRA_noneOf(p, t, PRA_PASS, ") \n\t\v\f\r");
 }
 
-int alist(Position *p, Ptree *t){
-	if(acceptString(p, t, SKIP, "'")){
-		setString(t, "(quote)", 7);
-	}else if(acceptString(p, t, SKIP, "`")){
-		setString(t, "(quasiquote)", 12);
-	}else if(acceptString(p, t, SKIP, ",")){
-		if(acceptString(p, t, SKIP, "@")){
-			setString(t, "(unquote-splicing)", 18);
+int alist(PRA_Position *p, PRA_Ptree *t){
+	if(PRA_acceptString(p, t, PRA_SKIP, "'")){
+		PRA_setString(t, "(quote)", 7);
+	}else if(PRA_acceptString(p, t, PRA_SKIP, "`")){
+		PRA_setString(t, "(quasiquote)", 12);
+	}else if(PRA_acceptString(p, t, PRA_SKIP, ",")){
+		if(PRA_acceptString(p, t, PRA_SKIP, "@")){
+			PRA_setString(t, "(unquote-splicing)", 18);
 		}else{
-			setString(t, "(unquote)", 9);
+			PRA_setString(t, "(unquote)", 9);
 		}
 	}else{
 		return 0;
 	}
-	if(!accept(p, t, ADD, sxpr)){
-		logUnexpectedError(p, __FUNCTION__, "s-expr");
+	if(!PRA_accept(p, t, PRA_ADD, sxpr)){
+		PRA_logUnexpectedError(p, __FUNCTION__, "s-expr");
 		return 0;
 	}
 	return 1;
@@ -144,8 +144,8 @@ int alist(Position *p, Ptree *t){
 
 int main(){
 	initBaseEnv();
-	Ptree *t;
-	Position *p;
+	PRA_Ptree *t;
+	PRA_Position *p;
 	LispVal v, r;
 	size_t size = 0;
 	char *line = 0;
@@ -153,10 +153,10 @@ int main(){
 	Env *e = copyEnv(baseEnv);
 	while((read = getLine(&line, &size, stdin)) > 0){
 		line[read - 1] = '\0';
-		p = firstPosition(line);
-		t = mallocPtree();
+		p = PRA_firstPosition(line);
+		t = PRA_mallocPtree();
 		if(start(p, t)){
-			//printPtree(t, 0);
+			//PRA_printPtree(t, 0);
 			v = expr(t);
 			puts("S-expression:");
 			printLispVal(v);
@@ -170,7 +170,7 @@ int main(){
 		}else{
 			puts("String parsed unsuccessfully!");
 		}
-		deletePtree(t);
+		PRA_deletePtree(t);
 		free(t);
 		free(p);
 	}

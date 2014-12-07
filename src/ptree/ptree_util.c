@@ -4,35 +4,35 @@
 #include "__ptree.h"
 #include "../util/debug.h"
 
-//Error functions, do not invlove Ptrees:    =========================
-void logMemoryError(const char *name){
+//Error functions, do not invlove PRA_Ptrees:    =========================
+void PRA_logMemoryError(const char *name){
 	printf("%s: out of memory.\n", name);
 }
 
 
-static void updateChildPointers(Ptree *t){
+static void updateChildPointers(PRA_Ptree *t){
 	debug_calls("called on: %p", t);
-	Ptree *child;
-	for(int i = 0; (child = nthChild(t, i)); ++i){
+	PRA_Ptree *child;
+	for(int i = 0; (child = PRA_nthChild(t, i)); ++i){
 		child->parent = t;
 	}
 	debug_calls("returning");
 }
 
-static void updateGrandchildPointers(Ptree *t){
+static void updateGrandchildPointers(PRA_Ptree *t){
 	debug_calls("called on: %p", t);
-	Ptree *child;
-	for(int i = 0; (child = nthChild(t, i)); ++i){
+	PRA_Ptree *child;
+	for(int i = 0; (child = PRA_nthChild(t, i)); ++i){
 		updateChildPointers(child);
 	}
 	debug_calls("returning");
 }
 
-static void deleteChildrenAfter(Ptree *t, int n){
+static void deleteChildrenAfter(PRA_Ptree *t, int n){
 	debug_calls("called on: %p, %d", t, n);
-	Ptree *current = nthChild(t, n + 1), *last = lastChild(t);
+	PRA_Ptree *current = PRA_nthChild(t, n + 1), *last = PRA_lastChild(t);
 	while(current <= last){
-		deletePtree(current);
+		PRA_deletePtree(current);
 		++current;
 	}
 	debug_calls("returning");
@@ -40,33 +40,33 @@ static void deleteChildrenAfter(Ptree *t, int n){
 
 
 //getters:    ========================================================
-char isTerminal(const Ptree *t){
+char PRA_isTerminal(const PRA_Ptree *t){
 	debug_calls("called on: %p", t);
 	debug_calls("returning: %i", !t->nodec);
 	return !t->nodec;
 }
 
-int getSize(const Ptree *t){
+int PRA_getSize(const PRA_Ptree *t){
 	debug_calls("called on: %p", t);
 	debug_calls("returning: %i", t->nodec);
 	return t->nodec;
 }
 
-int getLength(const Ptree *t){
+int PRA_getLength(const PRA_Ptree *t){
 	return t->length;
 }
 
-const char* getString(Ptree *t){
+const char* PRA_getString(PRA_Ptree *t){
 	return t->string;
 }
 
-//Functions to manipulate tree structure (TODO: add more)    =========
+//Functions to manipulate tree structure (TODO: Add more)    =========
 //TODO: make iterative
-void flatten(Ptree *t){
+void PRA_flatten(PRA_Ptree *t){
 	debug_calls("called on: %p", t);
-	Ptree *child, *parent = t->parent;
-	while(getSize(t) == 1){
-		child = nthChild(t, 0);
+	PRA_Ptree *child, *parent = t->parent;
+	while(PRA_getSize(t) == 1){
+		child = PRA_nthChild(t, 0);
 		free(t->string);
 		t->length = child->length;
 		t->nodec = child->nodec;
@@ -76,19 +76,19 @@ void flatten(Ptree *t){
 	}
 	t->parent = parent;
 	updateChildPointers(t);
-	for(int i = 0; i < getSize(t); ++i){
-		flatten(nthChild(t, i));
+	for(int i = 0; i < PRA_getSize(t); ++i){
+		PRA_flatten(PRA_nthChild(t, i));
 	}
 	debug_calls("returning");
 }
 
 //TODO: make iterative
-void flattenTagged(Ptree *t){
+void PRA_flattenTagged(PRA_Ptree *t){
 	debug_calls("called on: %p", t);
-	Ptree *child, *parent = t->parent;
-	while(getSize(t) == 1){
-		child = nthChild(t, 0);
-		if(isTerminal(child)){
+	PRA_Ptree *child, *parent = t->parent;
+	while(PRA_getSize(t) == 1){
+		child = PRA_nthChild(t, 0);
+		if(PRA_isTerminal(child)){
 			break;
 		}
 		free(t->string);
@@ -100,21 +100,21 @@ void flattenTagged(Ptree *t){
 	}
 	t->parent = parent;
 	updateChildPointers(t);
-	for(int i = 0; i < getSize(t); ++i){
-		flattenTagged(nthChild(t, i));
+	for(int i = 0; i < PRA_getSize(t); ++i){
+		PRA_flattenTagged(PRA_nthChild(t, i));
 	}
 	debug_calls("returning");
 }
 
 
 //Get the parent
-Ptree* parent(Ptree *t){
+PRA_Ptree* PRA_parent(PRA_Ptree *t){
 	return t->parent;
 }
 
 
 //Functions to access child nodes:    ================================
-Ptree* nthChild(const Ptree *t, int n){
+PRA_Ptree* PRA_nthChild(const PRA_Ptree *t, int n){
 	debug_calls("called on: %p, %d", t, n);
 	if(n < 0){
 		n += t->nodec;
@@ -130,20 +130,20 @@ Ptree* nthChild(const Ptree *t, int n){
 	return t->nodes + n;
 }
 
-Ptree* lastChild(Ptree *t){
+PRA_Ptree* PRA_lastChild(PRA_Ptree *t){
 	debug_calls("called on: %p", t);
 	if(dbg){
-		Ptree *temp = nthChild(t, -1);
+		PRA_Ptree *temp = PRA_nthChild(t, -1);
 		debug_calls("returning: %p", temp);
 		return temp;
 	}else{
-		return nthChild(t, -1);
+		return PRA_nthChild(t, -1);
 	}
 }
 
 
-//Functions to reallocate Ptrees:     ================================
-char reallocPtree(Ptree *t, int size){
+//Functions to reallocate PRA_Ptrees:     ================================
+char reallocPtree(PRA_Ptree *t, int size){
 	if(size == 0){
 		deleteChildrenAfter(t, -1);
 		free(t->nodes);
@@ -151,17 +151,17 @@ char reallocPtree(Ptree *t, int size){
 		t->nodec = 0;
 		return 3;
 	}
-	if(size < getSize(t)){
+	if(size < PRA_getSize(t)){
 		deleteChildrenAfter(t, size - 1);
 	}
-	Ptree *temp = realloc(t->nodes, size*sizeof(Ptree));
+	PRA_Ptree *temp = realloc(t->nodes, size*sizeof(PRA_Ptree));
 	if(!temp){
-		logMemoryError("reallocPtree");
+		PRA_logMemoryError("reallocPtree");
 		debug_calls("returning: 0");
 		return 0;
 	}
 	if(size > t->nodec){
-		memset(temp + t->nodec, 0, (size - t->nodec)*sizeof(Ptree));//temp:[0,1,...,t->nodec-1,t->nodec,...,size-1]
+		memset(temp + t->nodec, 0, (size - t->nodec)*sizeof(PRA_Ptree));//temp:[0,1,...,t->nodec-1,t->nodec,...,size-1]
 	}
 	if(temp != t->nodes){
 		t->nodes = temp;
@@ -176,16 +176,16 @@ char reallocPtree(Ptree *t, int size){
 }
 
 
-//Functions to iterate over Ptrees:
-Ptree* firstPostorder(Ptree *root){
-	while(!isTerminal(root)){
-		root = nthChild(root, 0);
+//Functions to iterate over PRA_Ptrees:
+PRA_Ptree* PRA_firstPostorder(PRA_Ptree *root){
+	while(!PRA_isTerminal(root)){
+		root = PRA_nthChild(root, 0);
 	}
 	return root;
 }
 
-Ptree* nextPostorder(Ptree *current){
-	Ptree *parent = current->parent;
+PRA_Ptree* PRA_nextPostorder(PRA_Ptree *current){
+	PRA_Ptree *parent = current->parent;
 	if(!parent){
 		return NULL;
 	}
@@ -193,6 +193,6 @@ Ptree* nextPostorder(Ptree *current){
 	if(current - parent->nodes == parent->nodec){
 		return parent;
 	}
-	return firstPostorder(current);
+	return PRA_firstPostorder(current);
 }
 

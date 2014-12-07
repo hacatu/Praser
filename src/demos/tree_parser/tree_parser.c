@@ -15,85 +15,85 @@ string = "\"" ([^"\\]|("\\".))+ "\""
  */
 
 
-int tree(Position *p, Ptree *t);
-int schar(Position *p, Ptree *t);
-int nchar(Position *p, Ptree *t);
-int comma(Position *p, Ptree *t);
+int tree(PRA_Position *p, PRA_Ptree *t);
+int schar(PRA_Position *p, PRA_Ptree *t);
+int nchar(PRA_Position *p, PRA_Ptree *t);
+int comma(PRA_Position *p, PRA_Ptree *t);
 
 
-int start(Position *p, Ptree *t){
-	if(!accept(p, t, PASS, tree)){
+int start(PRA_Position *p, PRA_Ptree *t){
+	if(!PRA_accept(p, t, PRA_PASS, tree)){
 		return 0;
 	}
-	if(!acceptEnd(p)){
+	if(!PRA_acceptEnd(p)){
 		return 0;
 	}
 	return 1;
 }
 
-int tree(Position *p, Ptree *t){
-	debug_gets("%c", currentChar(p));
-	if(currentChar(p) == '"'){
-		if(!acceptString(p, t, SKIP, "\"")){
-			logUnexpectedError(p, __FUNCTION__, "\"");
+int tree(PRA_Position *p, PRA_Ptree *t){
+	debug_gets("%c", PRA_currentChar(p));
+	if(PRA_currentChar(p) == '"'){
+		if(!PRA_acceptString(p, t, PRA_SKIP, "\"")){
+			PRA_logUnexpectedError(p, __FUNCTION__, "\"");
 			return 0;
 		}
-		repeat(p, t, PASS, schar, 0, 0);
-		if(!acceptString(p, t, SKIP, "\"")){
-			logUnexpectedError(p, __FUNCTION__, "\"");
+		PRA_repeat(p, t, PRA_PASS, schar, 0, 0);
+		if(!PRA_acceptString(p, t, PRA_SKIP, "\"")){
+			PRA_logUnexpectedError(p, __FUNCTION__, "\"");
 			return 0;
 		}
 	}else{
-		repeat(p, t, PASS, nchar, 0, 0);
+		PRA_repeat(p, t, PRA_PASS, nchar, 0, 0);
 	}
-	if(!acceptString(p, t, SKIP, "(")){
-		logUnexpectedError(p, __FUNCTION__, "(");
+	if(!PRA_acceptString(p, t, PRA_SKIP, "(")){
+		PRA_logUnexpectedError(p, __FUNCTION__, "(");
 		return 0;
 	}
-	if(!sepBy(p, t, ADD, SKIP, tree, comma, 0, 0)){
+	if(!PRA_sepBy(p, t, PRA_ADD, PRA_SKIP, tree, comma, 0, 0)){
 		return 0;
 	}
-	if(!acceptString(p, t, SKIP, ")")){
-		logUnexpectedError(p, __FUNCTION__, ")");
+	if(!PRA_acceptString(p, t, PRA_SKIP, ")")){
+		PRA_logUnexpectedError(p, __FUNCTION__, ")");
 		return 0;
 	}
 	return 1;
 }
 
-int schar(Position *p, Ptree *t){
-	if(acceptString(p, t, SKIP, "\\")){
-		noneOf(p, t, PASS, "");
+int schar(PRA_Position *p, PRA_Ptree *t){
+	if(PRA_acceptString(p, t, PRA_SKIP, "\\")){
+		PRA_noneOf(p, t, PRA_PASS, "");
 		return 1;
 	}
-	return noneOf(p, t, PASS, "\\\"");
+	return PRA_noneOf(p, t, PRA_PASS, "\\\"");
 }
 
-int nchar(Position *p, Ptree *t){
-	return noneOf(p, t, PASS, "\"(),");
+int nchar(PRA_Position *p, PRA_Ptree *t){
+	return PRA_noneOf(p, t, PRA_PASS, "\"(),");
 }
 
-int comma(Position *p, Ptree *t){
-	return acceptString(p, t, ADD, ",");
+int comma(PRA_Position *p, PRA_Ptree *t){
+	return PRA_acceptString(p, t, PRA_ADD, ",");
 }
 
 int main(){
-	Ptree *t;
-	Position *p;
+	PRA_Ptree *t;
+	PRA_Position *p;
 	size_t size = 0;
 	char *line = 0;
 	int read;
 	while((read = getLine(&line, &size, stdin)) > 0){
 		line[read - 1] = '\0';
-		p = firstPosition(line);
-		t = mallocPtree();
+		p = PRA_firstPosition(line);
+		t = PRA_mallocPtree();
 		if(start(p, t)){
 			puts("String parsed successfully!  Output:");
-			flattenTagged(t);
-			printPtree(t, 0);
+			PRA_flattenTagged(t);
+			PRA_printPtree(t, 0);
 		}else{
 			puts("String parsed unsuccessfully!");
 		}
-		deletePtree(t);
+		PRA_deletePtree(t);
 		free(t);
 		free(p);
 	}

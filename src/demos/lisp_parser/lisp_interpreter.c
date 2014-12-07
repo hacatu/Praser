@@ -13,28 +13,28 @@
 
 //TODO: Implement CHAR
 
-LispVal exprNAME(Ptree *t){
-	LispVal temp = {.type = NAME, .name = malloc((getLength(t) + 1)*sizeof(char))};
+LispVal exprNAME(PRA_Ptree *t){
+	LispVal temp = {.type = NAME, .name = malloc((PRA_getLength(t) + 1)*sizeof(char))};
 	if(temp.name){
-		strcpy(temp.name, getString(t));
+		strcpy(temp.name, PRA_getString(t));
 	}
 	return temp;
 }
 
-LispVal exprNUMBER(Ptree *t){
-	return (LispVal){.type = NUMBER, .number = atoll(getString(t))};
+LispVal exprNUMBER(PRA_Ptree *t){
+	return (LispVal){.type = NUMBER, .number = atoll(PRA_getString(t))};
 }
 
-LispVal exprBOOL(Ptree *t){
-	return liftBOOL(getString(t)[0] == 't');
+LispVal exprBOOL(PRA_Ptree *t){
+	return liftBOOL(PRA_getString(t)[0] == 't');
 }
 
 //TODO: Create some kind of malloc LispVal function to malloc and assign a LispVal in one go
-LispVal exprSTRING(Ptree *t){
+LispVal exprSTRING(PRA_Ptree *t){
 	LispVal s = BASE_NIL;
 	LispVal *cdr = &s;
-	const char *string = getString(t);
-	for(int i = 0; i < getLength(t); ++i){
+	const char *string = PRA_getString(t);
+	for(int i = 0; i < PRA_getLength(t); ++i){
 		cdr->car = malloc(1*sizeof(LispVal));
 		if(!cdr->car){
 			puts("exprLIST error: malloc failed");
@@ -54,10 +54,10 @@ LispVal exprSTRING(Ptree *t){
 	return s;
 }
 
-LispVal exprLIST(Ptree *t){
+LispVal exprLIST(PRA_Ptree *t){
 	LispVal s = BASE_NIL;
 	LispVal *cdr = &s;
-	for(int i = 0; i < getSize(t); ++i){
+	for(int i = 0; i < PRA_getSize(t); ++i){
 		cdr->car = malloc(1*sizeof(LispVal));
 		if(!cdr->car){
 			puts("exprLIST error: malloc failed");
@@ -70,26 +70,26 @@ LispVal exprLIST(Ptree *t){
 			deleteLispVal(s);
 			break;
 		}
-		*(cdr->car) = expr(nthChild(t, i));
+		*(cdr->car) = expr(PRA_nthChild(t, i));
 		 cdr = cdr->cdr;
 		 *cdr = BASE_NIL;
 	}
 	return s;
 }
 
-LispVal exprQUOTE(const char *string, Ptree *t){
+LispVal exprQUOTE(const char *string, PRA_Ptree *t){
 	LispVal s = BASE_NIL;
 	s.car = malloc(1*sizeof(LispVal));
 	if(!s.car){
 		deleteLispVal(s);
 		return s;
 	}
-	*(s.car) = (LispVal){.type = NAME, .name = malloc(getLength(t)*sizeof(char))};
+	*(s.car) = (LispVal){.type = NAME, .name = malloc(PRA_getLength(t)*sizeof(char))};
 	if(!s.car->name){
 		deleteLispVal(s);
 		return s;
 	}
-	strcpy(s.car->name, getString(t));
+	strcpy(s.car->name, PRA_getString(t));
 	s.cdr = malloc(1*sizeof(LispVal));
 	if(!s.cdr){
 		deleteLispVal(s);
@@ -99,38 +99,38 @@ LispVal exprQUOTE(const char *string, Ptree *t){
 	return s;
 }
 
-LispVal expr(Ptree *t){
+LispVal expr(PRA_Ptree *t){
 	if(!t){
-		puts("expr error: null ptree");
+		puts("expr error: null PRA_Ptree");
 		return BASE_NYI;
 	}
-	const char *string = getString(t);
+	const char *string = PRA_getString(t);
 	if(!strcmp(string, "(name)")){
-		return exprNAME(nthChild(t, 0));
+		return exprNAME(PRA_nthChild(t, 0));
 	}
 	if(!strcmp(string, "(number)")){
-		return exprNUMBER(nthChild(t, 0));
+		return exprNUMBER(PRA_nthChild(t, 0));
 	}
 	if(!strcmp(string, "(bool)")){
-		return exprBOOL(nthChild(t, 0));
+		return exprBOOL(PRA_nthChild(t, 0));
 	}
 	if(!strcmp(string, "(string)")){
-		return exprSTRING(nthChild(t, 0));
+		return exprSTRING(PRA_nthChild(t, 0));
 	}
 	if(!strcmp(string, "(sxpr)")){
 		return exprLIST(t);
 	}
 	if(!strcmp(string, "(quote)")){
-		return exprQUOTE("quote", nthChild(t, 0));
+		return exprQUOTE("quote", PRA_nthChild(t, 0));
 	}
 	if(!strcmp(string, "(quasiquote)")){
-		return exprQUOTE("quasiquote", nthChild(t, 0));
+		return exprQUOTE("quasiquote", PRA_nthChild(t, 0));
 	}
 	if(!strcmp(string, "(unquote)")){
-		return exprQUOTE("unquote", nthChild(t, 0));
+		return exprQUOTE("unquote", PRA_nthChild(t, 0));
 	}
 	if(!strcmp(string, "(unquote-splicing)")){
-		return exprQUOTE("unquote-splicing", nthChild(t, 0));
+		return exprQUOTE("unquote-splicing", PRA_nthChild(t, 0));
 	}
 	//NYI
 	printf("expr error: invalid string %s\n", string);

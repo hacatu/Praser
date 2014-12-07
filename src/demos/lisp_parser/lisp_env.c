@@ -150,7 +150,7 @@ Env* createEnvFrom(Attribute attrv[]){
 	return e;
 }
 
-Env* firstPostorderEnv(Env *e){
+Env* PRA_firstPostorderEnv(Env *e){
 	while(1){
 		if(e->left){
 			e = e->left;
@@ -164,7 +164,7 @@ Env* firstPostorderEnv(Env *e){
 	return e;
 }
 
-Env* nextPostorderEnv(Env *e){
+Env* PRA_nextPostorderEnv(Env *e){
 	Env *parent = e->parent;
 	if(!parent){
 		return NULL;
@@ -172,7 +172,7 @@ Env* nextPostorderEnv(Env *e){
 	if(parent->right == e){
 		return parent;
 	}
-	return firstPostorderEnv(parent->right);
+	return PRA_firstPostorderEnv(parent->right);
 }
 
 //TODO: Build copy while iterating original.

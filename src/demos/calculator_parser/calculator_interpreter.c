@@ -11,31 +11,31 @@
 DEFINE_STACK(Stack, double)
 
 /* This is possibly the simplest possible useful application of a parser.
- * The calculator interpreter reduces a ptree to a double, only remembering
- * tree values and only using nextPtree to walk the parse tree.  I think I'll
+ * The calculator interpreter reduces a PRA_Ptree to a double, only remembering
+ * tree values and only using nextPRA_Ptree to walk the parse tree.  I think I'll
  * need more walking functions to build a real interpreter (you have to WALK
  * before you can RUN hehehe).
  */
 
 
-double eval(Ptree *t){
+double eval(PRA_Ptree *t){
 	Stack s = CREATE_STACK(double);
 	const char *tag;
 	const char *tok;
-	for(Ptree *c = firstPostorder(t); c; c = nextPostorder(c)){
-		if(isTerminal(c)){
+	for(PRA_Ptree *c = PRA_firstPostorder(t); c; c = PRA_nextPostorder(c)){
+		if(PRA_isTerminal(c)){
 			continue;
 		}
 		if(dbg_log){
-			printPtree(c, 0);
+			PRA_printPtree(c, 0);
 		}
-		tag = getString(c);
+		tag = PRA_getString(c);
 		if(!strcmp(tag, "primary")){
-			tok = getString(nthChild(c, 0));
+			tok = PRA_getString(PRA_nthChild(c, 0));
 			debug_log("primary");
 			PUSH(double, s, atof(tok));
 		}else if(!strcmp(tag, "additive")){
-			tok = getString(nthChild(c, 1));
+			tok = PRA_getString(PRA_nthChild(c, 1));
 			double a = POP(s);
 			double b = POP(s);
 			if(!strcmp(tok, "+")){
@@ -48,7 +48,7 @@ double eval(Ptree *t){
 				//there is some kind of error.
 			}
 		}else if(!strcmp(tag, "multiplicative")){
-			tok = getString(nthChild(c, 1));
+			tok = PRA_getString(PRA_nthChild(c, 1));
 			double a = POP(s);
 			double b = POP(s);
 			if(!strcmp(tok, "*")){
