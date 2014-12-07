@@ -3,7 +3,7 @@
 #include <ptree.h>
 
 typedef struct PRA_Position PRA_Position;//holds the string being parsed and a pointer to the current char
-typedef int (*parser)(PRA_Position*, PRA_Ptree*);//a function pointer to a parsing function
+typedef int (*PRA_parser)(PRA_Position*, PRA_Ptree*);//a function pointer to a parsing function
 
 
 /* Logs errors caused by the string being parsed having improper formatting.
@@ -61,35 +61,35 @@ int PRA_acceptString(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, const char
  * This is vital if a parser may consume input but fail, but makes the parser PRA_not ll[k]
  * Returns 0 on failure, nonzero otherwise.
  */
-int PRA_try(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, parser parse);
+int PRA_try(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_parser parse);
 
 
 /* Runs a parser.
  * Returns 0 on failure, nonzero otherwise
  */
-int PRA_accept(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, parser parse);
+int PRA_accept(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_parser parse);
 
 
 /* Run a parser from min to max times, inclusive.
  * If max is <= 0, there is no upper bound.
  * Returns 0 on failure, 1 otherwise.
  */
-int PRA_repeat(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, parser parse, int min, int max);
+int PRA_repeat(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_parser parse, int min, int max);
 
-/* Takes two parsers, parse and parseSeperetor, and looks for them to PRA_alternate with parse matching on the outside.
- * Example: parse PRA_accepts numbers and parseSeperator PRA_accepts commas.  PRA_sepBy will PRA_accept "123,456,62", "0", or "1,2",
+/* Takes two parsers, parse and parseSeperetor, and looks for them to alternate with parse matching on the outside.
+ * Example: parse accepts numbers and parseSeperator accepts commas.  PRA_sepBy will accept "123,456,62", "0", or "1,2",
  * but PRA_not "123,456,", ",234", or ",0,".
  */
-int PRA_sepBy(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_AppendMode aSeperator, parser parse, parser parseSeperator, int min, int max);
+int PRA_sepBy(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_AppendMode aSeperator, PRA_parser parse, PRA_parser parseSeperator, int min, int max);
 
 /* Takes two parsers, A and B, and looks for ABABABAB any number of times.
  */
-int PRA_alternate(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode aA, PRA_AppendMode aB, parser parseA, parser parseB);
+int PRA_alternate(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode aA, PRA_AppendMode aB, PRA_parser parseA, PRA_parser parseB);
 
 /* Consumes a single character if a given parser does PRA_not match.
  * Good for ignoring comments or whitespace or strings.
  */
-int PRA_not(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, parser parse);
+int PRA_not(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_parser parse);
 
 /* PRA_accepts any char in the string options given.
  */

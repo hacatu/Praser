@@ -33,7 +33,7 @@ int PRA_acceptString(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, const char
 	return 1;
 }
 
-int PRA_try(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, parser parse){
+int PRA_try(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_parser parse){
 	size_t start = currentIndex(p);
 	int children = PRA_getSize(t);
 	if(PRA_accept(p, t, a, parse)){
@@ -46,7 +46,7 @@ int PRA_try(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, parser parse){
 	return 0;
 }
 
-int PRA_accept(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, parser parse){
+int PRA_accept(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_parser parse){
 	PRA_Ptree *temp;
 	switch(a){
 		case PRA_ADD:

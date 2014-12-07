@@ -6,7 +6,7 @@
 #include "_parser.h"
 #include "../util/debug.h"
 
-int PRA_repeat(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, parser parse, int min, int max){
+int PRA_repeat(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_parser parse, int min, int max){
 	//t->string = __FUNCTION__;
 	int count = 0;
 	while(count < min){
@@ -35,7 +35,7 @@ int PRA_repeat(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, parser parse, in
 	return 1;
 }
 
-int PRA_sepBy(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_AppendMode aSeperator, parser parse, parser parseSeperator, int min, int max){
+int PRA_sepBy(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_AppendMode aSeperator, PRA_parser parse, PRA_parser parseSeperator, int min, int max){
 	int count = 1;
 	//t->string = __FUNCTION__;
 	if(!PRA_accept(p, t, a, parse)){
@@ -71,7 +71,7 @@ int PRA_sepBy(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_AppendMode aS
 	return 1;
 }
 
-int PRA_alternate(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode aA, PRA_AppendMode aB, parser parseA, parser parseB){
+int PRA_alternate(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode aA, PRA_AppendMode aB, PRA_parser parseA, PRA_parser parseB){
 	
 	//t->string = __FUNCTION__;
 	while(PRA_accept(p, t, aA, parseA)){
@@ -82,7 +82,7 @@ int PRA_alternate(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode aA, PRA_AppendMo
 	return 1;
 }
 
-int PRA_not(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, parser parse){
+int PRA_not(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_parser parse){
 	size_t start = currentIndex(p);
 	PRA_Ptree* temp = PRA_mallocPtree();
 	if(!temp){
