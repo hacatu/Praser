@@ -8,7 +8,7 @@
 
 
 struct PRA_Position{
-	enum{FILE_POS, STRING_POS} type;
+	enum{PRA_FILE_POS, STRING_POS} type;
 	union{
 		struct{
 			const char* string;
@@ -33,7 +33,7 @@ PRA_Position *PRA_firstPosition(const char *string){
 
 PRA_Position *PRA_startPosition(FILE *file){
 	PRA_Position *start = malloc(1*sizeof(PRA_Position));
-	*start = (PRA_Position){.type = FILE_POS, .file = file};
+	*start = (PRA_Position){.type = PRA_FILE_POS, .file = file};
 	fseek(start->file, 0, SEEK_SET);
 	return start;
 }
@@ -42,7 +42,7 @@ size_t currentIndex(PRA_Position *p){
 	switch(p->type){
 		case STRING_POS:
 		return p->index;
-		case FILE_POS:
+		case PRA_FILE_POS:
 		return ftell(p->file);
 	}
 	//not reachable:
@@ -54,7 +54,7 @@ void resetIndex(PRA_Position *p, size_t index){
 		case STRING_POS:
 		p->index = index;
 		break;
-		case FILE_POS:
+		case PRA_FILE_POS:
 		fseek(p->file, index, SEEK_SET);
 		break;
 	}
@@ -69,7 +69,7 @@ char PRA_getChar(PRA_Position *p){
 	switch(p->type){
 		case STRING_POS:
 		return p->string[++p->index];
-		case FILE_POS:
+		case PRA_FILE_POS:
 		if(!fread(&temp, sizeof(char), 1, p->file)){
 			return 0;
 		}
@@ -89,7 +89,7 @@ char PRA_nthChar(PRA_Position *p, int n){
 	switch(p->type){
 		case STRING_POS:
 		return p->string[p->index + n];
-		case FILE_POS:
+		case PRA_FILE_POS:
 		start = ftell(p->file);
 		fseek(p->file, n*sizeof(char), SEEK_CUR);
 		if(!fread(&temp, sizeof(char), 1, p->file)){
@@ -108,7 +108,7 @@ char PRA_acceptEnd(PRA_Position *p){
 	switch(p->type){
 		case STRING_POS:
 		return acceptChar(p, '\0');
-		case FILE_POS:
+		case PRA_FILE_POS:
 		start = ftell(p->file);
 		if(!fread(&temp, sizeof(char), 1, p->file)){
 			return 1;

@@ -1,5 +1,6 @@
 //parser_llk.h
 #pragma once
+#include <stdio.h>
 #include <ptree.h>
 
 typedef struct PRA_Position PRA_Position;//holds the string being parsed and a pointer to the current char
