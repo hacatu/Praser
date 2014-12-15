@@ -4,6 +4,12 @@
 #pragma once
 #include "ptree.h"
 
+
+/* Create a root PRA_Ptree
+ */
+PRA_Ptree* PRA_mallocPtree();
+
+
 /* Creates a new PRA_Ptree with a given string and appends it to a given parent.
  */
 char appendNewPtree(PRA_Ptree *parent, const char *string, int length);

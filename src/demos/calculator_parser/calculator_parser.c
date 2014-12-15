@@ -81,16 +81,14 @@ int primary(PRA_Position *p, PRA_Ptree *t){
 
 int main(){
 	PRA_Ptree *t;
-	PRA_Position *p;
 	size_t size = 0;
 	char *line = 0;
 	int read;
 	while((read = getLine(&line, &size, stdin)) > 0){
 		line[read - 1] = '\0';
 		printf("\"%s\"\n", line);
-		p = PRA_firstPosition(line);
-		t = PRA_mallocPtree();
-		if(start(p, t)){
+		t = PRA_parseString(line, start);
+		if(t){
 			puts("String parsed successfully!  Output:");
 			PRA_flattenTagged(t);
 			PRA_printPtree(t, 0);
@@ -100,7 +98,6 @@ int main(){
 		}
 		PRA_deletePtree(t);
 		free(t);
-		free(p);
 	}
 	free(line);
 }

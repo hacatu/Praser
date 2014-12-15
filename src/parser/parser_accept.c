@@ -86,3 +86,39 @@ int PRA_accept(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_parser parse
 	return 1;
 }
 
+PRA_Ptree *PRA_parseFile(FILE *file, PRA_parser parse){
+	PRA_Position *p = PRA_startPosition(file);
+	if(!p){
+		return NULL;
+	}
+	PRA_Ptree *t = PRA_mallocPtree();
+	if(!t){
+		free(p);
+		return NULL;
+	}
+	if(!parse(p, t)){
+		free(t);
+		t = NULL;
+	}
+	free(p);
+	return t;
+}
+
+PRA_Ptree *PRA_parseString(char *string, PRA_parser parse){
+	PRA_Position *p = PRA_firstPosition(string);
+	if(!p){
+		return NULL;
+	}
+	PRA_Ptree *t = PRA_mallocPtree();
+	if(!t){
+		free(p);
+		return NULL;
+	}
+	if(!parse(p, t)){
+		free(t);
+		t = NULL;
+	}
+	free(p);
+	return t;
+}
+

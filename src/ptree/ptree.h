@@ -17,11 +17,6 @@ typedef enum{
 void PRA_logMemoryError(const char *name);
 
 
-/* Create a root PRA_Ptree
- */
-PRA_Ptree* PRA_mallocPtree();
-
-
 /* Sets the string of a PRA_Ptree
  * */
 void PRA_setString(PRA_Ptree *p, const char *string, int length);

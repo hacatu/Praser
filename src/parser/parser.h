@@ -1,5 +1,6 @@
 //parser_llk.h
 #pragma once
+
 #include <stdio.h>
 #include <ptree.h>
 
@@ -11,18 +12,6 @@ typedef int (*PRA_parser)(PRA_Position*, PRA_Ptree*);//a function pointer to a p
  */
 void PRA_logUnexpectedError(PRA_Position *p, const char *name, const char *expected);
 
-
-/* Returns a pointer to the initial position in a string.
- * If the string is deleted, this position is invalid.
- * This pointer must be free'd.
- */
-PRA_Position *PRA_firstPosition(const char *string);
-
-/* Returns a pointer to the initial position in a file.
- * If the file is closed, this position is invalid.
- * This pointer must be free'd.
- */
-PRA_Position *PRA_startPosition(FILE *file);
 
 /* Returns the current character in a PRA_Position.
  */
@@ -70,6 +59,14 @@ int PRA_try(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_parser parse);
  */
 int PRA_accept(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_parser parse);
 
+/* Parse a file.
+ */
+PRA_Ptree *PRA_parseFile(FILE *file, PRA_parser parse);
+
+/* Parse a string.
+ */
+PRA_Ptree *PRA_parseString(char *string, PRA_parser parse);
+
 
 /* Run a parser from min to max times, inclusive.
  * If max is <= 0, there is no upper bound.
@@ -78,10 +75,10 @@ int PRA_accept(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_parser parse
 int PRA_repeat(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_parser parse, int min, int max);
 
 /* Takes two parsers, parse and parseSeperetor, and looks for them to alternate with parse matching on the outside.
- * Example: parse accepts numbers and parseSeperator accepts commas.  PRA_sepBy will accept "123,456,62", "0", or "1,2",
+ * Example: parse accepts numbers and parseSeparator accepts commas.  PRA_sepBy will accept "123,456,62", "0", or "1,2",
  * but PRA_not "123,456,", ",234", or ",0,".
  */
-int PRA_sepBy(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_AppendMode aSeperator, PRA_parser parse, PRA_parser parseSeperator, int min, int max);
+int PRA_sepBy(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_AppendMode aSeparator, PRA_parser parse, PRA_parser parseSeparator, int min, int max);
 
 /* Takes two parsers, A and B, and looks for ABABABAB any number of times.
  */

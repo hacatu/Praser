@@ -145,7 +145,6 @@ int alist(PRA_Position *p, PRA_Ptree *t){
 int main(){
 	initBaseEnv();
 	PRA_Ptree *t;
-	PRA_Position *p;
 	LispVal v, r;
 	size_t size = 0;
 	char *line = 0;
@@ -153,9 +152,8 @@ int main(){
 	Env *e = copyEnv(baseEnv);
 	while((read = getLine(&line, &size, stdin)) > 0){
 		line[read - 1] = '\0';
-		p = PRA_firstPosition(line);
-		t = PRA_mallocPtree();
-		if(start(p, t)){
+		t = PRA_parseString(line, start);
+		if(t){
 			//PRA_printPtree(t, 0);
 			v = expr(t);
 			puts("S-expression:");
@@ -172,7 +170,6 @@ int main(){
 		}
 		PRA_deletePtree(t);
 		free(t);
-		free(p);
 	}
 	deleteEnvData(e);
 	deleteEnvData(baseEnv);

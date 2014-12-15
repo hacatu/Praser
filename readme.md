@@ -107,7 +107,7 @@ combinator.
 
     Takes two `parser`s, a and b, and acts as a `parser` that consumes a then b then a then b then ...
 and so on for as long as it can.  It will append the outputs of both as dictated by the `AppendMode`s
-aA and aB.  This function is basically how you would implement a comma seperated list:
+aA and aB.  This function is basically how you would implement a comma separated list:
 `alternate(p, t, ADD, SKIP, parse_element, parse_comma);` where `parse_element` and `parse_comma` are
 defined above somewhere.
 
@@ -157,9 +157,9 @@ consumes some input but fails.
     Accepts one parser repeated between min and max times.  If min and max are an invalid range (min > max or either <= 0),
 there is no upper bound.  If the upper bound is reached, `repeat` stops and returns success.
 
-* `int sepBy(Position *p, Ptree *t, AppendMode a, AppendMode aSeperator, parser parse, parser parseSeperator, int min, int max);`
+* `int sepBy(Position *p, Ptree *t, AppendMode a, AppendMode aSeparator, parser parse, parser parseSeparator, int min, int max);`
 
-    Accepts `parse` seperated by `parserSeperator`.  An example use is 1,2,3 (numbers seperated by commas).  Here,
+    Accepts `parse` separated by `parserSeparator`.  An example use is 1,2,3 (numbers separated by commas).  Here,
 1,2,3, or ,1,2,3, or ,1,2,3 would not work.
 
 * `int try(Position *p, Ptree *t, AppendMode a, parser parse);`

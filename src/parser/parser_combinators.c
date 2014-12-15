@@ -35,14 +35,14 @@ int PRA_repeat(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_parser parse
 	return 1;
 }
 
-int PRA_sepBy(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_AppendMode aSeperator, PRA_parser parse, PRA_parser parseSeperator, int min, int max){
+int PRA_sepBy(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_AppendMode aSeparator, PRA_parser parse, PRA_parser parseSeparator, int min, int max){
 	int count = 1;
 	//t->string = __FUNCTION__;
 	if(!PRA_accept(p, t, a, parse)){
 		return min <= 0;
 	}
 	while(count < min){
-		if(!PRA_accept(p, t, aSeperator, parseSeperator)){
+		if(!PRA_accept(p, t, aSeparator, parseSeparator)){
 			return 0;
 		}
 		if(!PRA_accept(p, t, a, parse)){
@@ -52,7 +52,7 @@ int PRA_sepBy(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_AppendMode aS
 	}
 	if(max > min){
 		while(count < max){
-			if(!PRA_accept(p, t, aSeperator, parseSeperator)){
+			if(!PRA_accept(p, t, aSeparator, parseSeparator)){
 				return 1;
 			}
 			if(!PRA_accept(p, t, a, parse)){
@@ -61,7 +61,7 @@ int PRA_sepBy(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_AppendMode aS
 			++count;
 		}
 	}if(max < min || max == 0){
-		while(PRA_accept(p, t, aSeperator, parseSeperator)){
+		while(PRA_accept(p, t, aSeparator, parseSeparator)){
 			if(!PRA_accept(p, t, a, parse)){
 				return 0;
 			}
