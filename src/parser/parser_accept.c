@@ -34,15 +34,17 @@ int PRA_acceptString(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, const char
 }
 
 int PRA_try(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_parser parse){
-	size_t start = currentIndex(p);
+	PRA_Position *b = copyPosition(p);
 	int children = PRA_getSize(t);
 	if(PRA_accept(p, t, a, parse)){
+		free(b);
 		return 1;
 	}
 	if(a != PRA_SKIP){
 		reallocPtree(t, children);
 	}
-	resetIndex(p, start);
+	resetIndex(p, b);
+	free(b);
 	return 0;
 }
 

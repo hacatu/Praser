@@ -83,21 +83,28 @@ int PRA_alternate(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode aA, PRA_AppendMo
 }
 
 int PRA_not(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_parser parse){
-	size_t start = currentIndex(p);
+	PRA_Position *b = copyPosition(p);
+	if(!b){
+		PRA_logMemoryError(__FUNCTION__);
+		return 0;
+	}
 	PRA_Ptree* temp = PRA_mallocPtree();
 	if(!temp){
 		PRA_logMemoryError(__FUNCTION__);
+		free(b);
 		return 0;
 	}
 	if(parse(p, temp)){
 		PRA_deletePtree(temp);
 		free(temp);
-		resetIndex(p, start);
+		resetIndex(p, b);
+		free(b);
 		return 0;
 	}
 	PRA_deletePtree(temp);
 	free(temp);
-	resetIndex(p, start);
+	resetIndex(p, b);
+	free(b);
 	switch(a){
 		case PRA_ADD:
 			return appendNewPtree(t, (const char[]){PRA_getChar(p), '\0'}, 1);

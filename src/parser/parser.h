@@ -59,6 +59,14 @@ int PRA_try(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_parser parse);
  */
 int PRA_accept(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_parser parse);
 
+/* Returns the current line.
+ */
+size_t PRA_currentLine(PRA_Position *p);
+
+/* Return the current column.
+ */
+size_t PRA_currentColumn(PRA_Position *p);
+
 /* Parse a file.
  */
 PRA_Ptree *PRA_parseFile(FILE *file, PRA_parser parse);

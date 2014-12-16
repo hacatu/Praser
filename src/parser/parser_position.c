@@ -8,14 +8,18 @@
 
 
 struct PRA_Position{
-	enum{PRA_FILE_POS, STRING_POS} type;
+	enum{FILE_POS, STRING_POS} type;
 	union{
 		struct{
 			const char* string;
-			size_t index;
 		};
-		FILE *file;
+		struct{
+			FILE *file;
+			size_t line;
+			size_t column;
+		};
 	};
+	size_t index;
 };
 
 void PRA_logUnexpectedError(PRA_Position *p, const char *name, const char *expected){
@@ -33,30 +37,49 @@ PRA_Position *PRA_firstPosition(const char *string){
 
 PRA_Position *PRA_startPosition(FILE *file){
 	PRA_Position *start = malloc(1*sizeof(PRA_Position));
-	*start = (PRA_Position){.type = PRA_FILE_POS, .file = file};
+	*start = (PRA_Position){.type = FILE_POS, .file = file, .line = 1, .column = 1};
 	fseek(start->file, 0, SEEK_SET);
 	return start;
 }
 
-size_t currentIndex(PRA_Position *p){
+PRA_Position *copyPosition(PRA_Position *p){
+	PRA_Position *t = malloc(1*sizeof(PRA_Position));
+	if(!t){
+		return NULL;
+	}
+	if(p->type == FILE_POS){
+		p->index = ftell(p->file);
+	}
+	*t = *p;
+	return t;
+}
+
+size_t PRA_currentLine(PRA_Position *p){
 	switch(p->type){
 		case STRING_POS:
-		return p->index;
-		case PRA_FILE_POS:
-		return ftell(p->file);
+		return 1;
+		case FILE_POS:
+		return p->line;
 	}
 	//not reachable:
 	return 0;
 }
 
-void resetIndex(PRA_Position *p, size_t index){
+size_t PRA_currentColumn(PRA_Position *p){
 	switch(p->type){
 		case STRING_POS:
-		p->index = index;
-		break;
-		case PRA_FILE_POS:
-		fseek(p->file, index, SEEK_SET);
-		break;
+		return p->index + 1;
+		case FILE_POS:
+		return p->column;
+	}
+	//not reachable:
+	return 0;
+}
+
+void resetIndex(PRA_Position *p, PRA_Position *b){
+	*p = *b;
+	if(p->type == FILE_POS){
+		fseek(p->file, b->index, SEEK_SET);
 	}
 }
 
@@ -69,9 +92,14 @@ char PRA_getChar(PRA_Position *p){
 	switch(p->type){
 		case STRING_POS:
 		return p->string[++p->index];
-		case PRA_FILE_POS:
+		case FILE_POS:
 		if(!fread(&temp, sizeof(char), 1, p->file)){
 			return 0;
+		}
+		++p->column;
+		if(temp == '\n'){
+			++p->line;
+			p->column = 1;
 		}
 		return temp;
 	}
@@ -89,7 +117,7 @@ char PRA_nthChar(PRA_Position *p, int n){
 	switch(p->type){
 		case STRING_POS:
 		return p->string[p->index + n];
-		case PRA_FILE_POS:
+		case FILE_POS:
 		start = ftell(p->file);
 		fseek(p->file, n*sizeof(char), SEEK_CUR);
 		if(!fread(&temp, sizeof(char), 1, p->file)){
@@ -108,7 +136,7 @@ char PRA_acceptEnd(PRA_Position *p){
 	switch(p->type){
 		case STRING_POS:
 		return acceptChar(p, '\0');
-		case PRA_FILE_POS:
+		case FILE_POS:
 		start = ftell(p->file);
 		if(!fread(&temp, sizeof(char), 1, p->file)){
 			return 1;

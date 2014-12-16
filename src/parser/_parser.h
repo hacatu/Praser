@@ -3,9 +3,9 @@
 #include "parser.h"
 #include "../ptree/ptree.h"
 
-size_t currentIndex(PRA_Position *p);
+PRA_Position *copyPosition(PRA_Position *p);
 
-void resetIndex(PRA_Position *p, size_t index);
+void resetIndex(PRA_Position *p, PRA_Position *b);
 
 int acceptChar(PRA_Position *p, char c);
 
