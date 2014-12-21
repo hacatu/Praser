@@ -37,6 +37,7 @@ int PRA_try(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_parser parse){
 	PRA_Position *b = copyPosition(p);
 	int children = PRA_getSize(t);
 	if(PRA_accept(p, t, a, parse)){
+		PRA_deletePosition(p);
 		free(b);
 		return 1;
 	}
@@ -44,6 +45,7 @@ int PRA_try(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_parser parse){
 		reallocPtree(t, children);
 	}
 	resetIndex(p, b);
+	PRA_deletePosition(b);
 	free(b);
 	return 0;
 }
@@ -95,6 +97,7 @@ PRA_Ptree *PRA_parseFile(FILE *file, PRA_parser parse){
 	}
 	PRA_Ptree *t = PRA_mallocPtree();
 	if(!t){
+		PRA_deletePosition(p);
 		free(p);
 		return NULL;
 	}
@@ -102,6 +105,7 @@ PRA_Ptree *PRA_parseFile(FILE *file, PRA_parser parse){
 		free(t);
 		t = NULL;
 	}
+	PRA_deletePosition(p);
 	free(p);
 	return t;
 }
@@ -113,6 +117,7 @@ PRA_Ptree *PRA_parseString(char *string, PRA_parser parse){
 	}
 	PRA_Ptree *t = PRA_mallocPtree();
 	if(!t){
+		PRA_deletePosition(p);
 		free(p);
 		return NULL;
 	}
@@ -120,6 +125,7 @@ PRA_Ptree *PRA_parseString(char *string, PRA_parser parse){
 		free(t);
 		t = NULL;
 	}
+	PRA_deletePosition(p);
 	free(p);
 	return t;
 }

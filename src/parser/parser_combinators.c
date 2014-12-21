@@ -91,6 +91,7 @@ int PRA_not(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_parser parse){
 	PRA_Ptree* temp = PRA_mallocPtree();
 	if(!temp){
 		PRA_logMemoryError(__FUNCTION__);
+		PRA_deletePosition(p);
 		free(b);
 		return 0;
 	}
@@ -98,12 +99,14 @@ int PRA_not(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_parser parse){
 		PRA_deletePtree(temp);
 		free(temp);
 		resetIndex(p, b);
+		PRA_deletePosition(p);
 		free(b);
 		return 0;
 	}
 	PRA_deletePtree(temp);
 	free(temp);
 	resetIndex(p, b);
+	PRA_deletePosition(p);
 	free(b);
 	switch(a){
 		case PRA_ADD:

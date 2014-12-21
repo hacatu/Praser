@@ -7,6 +7,11 @@
 #include "../util/debug.h"
 
 
+typedef struct{
+	size_t size;
+	void *state;
+} PRA_userState;
+
 struct PRA_Position{
 	enum{FILE_POS, STRING_POS} type;
 	union{
@@ -20,7 +25,7 @@ struct PRA_Position{
 		};
 	};
 	size_t index;
-	void *state;
+	PRA_userState state;
 };
 
 void PRA_logUnexpectedError(PRA_Position *p, const char *name, const char *expected){
@@ -29,14 +34,13 @@ void PRA_logUnexpectedError(PRA_Position *p, const char *name, const char *expec
 	printf("%s: expected %s but found \"%s\" at %li: \"%10.s\"\n", name, expected, found, p->index, p->string + p->index);
 }
 
-
-PRA_Position *PRA_firstPosition(const char *string){
+PRA_Position *firstPosition(const char *string){
 	PRA_Position *start = malloc(1*sizeof(PRA_Position));
 	*start = (PRA_Position){.type = STRING_POS, .string = string, .index = 0};
 	return start;
 }
 
-PRA_Position *PRA_startPosition(FILE *file){
+PRA_Position *startPosition(FILE *file){
 	PRA_Position *start = malloc(1*sizeof(PRA_Position));
 	*start = (PRA_Position){.type = FILE_POS, .file = file, .line = 1, .column = 1};
 	fseek(start->file, 0, SEEK_SET);
@@ -44,11 +48,20 @@ PRA_Position *PRA_startPosition(FILE *file){
 }
 
 void *PRA_getState(PRA_Position *p){
-	return p->state;
+	return p->state.state;
 }
 
-void *PRA_allocState(PRA_Position *p, size_t s){
-	return p->state = malloc(s);
+void *PRA_allocState(PRA_Position *p, size_t size){
+	p->state.size = size;
+	return p->state.state = malloc(size);
+}
+
+void PRA_deletePosition(PRA_Position *p){
+	free(PRA_getState(p));
+}
+
+static void copyState(PRA_Position *src, PRA_Position *dst){
+	memcpy(PRA_getState(dst), PRA_getState(src), src->state.size);
 }
 
 PRA_Position *copyPosition(PRA_Position *p){
@@ -56,6 +69,11 @@ PRA_Position *copyPosition(PRA_Position *p){
 	if(!t){
 		return NULL;
 	}
+	if(!PRA_allocState(t, p->state.size)){
+		free(t);
+		return NULL;
+	}
+	copyState(p, t);
 	if(p->type == FILE_POS){
 		p->index = ftell(p->file);
 	}

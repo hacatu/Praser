@@ -21,6 +21,10 @@ void *PRA_getState(PRA_Position *p);
  */
 void *PRA_allocState(PRA_Position *p, size_t s);
 
+/* Delete a position (frees the user state).
+ */
+void PRA_deletePosition(PRA_Position *p);
+
 /* Returns the current character in a PRA_Position.
  */
 char PRA_currentChar(PRA_Position *p);
