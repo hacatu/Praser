@@ -29,6 +29,7 @@
 *.sql
 *.sqlite
 *.dblite
+.c9/*
  
 # OS generated files #
 ######################
