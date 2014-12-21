@@ -13,6 +13,14 @@ typedef int (*PRA_parser)(PRA_Position*, PRA_Ptree*);//a function pointer to a p
 void PRA_logUnexpectedError(PRA_Position *p, const char *name, const char *expected);
 
 
+/* Returns the pointer to the user-defined state of a position
+ */
+void *PRA_getState(PRA_Position *p);
+
+/* Allocates and returns a pointer to user state of a given size in a position
+ */
+void *PRA_allocState(PRA_Position *p, size_t s);
+
 /* Returns the current character in a PRA_Position.
  */
 char PRA_currentChar(PRA_Position *p);

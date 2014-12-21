@@ -20,6 +20,7 @@ struct PRA_Position{
 		};
 	};
 	size_t index;
+	void *state;
 };
 
 void PRA_logUnexpectedError(PRA_Position *p, const char *name, const char *expected){
@@ -40,6 +41,14 @@ PRA_Position *PRA_startPosition(FILE *file){
 	*start = (PRA_Position){.type = FILE_POS, .file = file, .line = 1, .column = 1};
 	fseek(start->file, 0, SEEK_SET);
 	return start;
+}
+
+void *PRA_getState(PRA_Position *p){
+	return p->state;
+}
+
+void *PRA_allocState(PRA_Position *p, size_t s){
+	return p->state = malloc(s);
 }
 
 PRA_Position *copyPosition(PRA_Position *p){
