@@ -91,7 +91,7 @@ int PRA_accept(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_parser parse
 }
 
 PRA_Ptree *PRA_parseFile(FILE *file, PRA_parser parse){
-	PRA_Position *p = PRA_startPosition(file);
+	PRA_Position *p = startPosition(file);
 	if(!p){
 		return NULL;
 	}
@@ -111,7 +111,7 @@ PRA_Ptree *PRA_parseFile(FILE *file, PRA_parser parse){
 }
 
 PRA_Ptree *PRA_parseString(char *string, PRA_parser parse){
-	PRA_Position *p = PRA_firstPosition(string);
+	PRA_Position *p = firstPosition(string);
 	if(!p){
 		return NULL;
 	}
