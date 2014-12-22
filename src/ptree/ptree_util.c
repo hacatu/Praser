@@ -31,6 +31,10 @@ static void updateGrandchildPointers(PRA_Ptree *t){
 static void deleteChildrenAfter(PRA_Ptree *t, int n){
 	debug_calls("called on: %p, %d", t, n);
 	PRA_Ptree *current = PRA_nthChild(t, n + 1), *last = PRA_lastChild(t);
+	if(!current){
+		debug_calls("returning");
+		return;
+	}
 	while(current <= last){
 		PRA_deletePtree(current);
 		++current;
