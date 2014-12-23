@@ -124,13 +124,13 @@ int PRA_not(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_parser parse){
 
 int PRA_oneOf(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, const char *options){
 	const char *c = options;
-	while(*c){
+	while(*c != '\0'){
 		if(acceptChar(p, *c)){
 			break;
 		}
 		++c;
 	}
-	if(!*c){
+	if(*c == '\0'){
 		return 0;
 	}
 	switch(a){
@@ -148,7 +148,10 @@ int PRA_oneOf(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, const char *optio
 
 int PRA_noneOf(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, const char *options){
 	const char *c = options;
-	while(*c){
+	if(PRA_currentChar(p) == '\0'){
+		return 0;
+	}
+	while(*c != '\0'){
 		if(PRA_currentChar(p) == *c){
 			return 0;
 		}
