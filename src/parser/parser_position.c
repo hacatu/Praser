@@ -69,15 +69,15 @@ PRA_Position *copyPosition(PRA_Position *p){
 	if(!t){
 		return NULL;
 	}
+	if(p->type == FILE_POS){
+		p->index = ftell(p->file);
+	}
+	*t = *p;
 	if(!PRA_allocState(t, p->state.size)){
 		free(t);
 		return NULL;
 	}
 	copyState(p, t);
-	if(p->type == FILE_POS){
-		p->index = ftell(p->file);
-	}
-	*t = *p;
 	return t;
 }
 
@@ -104,6 +104,7 @@ size_t PRA_currentColumn(PRA_Position *p){
 }
 
 void resetIndex(PRA_Position *p, PRA_Position *b){
+	PRA_deletePosition(p);
 	*p = *b;
 	if(p->type == FILE_POS){
 		fseek(p->file, b->index, SEEK_SET);
