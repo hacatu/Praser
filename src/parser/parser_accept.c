@@ -27,10 +27,17 @@ int PRA_acceptString(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, const char
 		}
 			++i;
 	}
-	if(a == PRA_ADD || a == PRA_PASS){
-		appendNewPtree(t, s, strlen(s));
+	switch(a){
+		case PRA_ADD:
+		return appendNewPtree(t, s, strlen(s));
+		case PRA_PASS:
+		PRA_appendString(t, s, strlen(s));
+		return 1;
+		case PRA_SKIP:
+		return 1;
 	}
-	return 1;
+	//not reachable
+	return 0;
 }
 
 int PRA_try(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_parser parse){
