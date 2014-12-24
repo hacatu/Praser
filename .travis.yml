@@ -1,3 +1,4 @@
 language: c
 script: scons demos=1
+sudo: no
 
