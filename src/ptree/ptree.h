@@ -45,6 +45,9 @@ void PRA_flatten(PRA_Ptree *t);
  */
 void PRA_flattenTagged(PRA_Ptree *t);
 
+/* Replaces a ptree with its child if it only has one.
+ */
+void PRA_flattenSelf(PRA_Ptree *t);
 
 PRA_Ptree* PRA_parent(PRA_Ptree *t);
 

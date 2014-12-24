@@ -110,6 +110,21 @@ void PRA_flattenTagged(PRA_Ptree *t){
 	debug_calls("returning");
 }
 
+void PRA_flattenSelf(PRA_Ptree *t){
+	PRA_Ptree *child, *parent = t->parent;
+	if(PRA_getSize(t) == 1){
+		child = PRA_nthChild(t, 0);
+		free(t->string);
+		t->length = child->length;
+		t->nodec = child->nodec;
+		t->nodes = child->nodes;
+		t->string = child->string;
+		free(child);
+	}
+	t->parent = parent;
+	updateChildPointers(t);
+}
+
 
 //Get the parent
 PRA_Ptree* PRA_parent(PRA_Ptree *t){
