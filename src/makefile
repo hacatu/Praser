@@ -11,6 +11,8 @@ PTREE_OBJ = $(PTREE_SRC:.c=.o)
 UTIL_OBJ = $(UTIL_SRC:.c=.o)
 REPL_OBJ = $(REPL_SRC:.c=.o)
 
+.DEFAULT_GOAL = $(PARSER_EXE)
+
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ $<
 

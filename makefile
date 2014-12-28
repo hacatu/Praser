@@ -1,16 +1,16 @@
-CC = gcc
-LD = gcc
-AR = ar rcs
-MAKE = make
-MKDIR = mkdir
+CC ?= gcc
+LD ?= gcc
+AR ?= ar rcs
+MAKE ?= make
+MKDIR ?= mkdir
 
 LIBS = parser parser_util
-INCLUDES = src/parser src/ptree src/util
-CFLAGS = -c $(addprefix -I,$(INCLUDES))
+INCLUDES = $(BASE)/src/parser $(BASE)/src/ptree $(BASE)/src/util
+CFLAGS = -c -std=c1x $(addprefix -I,$(INCLUDES))
 LDFLAGS = $(addprefix -l,$(LIBS))
 LIB = lib
 BIN = bin
-BASE = `pwd`
+BASE = $(shell pwd)
 
 .DEFAULT_GOAL = all
 
@@ -21,8 +21,11 @@ dirs:
 debug: CFLAGS += -g
 debug: all
 
+export
+
 all: dirs lib
 	$(MAKE) -C src/demos
 
+.PHONY: lib
 lib:
 	$(MAKE) -C src
