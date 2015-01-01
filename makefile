@@ -1,13 +1,13 @@
 CC ?= gcc
-LD ?= gcc
-AR ?= ar rcs
+LK ?= gcc
+AR ?= "ar rcs"
 MAKE ?= make
 MKDIR ?= mkdir
 
-LIBS = parser parser_util
+LIBS = parser parser_util m
 INCLUDES = $(BASE)/src/parser $(BASE)/src/ptree $(BASE)/src/util
 CFLAGS = -c -std=c1x $(addprefix -I,$(INCLUDES))
-LDFLAGS = $(addprefix -l,$(LIBS))
+LDFLAGS = -L$(BASE)/$(LIB) $(addprefix -l,$(LIBS))
 LIB = lib
 BIN = bin
 BASE = $(shell pwd)

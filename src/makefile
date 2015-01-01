@@ -11,7 +11,7 @@ PTREE_OBJ = $(PTREE_SRC:.c=.o)
 UTIL_OBJ = $(UTIL_SRC:.c=.o)
 REPL_OBJ = $(REPL_SRC:.c=.o)
 
-.DEFAULT_GOAL = $(PARSER_EXE)
+.DEFAULT_GOAL := $(PARSER_EXE)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ $<
@@ -23,4 +23,4 @@ $(PARSER_UTIL_LIB): $(UTIL_OBJ)
 	$(AR) $@ $^
 
 $(PARSER_EXE): $(PARSER_LIB) $(PARSER_UTIL_LIB) $(REPL_OBJ)
-	$(LD) -o $@ $^ $(LDFLAGS)
+	$(LK) -o $@ $^ $(LDFLAGS)
