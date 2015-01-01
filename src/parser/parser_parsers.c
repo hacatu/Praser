@@ -1,4 +1,4 @@
-//parser_llk.c
+//parser_parsers.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,8 +6,6 @@
 #include "_parser.h"
 #include "../util/debug.h"
 
-
-//TODO: replace PRA_AppendMode with three functions: PRA_ADD, PRA_SKIP, and PRA_PASS, and make parsers return PRA_Ptrees instead of taking them
 
 static int cschar(PRA_Position *p, PRA_Ptree *t){
 	if(PRA_currentChar(p) == '\\'){

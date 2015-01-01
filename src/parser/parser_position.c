@@ -29,9 +29,16 @@ struct PRA_Position{
 };
 
 void PRA_logUnexpectedError(PRA_Position *p, const char *name, const char *expected){
-	//TODO: count lines and include the line/column number for errors, and print the line with the error highlighted.
 	const char found[] = {PRA_currentChar(p), '\0'};
-	printf("%s: expected %s but found \"%s\" at %li: \"%10.s\"\n", name, expected, found, p->index, p->string + p->index);
+	printf("%s: expected %s but found \"%s\" at (%li:%li/%li): \"%10.s\"\n",
+	       name,
+	       expected,
+	       found,
+	       PRA_currentLine(p),
+	       PRA_currentColumn(p),
+	       p->index,
+	       p->string + p->index
+	);
 }
 
 PRA_Position *firstPosition(const char *string){
@@ -84,23 +91,23 @@ PRA_Position *copyPosition(PRA_Position *p){
 size_t PRA_currentLine(PRA_Position *p){
 	switch(p->type){
 		case STRING_POS:
-		return 1;
+			return 1;
 		case FILE_POS:
-		return p->line;
+			return p->line;
+		default:
+			return 0;
 	}
-	//not reachable:
-	return 0;
 }
 
 size_t PRA_currentColumn(PRA_Position *p){
 	switch(p->type){
 		case STRING_POS:
-		return p->index + 1;
+			return p->index + 1;
 		case FILE_POS:
-		return p->column;
+			return p->column;
+		default:
+			return 0;
 	}
-	//not reachable:
-	return 0;
 }
 
 void resetIndex(PRA_Position *p, PRA_Position *b){
@@ -119,20 +126,20 @@ char PRA_getChar(PRA_Position *p){
 	char temp;
 	switch(p->type){
 		case STRING_POS:
-		return p->string[++p->index];
+			return p->string[++p->index];
 		case FILE_POS:
-		if(!fread(&temp, sizeof(char), 1, p->file)){
+			if(!fread(&temp, sizeof(char), 1, p->file)){
+				return '\0';
+			}
+			++p->column;
+			if(temp == '\n'){
+				++p->line;
+				p->column = 1;
+			}
+			return temp;
+		default:
 			return '\0';
-		}
-		++p->column;
-		if(temp == '\n'){
-			++p->line;
-			p->column = 1;
-		}
-		return temp;
 	}
-	//not reachable:
-	return '\0';
 }
 
 char PRA_nextChar(PRA_Position *p){

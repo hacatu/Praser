@@ -28,89 +28,93 @@ int PRA_acceptString(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, const char
 	}
 	switch(a){
 		case PRA_ADD:
-		return appendNewPtree(t, s, strlen(s));
+			return appendNewPtree(t, s, strlen(s));
 		case PRA_PASS:
-		PRA_appendString(t, s, strlen(s));
-		return 1;
+			PRA_appendString(t, s, strlen(s));
+			return 1;
 		case PRA_SKIP:
-		return 1;
+			return 1;
+		default:
+			return 0;
 	}
-	//not reachable
-	return 0;
 }
 
 int PRA_try(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_parser parse){
-	PRA_Position *b = copyPosition(p);
-	if(!b){
+	PRA_Position *startPos = copyPosition(p);//create a copy of the position to reset to if parsing fails
+	if(!startPos){//copyPosition failed
 		return 0;
 	}
 	int children = PRA_getSize(t);
 	if(PRA_accept(p, t, a, parse)){
-		PRA_deletePosition(b);
-		free(b);
+		PRA_deletePosition(startPos);
+		free(startPos);
 		return 1;
 	}
 	if(a != PRA_SKIP){
 		reallocPtree(t, children);
 	}
-	resetIndex(p, b);
-	//PRA_deletePosition(b);
-	free(b);
+	resetIndex(p, startPos);
+	//do not PRA_deletePosition startPos because it is a copy of p so their user state points to the same memory.
+	free(startPos);
 	return 0;
 }
 
 int PRA_accept(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, PRA_parser parse){
-	PRA_Ptree *temp;
+	PRA_Ptree *tempPtree;
 	switch(a){
 		case PRA_ADD:
-		if(!appendNewPtree(t, NULL, 0)){
-			debug_log("appendNewPtree failed");
-			return 0;
-		}
-		if(!parse(p, PRA_lastChild(t))){
-			debug_log("parsing failed");
-			reallocPtree(t, PRA_getSize(t) - 1);
-			return 0;
-		}
-		return 1;
+			//Append an empty Ptree to add to to the input ptree.
+			if(!appendNewPtree(t, NULL, 0)){
+				return 0;
+			}
+			//call the parse function on the current position and the empty Ptree
+			if(!parse(p, PRA_lastChild(t))){
+				reallocPtree(t, PRA_getSize(t) - 1);
+				return 0;
+			}
+			return 1;
 		case PRA_PASS:
-		if(!parse(p, t)){
-			debug_log("parsing failed");
-			return 0;
-		}
-		return 1;
+			//call the parse function on the current position and Ptree.
+			if(!parse(p, t)){
+				return 0;
+			}
+			return 1;
 		case PRA_SKIP:
-		temp = PRA_mallocPtree();
-		if(!temp){
-			debug_log("tempPRA_Ptree failed");
+			//create a temporary Ptree.
+			tempPtree = PRA_mallocPtree();
+			if(!tempPtree){
+				return 0;
+			}
+			//call the parse function on the current position and the temporary Ptree.
+			if(!parse(p, tempPtree)){
+				PRA_deletePtree(tempPtree);
+				free(tempPtree);
+				return 0;
+			}
+			//delete the temporary Ptree.
+			PRA_deletePtree(tempPtree);
+			free(tempPtree);
+			return 1;
+		default:
 			return 0;
-		}
-		if(!parse(p, temp)){
-			debug_log("parsing failed");
-			PRA_deletePtree(temp);
-			free(temp);
-			return 0;
-		}
-		PRA_deletePtree(temp);
-		free(temp);
-		return 1;
 	}
-	//needed to supress erronious warning from gcc.  The above switch can't fall through because a is an enum.
-	return 1;
 }
 
 PRA_Ptree *PRA_parseFile(FILE *file, PRA_parser parse){
+	//Initialize a PRA_Position to use for parsing.
 	PRA_Position *p = startPosition(file);
 	if(!p){
 		return NULL;
 	}
+	//Initialize a PRA_Ptree to use for parsing.
 	PRA_Ptree *t = PRA_mallocPtree();
 	if(!t){
 		PRA_deletePosition(p);
 		free(p);
 		return NULL;
 	}
-	if(!parse(p, t)){
+	//try the parser
+	if(!PRA_accept(p, t, PRA_PASS, parse)){
 		free(t);
 		t = NULL;
 	}
@@ -120,17 +124,20 @@ PRA_Ptree *PRA_parseFile(FILE *file, PRA_parser parse){
 }
 
 PRA_Ptree *PRA_parseString(char *string, PRA_parser parse){
+	//Initialize a PRA_Position to use for parsing.
 	PRA_Position *p = firstPosition(string);
 	if(!p){
 		return NULL;
 	}
+	//Initialize a PRA_Ptree to use for parsing.
 	PRA_Ptree *t = PRA_mallocPtree();
 	if(!t){
 		PRA_deletePosition(p);
 		free(p);
 		return NULL;
 	}
-	if(!parse(p, t)){
+	//try the parser
+	if(!PRA_accept(p, t, PRA_PASS, parse)){
 		free(t);
 		t = NULL;
 	}

@@ -22,7 +22,6 @@ void PRA_printPtree(const PRA_Ptree *t, int indent){
 		printString(t);
 		printf("\"\n");
 		return;
-		return;
 	}
 	printf("%*s", indent, "");
 	printString(t);
