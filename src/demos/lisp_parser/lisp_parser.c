@@ -76,13 +76,13 @@ int atom(PRA_Position *p, PRA_Ptree *t){
 		puts("found list");
 		return 1;
 	}
-	if(PRA_accept(p, t, PRA_ADD, PRA_integer)){//never freed (ibid.) x 2
+	if(PRA_accept(p, t, PRA_ADD, PRA_integer)){
 		puts("found number");
-		PRA_setString(t, "(number)", 8);//never freed x 2
+		PRA_setString(t, "(number)", 8);
 		return 1;
 	}
-	if(PRA_accept(p, t, PRA_ADD, aname)){//never freed (appendNewPRA_Ptree (PRA_Ptree_create.c:38), reallocPRA_Ptree (PRA_Ptree_util.c:157))
-		PRA_setString(t, "(name)", 6);//never freed
+	if(PRA_accept(p, t, PRA_ADD, aname)){
+		PRA_setString(t, "(name)", 6);
 		return 1;
 	}
 	return 0;

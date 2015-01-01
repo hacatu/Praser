@@ -158,7 +158,8 @@ int PRA_noneOf(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, const char *opti
 		++c;
 	}
 	//string is automatic memory but gets copied to dynamic memory.
-	const char string[] = {PRA_getChar(p), '\0'};
+	const char string[] = {PRA_currentChar(p), '\0'};
+	PRA_getChar(p);
 	switch(a){
 		case PRA_ADD:
 			return appendNewPtree(t, string, 1);
