@@ -31,6 +31,10 @@ static void updateGrandchildPointers(PRA_Ptree *t){
 static void deleteChildrenAfter(PRA_Ptree *t, int n){
 	debug_calls("called on: %p, %d", t, n);
 	PRA_Ptree *current = PRA_nthChild(t, n + 1), *last = PRA_lastChild(t);
+	if(!current){
+		debug_calls("returning");
+		return;
+	}
 	while(current <= last){
 		PRA_deletePtree(current);
 		++current;
@@ -104,6 +108,21 @@ void PRA_flattenTagged(PRA_Ptree *t){
 		PRA_flattenTagged(PRA_nthChild(t, i));
 	}
 	debug_calls("returning");
+}
+
+void PRA_flattenSelf(PRA_Ptree *t){
+	PRA_Ptree *child, *parent = t->parent;
+	if(PRA_getSize(t) == 1){
+		child = PRA_nthChild(t, 0);
+		free(t->string);
+		t->length = child->length;
+		t->nodec = child->nodec;
+		t->nodes = child->nodes;
+		t->string = child->string;
+		free(child);
+	}
+	t->parent = parent;
+	updateChildPointers(t);
 }
 
 

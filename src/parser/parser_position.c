@@ -69,15 +69,15 @@ PRA_Position *copyPosition(PRA_Position *p){
 	if(!t){
 		return NULL;
 	}
+	if(p->type == FILE_POS){
+		p->index = ftell(p->file);
+	}
+	*t = *p;
 	if(!PRA_allocState(t, p->state.size)){
 		free(t);
 		return NULL;
 	}
 	copyState(p, t);
-	if(p->type == FILE_POS){
-		p->index = ftell(p->file);
-	}
-	*t = *p;
 	return t;
 }
 
@@ -104,6 +104,7 @@ size_t PRA_currentColumn(PRA_Position *p){
 }
 
 void resetIndex(PRA_Position *p, PRA_Position *b){
+	PRA_deletePosition(p);
 	*p = *b;
 	if(p->type == FILE_POS){
 		fseek(p->file, b->index, SEEK_SET);
@@ -121,7 +122,7 @@ char PRA_getChar(PRA_Position *p){
 		return p->string[++p->index];
 		case FILE_POS:
 		if(!fread(&temp, sizeof(char), 1, p->file)){
-			return 0;
+			return '\0';
 		}
 		++p->column;
 		if(temp == '\n'){
@@ -131,7 +132,7 @@ char PRA_getChar(PRA_Position *p){
 		return temp;
 	}
 	//not reachable:
-	return 0;
+	return '\0';
 }
 
 char PRA_nextChar(PRA_Position *p){
@@ -146,15 +147,17 @@ char PRA_nthChar(PRA_Position *p, int n){
 		return p->string[p->index + n];
 		case FILE_POS:
 		start = ftell(p->file);
-		fseek(p->file, n*sizeof(char), SEEK_CUR);
+		if(fseek(p->file, n*sizeof(char), SEEK_CUR)){
+			return '\0';
+		}
 		if(!fread(&temp, sizeof(char), 1, p->file)){
-			return 0;
+			return '\0';
 		}
 		fseek(p->file, start, SEEK_SET);
 		return temp;
 	}
 	//not reachable
-	return 0;
+	return '\0';
 }
 
 char PRA_acceptEnd(PRA_Position *p){
