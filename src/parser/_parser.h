@@ -1,4 +1,5 @@
 //_parser.h
+//Include parser.h, not this file.  This file is library internal.
 #pragma once
 #include "parser.h"
 #include "../ptree/ptree.h"

@@ -13,6 +13,7 @@
  */
 int acceptChar(PRA_Position *p, char c){
 	if(PRA_currentChar(p) == c){
+		//Move to the next char.
 		PRA_getChar(p);
 		return 1;
 	}
@@ -20,12 +21,10 @@ int acceptChar(PRA_Position *p, char c){
 }
 
 int PRA_acceptString(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, const char *s){
-	int i = 0;
-	while(s[i]){
-		if(!acceptChar(p, s[i])){
+	for(const char *c = s; *c != '\0'; ++c){//loop over every char in the string s.
+		if(!acceptChar(p, *c)){
 			return 0;
 		}
-			++i;
 	}
 	if(a == PRA_ADD || a == PRA_PASS){
 		appendNewPtree(t, s, strlen(s));
