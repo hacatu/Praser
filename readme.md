@@ -69,12 +69,12 @@ Operating System probably has a better version, "get_line.h", and "debug.h".  In
 	folder and link to them simply by adding them to your compiler's inputs.  For this method, the include should be
 	in "" not <>.  _THIS IS A TERRIBLE WAY TO DO IT_
 	
-	2. Add -I _folder with headers_ to the compiling step and -L _folder with libraries_ -lparser -lparser_util.
+	1. Add -I _folder with headers_ to the compiling step and -L _folder with libraries_ -lparser -lparser_util.
 	The include should be in <> not "".  This is much better, and is the way you should build if you do not want to install
 	Praser to the system.  Note: -I, -L, and -l are /I, /L, and/l in Windows.  You can also add these folders to the right
 	paths if you have an IDE like Eclipse or Visual Studio.
 	
-	3. Add the headers to /usr/include or _Visual C++ root folder_ \\\\VC\\\\Include and the libraries to /usr/lib or
+	1. Add the headers to /usr/include or _Visual C++ root folder_ \\\\VC\\\\Include and the libraries to /usr/lib or
 	_Visual C++ root folder_ \\\\VC\\\\Lib.  This is what adding `install` does when building Praser.  This is better than
 	2 for Linux and Mac, but for Windows I would use 2.
 
