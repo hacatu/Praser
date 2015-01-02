@@ -10,29 +10,30 @@ complicated parsers and for iterating over parse trees and extracting values.
 
 ##Building Praser
 
-Praser uses [SCons](www.scons.org "www.scons.org") as its build system, so to install Praser, you must have SCons.
+Praser can be built with either [SCons](www.scons.org "www.scons.org") or make, so to install Praser, you must have one or the other.
 
 ###Installing SCons
 
 * Linux
 
-    Try to install SCons from your package manager.  If you can't, try the .tar.gz file from
-[www.scons.org](www.scons.org "www.scons.org").  Downloade and extract it, and then open a terminal in the folder it is in.
-Then do `sudo python setup.py install`.  You probably already have Python if you are using Linux, but check by
-entering `python` into a terminal if you don't know.
+    On Linux, make is probably already installed, so you can use that.  Alternatively, you may use scons.  Try to install
+SCons from your package manager.  If you can't, try the .tar.gz file from [www.scons.org](www.scons.org "www.scons.org").
+Downloade and extract it, and then open a terminal in the folder it is in.  Then do `sudo python setup.py install`.  You
+probably already have Python if you are using Linux, but check by entering `python` into a terminal if you don't know.
 
 * Windows
 
-    Install SCons from [www.scons.org](www.scons.org "www.scons.org").  Just open the link, go to downloads, and pick the
-scons ... setup.exe. You will need to have [Python](www.python.org "www.python.org"), which you can download from
-that link.  You will also need to add Python to your path, so keep note of where you install it and add it by going to
-control panel and searching for "path".  I should add pre built Windows binaries for 32 and 64 bit when I release version
-1.0.
+    Building on Windows is not recommended.  Downloading the pre built binaries is better.  If you must, I would recommend
+using MinGW to build in a Unix like way.  If you really want to build Praser on Windows, install SCons from
+[www.scons.org](www.scons.org "www.scons.org").  Just open the link, go to downloads, and pick the scons ... setup.exe.
+You will need to have [Python](www.python.org "www.python.org"), which you can download from that link.  You will also need
+to add Python to your path, so keep note of where you install it and add it by going to control panel and searching for "path".
 
 * Mac
 
-    If you have a package manager, try to install SCons from there.  If you don't, download and install the .tar.gz file
-as explained in the Linux instructions above.  You definitely already have Python though.
+    You can get make for Mac by installing Xcode from the app store.  If you want to try Scons, then if you have a package manager,
+try to install SCons from there.  If you don't have a package manager, download and install the .tar.gz file as explained in the
+Linux instructions above.  You definitely already have Python though.
 
 ###Installing a C compiler
 
