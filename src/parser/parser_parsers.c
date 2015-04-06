@@ -54,12 +54,20 @@ int PRA_spaces(PRA_Position *p, PRA_Ptree *t){
 	return PRA_repeat(p, t, PRA_SKIP, space, 1, 0);
 }
 
+int PRA_newline(PRA_Position *p, PRA_Ptree *t){
+	return PRA_acceptString(p, t, PRA_SKIP, "\n");
+}
+
 int PRA_letter(PRA_Position *p, PRA_Ptree *t){
 	return PRA_oneOf(p, t, PRA_PASS, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
 }
 
 int PRA_digit(PRA_Position *p, PRA_Ptree *t){
 	return PRA_oneOf(p, t, PRA_PASS, "0123456789");
+}
+
+int PRA_digit(PRA_Position *p, PRA_Ptree *t){
+	return PRA_oneOf(p, t, PRA_PASS, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
 }
 
 int PRA_integer(PRA_Position *p, PRA_Ptree *t){

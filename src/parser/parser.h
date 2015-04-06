@@ -125,6 +125,10 @@ int PRA_noneOf(PRA_Position *p, PRA_Ptree *t, PRA_AppendMode a, const char *opti
  */
 int PRA_spaces(PRA_Position *p, PRA_Ptree *t);
 
+/* Accepts and discards newlines.
+ */
+int PRA_newline(PRA_Position *p, PRA_Ptree *t);
+
 /* Accepts a string literal.  Escape sequences (backslashes) are not supported.
  */
 int PRA_cstring(PRA_Position *p, PRA_Ptree *t);
@@ -136,6 +140,10 @@ int PRA_letter(PRA_Position *p, PRA_Ptree *t);
 /* Accepts any decimal digit (0-9).
  */
 int PRA_digit(PRA_Position *p, PRA_Ptree *t);
+
+/* Accepts any alphanumeric (A-Z, a-z, or 0-9).
+ */
+int PRA_alphanum(PRA_Position *p, PRA_Ptree *t);
 
 /* Accepts an integer, which is a sequence of digits.
  */
