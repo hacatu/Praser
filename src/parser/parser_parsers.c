@@ -66,7 +66,7 @@ int PRA_digit(PRA_Position *p, PRA_Ptree *t){
 	return PRA_oneOf(p, t, PRA_PASS, "0123456789");
 }
 
-int PRA_digit(PRA_Position *p, PRA_Ptree *t){
+int PRA_alphanum(PRA_Position *p, PRA_Ptree *t){
 	return PRA_oneOf(p, t, PRA_PASS, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
 }
 
